@@ -1,2 +1,2 @@
-# coffee-commerce
- Coffee-themed web-based e-commerce system for my final year project
+# Coffee Electronic Commerce System
+Coffee-themed web-based electronic commerce system for my bachelor's degree final year project
