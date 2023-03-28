@@ -29,7 +29,7 @@ jobs:
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: "$GITHUB_WORKSPACE"
+          local: "./"
           remote: "~/fyp"
           host: ${{secrets.REMOTE_HOST}}
           user: ${{secrets.REMOTE_USER}}
