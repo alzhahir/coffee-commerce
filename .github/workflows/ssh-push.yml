@@ -27,5 +27,5 @@ jobs:
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
           post_upload: "chown -R ubuntu:ubuntu ."
-          ssh_options: "-o StrictHostKeyChecking=no"
-          scp_options: "-v"
+          #ssh_options: "-o StrictHostKeyChecking=no"
+          #scp_options: "-v"
