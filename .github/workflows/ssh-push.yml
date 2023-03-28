@@ -21,8 +21,10 @@ jobs:
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: "/home/runner/work/coffee-commerce/coffee-commerce"
+          local: "/home/runner/work/coffee-commerce/coffee-commerce/workspace"
           remote: "~/fyp"
           host: ${{secrets.REMOTE_HOST}}
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
+          post_upload: chown -R ubuntu:ubuntu .
+          scp_options: -v
