@@ -18,14 +18,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Display workspace dir
-        run: echo "$DIR"
-        env:
-          DIR: ${{env.GITHUB_WORKSPACE}}
-
-      - name: Display current dir
-        run: ls -a
-
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
@@ -35,5 +27,5 @@ jobs:
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
           post_upload: "chown -R ubuntu:ubuntu ."
-          #ssh_options: "-o StrictHostKeyChecking=no"
-          #scp_options: "-v"
+          ssh_options: "-o StrictHostKeyChecking=no"
+          scp_options: "-v"
