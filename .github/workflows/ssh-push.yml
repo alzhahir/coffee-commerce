@@ -21,6 +21,9 @@ jobs:
       - name: Display workspace dir
         run: echo "$GITHUB_WORKSPACE"
 
+      - name: Display current dir
+        run: ls -a
+
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
