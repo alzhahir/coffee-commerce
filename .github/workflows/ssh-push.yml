@@ -21,7 +21,7 @@ jobs:
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: ${{env.GITHUB_WORKSPACE}}
+          local: "/home/runner/work/coffee-commerce/coffee-commerce"
           remote: "~/fyp"
           host: ${{secrets.REMOTE_HOST}}
           user: ${{secrets.REMOTE_USER}}
