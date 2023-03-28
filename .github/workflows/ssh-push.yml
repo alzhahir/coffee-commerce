@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      
+      - name: Remove git files
+        run: rm -r .git .gitattributes .github .gitignore
 
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
