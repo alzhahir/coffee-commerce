@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: List dir
-        uses: echo ${{env.GITHUB_WORKSPACE}}
+        uses: echo "$GITHUB_WORKSPACE"
 
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
