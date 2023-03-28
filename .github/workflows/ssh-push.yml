@@ -18,10 +18,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Display workspace dir
+        run: echo "$GITHUB_WORKSPACE"
+
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: "/home/runner/work/coffee-commerce/coffee-commerce/workspace"
+          local: "$GITHUB_WORKSPACE"
           remote: "~/fyp"
           host: ${{secrets.REMOTE_HOST}}
           user: ${{secrets.REMOTE_USER}}
