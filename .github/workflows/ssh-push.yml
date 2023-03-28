@@ -18,9 +18,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: List dir
-        run: echo "$GITHUB_WORKSPACE"
-
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
@@ -29,9 +26,5 @@ jobs:
           host: ${{secrets.REMOTE_HOST}}
           port: ${{secrets.REMOTE_PORT}}
           user: ${{secrets.REMOTE_USER}}
-          #password: ${{secrets.PASSWORD}}                              # User password - REQUIRED at least one of "password" or "key" 
           key: ${{secrets.SSH_REMOTE_KEY}}
-          pre_upload: echo "This will be executed before the upload!"
-          post_upload: echo "This will be executed after the upload!"
-          ssh_options: -o StrictHostKeyChecking=no
-          scp_options: -v
+          ssh_options: '-o StrictHostKeyChecking=no'
