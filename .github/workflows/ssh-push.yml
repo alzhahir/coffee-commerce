@@ -19,7 +19,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Display workspace dir
-        run: echo "$GITHUB_WORKSPACE"
+        run: echo "$DIR"
+        env:
+          DIR: ${{env.GITHUB_WORKSPACE}}
 
       - name: Display current dir
         run: ls -a
