@@ -21,7 +21,7 @@ jobs:
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: ${{GITHUB_WORKSPACE}}                                                  # Local file path - REQUIRED false - DEFAULT ./
+          local: ${{env.GITHUB_WORKSPACE}}                                                  # Local file path - REQUIRED false - DEFAULT ./
           remote: '~/fyp'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
           host: ${{secrets.REMOTE_HOST}}                                      # Remote server address - REQUIRED true
           port: ${{secrets.REMOTE_PORT}}                                      # Remote server port - REQUIRED false - DEFAULT 22
