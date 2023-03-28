@@ -1,0 +1,33 @@
+name: Push to server
+
+# GitHub CI/CD workflow file to push repo to remote server for hosting purposes
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+
+jobs:
+  push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Remove git files
+        run: rm -r .git .gitattributes .github .gitignore
+
+      - name: Copy file to remote server
+        uses: marcodallasanta/ssh-scp-deploy@v1.2.0
+        with:
+          local: "./"
+          remote: "~/fyp"
+          host: ${{secrets.REMOTE_HOST}}
+          user: ${{secrets.REMOTE_USER}}
+          key: ${{secrets.SSH_REMOTE_KEY}}
+          post_upload: "chown -R ubuntu:ubuntu ."
+          ssh_options: "-o StrictHostKeyChecking=no"
+          scp_options: "-v"
