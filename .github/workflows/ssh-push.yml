@@ -22,9 +22,9 @@ jobs:
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: ${{env.GITHUB_WORKSPACE}}
-          remote: '~/fyp'
+          remote: "~/fyp"
           host: ${{secrets.REMOTE_HOST}}
           port: ${{secrets.REMOTE_PORT}}
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
-          ssh_options: '-o StrictHostKeyChecking=no'
+          #ssh_options: "-o StrictHostKeyChecking=no"
