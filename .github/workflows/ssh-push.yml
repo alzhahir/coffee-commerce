@@ -1,6 +1,6 @@
-# GitHub CI/CD workflow file to push repo to remote server for hosting purposes
-
 name: Push to server
+
+# GitHub CI/CD workflow file to push repo to remote server for hosting purposes
 
 on:
   workflow_dispatch:
@@ -11,14 +11,17 @@ on:
 
 jobs:
   push:
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: Clone repo
-        run: git clone git@github.com:alzhahir/coffee-commerce.git
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: './'                                                  # Local file path - REQUIRED false - DEFAULT ./
+          local: ${{GITHUB_WORKSPACE}}                                                  # Local file path - REQUIRED false - DEFAULT ./
           remote: '~/fyp'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
           host: ${{secrets.REMOTE_HOST}}                                      # Remote server address - REQUIRED true
           port: ${{secrets.REMOTE_PORT}}                                      # Remote server port - REQUIRED false - DEFAULT 22
