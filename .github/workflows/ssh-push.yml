@@ -24,14 +24,14 @@ jobs:
       - name: Copy file to remote server
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: ${{env.GITHUB_WORKSPACE}}                                                  # Local file path - REQUIRED false - DEFAULT ./
-          remote: '~/fyp'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
-          host: ${{secrets.REMOTE_HOST}}                                      # Remote server address - REQUIRED true
-          port: ${{secrets.REMOTE_PORT}}                                      # Remote server port - REQUIRED false - DEFAULT 22
-          user: ${{secrets.REMOTE_USER}}                                      # Remote server user - REQUIRED true
+          local: ${{env.GITHUB_WORKSPACE}}
+          remote: '~/fyp'
+          host: ${{secrets.REMOTE_HOST}}
+          port: ${{secrets.REMOTE_PORT}}
+          user: ${{secrets.REMOTE_USER}}
           #password: ${{secrets.PASSWORD}}                              # User password - REQUIRED at least one of "password" or "key" 
-          key: ${{secrets.SSH_REMOTE_KEY}}                                        # Remote server private key - REQUIRED at least one of "password" or "key" 
-          pre_upload: echo "This will be executed before the upload!"  # Command to run via ssh before scp upload - REQUIRED false
-          post_upload: echo "This will be executed after the upload!"  # Command to run via ssh after scp upload - REQUIRED false
-          ssh_options: -o StrictHostKeyChecking=no                     # A set of ssh_option separated by -o - REQUIRED false - DEFAULT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
-          scp_options: -v                                              # Flags to use during scp - REQUIRED false - DEFAULT ''
+          key: ${{secrets.SSH_REMOTE_KEY}}
+          pre_upload: echo "This will be executed before the upload!"
+          post_upload: echo "This will be executed after the upload!"
+          ssh_options: -o StrictHostKeyChecking=no
+          scp_options: -v
