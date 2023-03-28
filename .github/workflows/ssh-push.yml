@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install SSH keys
-      - uses: mdallasanta/ssh-scp-deploy@{version}
+        uses: mdallasanta/ssh-scp-deploy@{version}
         with:
           local: './'                                                  # Local file path - REQUIRED false - DEFAULT ./
           remote: '~/fyp'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
