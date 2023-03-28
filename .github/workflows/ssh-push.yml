@@ -4,10 +4,9 @@ name: Push to server
 
 on:
   workflow_dispatch:
+
   push:
-    branches:
-      - main
-      - dev
+    branches: [ main ]
 
 jobs:
   push:
