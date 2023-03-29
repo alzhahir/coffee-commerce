@@ -28,7 +28,7 @@ jobs:
           host: ${{secrets.REMOTE_HOST}}
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
-          pre_upload: "sudo chown -R ubuntu:ubuntu ~/fyp"
-          post_upload: "sudo chown -R www-data:www-data ~/fyp && sudo systemctl reload apache2.service"
+          pre_upload: "sudo chown -R ubuntu:ubuntu /home/${{secrets.REMOTE_USER}}/fyp"
+          post_upload: "sudo chown -R www-data:www-data /home/${{secrets.REMOTE_USER}}/fyp && sudo systemctl reload apache2.service"
           ssh_options: "-o StrictHostKeyChecking=no"
           scp_options: "-v"
