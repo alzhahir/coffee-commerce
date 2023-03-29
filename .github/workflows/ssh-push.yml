@@ -28,6 +28,6 @@ jobs:
           host: ${{secrets.REMOTE_HOST}}
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
-          post_upload: "sudo chown -R ubuntu:ubuntu . && sudo systemctl reload apache2.service"
+          post_upload: "sudo chown -R www-data:www-data . && sudo systemctl reload apache2.service"
           ssh_options: "-o StrictHostKeyChecking=no"
           scp_options: "-v"
