@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../internal/htmlbase.php');
+include('../internal/htmlhead.php');
 include('../internal/header.php');
 ?>
 <div>contact</div>
