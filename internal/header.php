@@ -147,7 +147,19 @@ body{
             <div class="row navbarh">
                 <a class="col btn ahvnavbut" id="home" href="/">Home</a>
                 <a class="col btn ahvnavbut" href="/shop.php">Shop</a>
-                <a class="col btn ahvnavbut" href="/signup.php">Account</a>
+                <?php
+                    if(isset($_SESSION["uid"])){
+                        $url = $_SESSION["utype"];
+                        $shortName = strtok($_SESSION["name"], " ");
+                        ?>
+                        <a class="col btn ahvnavbut" href="/<?php echo $url ?>/index.php">Account</a>
+                        <?php
+                    } else {
+                        ?>
+                        <a class="col btn ahvnavbut" href="/signup.php">Account</a>
+                        <?php
+                    }
+                ?>
                 <a class="col btn ahvnavbut" href="/about.php">About</a>
                 <a class="col btn ahvnavbut" href="/faq.php">FAQs</a>
                 <a class="col btn ahvnavbut" href="/contact.php">Contact</a>
@@ -160,26 +172,21 @@ body{
                 </button>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
                     <div class="container px-3 py-2">
-                        <h3>Your Cart</h3>
+                        <h4 class="fw-black">YOUR CART</h4>
                         <?php include "notimp.php" ?>
                     </div>
                 </div>
             </div>
             <div class="dropdown flex-column d-flex text-end" id="logindrp">
-                <?php
-                    if(isset($_SESSION["uid"])){
-                        $url = $_SESSION["utype"];
-                        $shortName = strtok($_SESSION["name"], " ");
-                        echo "<label class=\"px-2\">Welcome, <a class=\"text-decoration-none\" href=/".$url."/>".$shortName."</a>!</label>";
-                        echo '<button type="button" class="btn btn-danger" onclick="location.href=\'/doSignOut.php\';">Logout</button>';
-                    } else {
-                        echo '<button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span></button>';
-                        //echo '<button type="button" class="btn btn-primary mx-1" onclick="location.href=\'/login.php\'">Sign Up</button>';
-                    }
-                ?>
+                <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                    <span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span>
+                </button>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownMenuButton" id="drpmenu" style="min-width:50vw;">
                     <div class="container px-3 py-2">
-                        <h3 class="fw-black">SIGN IN</h3>
+                        <?php
+                            if(!isset($_SESSION["uid"])){
+                        ?>
+                        <h4 class="fw-black">SIGN IN</h4>
                         <?php 
                             $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
                             //check if $_GET isset
@@ -196,12 +203,12 @@ body{
                                 echo "</div>";
                             }
                             if(isset($_GET["signup"])){
-                                echo "<div class=\"alert alert-success my-4\" style=\"margin-left: 13%; margin-right: 13%;\">";
+                                echo "<div class=\"alert alert-success\">";
                                 if(isset($_SESSION["userErrMsg"])){
                                     //get err msg
                                     $errMsg = $_SESSION["userErrMsg"];
                                     $errCode = $_SESSION["userErrCode"];
-                                    echo "<h5 style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                                    echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
                                 }
                                 echo "</div>";
                             }
@@ -230,6 +237,16 @@ body{
                     <div class="container px-3 py-2">
                         Don't have any account? <a href="/signup.php">Sign up</a> now!
                     </div>
+                    <?php
+                        } else {
+                            $url = $_SESSION["utype"];
+                            $shortName = strtok($_SESSION["name"], " ");
+                            ?>
+                            <label class="px-2">Welcome, <a class="text-decoration-none" href="/<?php echo $url ?>/index.php"><?php echo $shortName ?></a>!</label>
+                            <button type="button" class="btn btn-danger" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -304,7 +321,7 @@ body{
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: white; color: #7700ff;">Close</button>
-                <button class="btn btn-primary" form="loginForm" id="signInButton" type="submit">Sign In</button>
+                <button class="btn btn-primary" form="loginForm" id="drpSignInButton" type="submit">Sign In</button>
             </div>
         </div>
     </div>
