@@ -1,7 +1,7 @@
 <?php
-    //error_reporting(E_ALL);
-    //ini_set('display_errors', 1);
-    $rootDir = dirname(__DIR__, 2);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    $rootDir = dirname(__DIR__, 1);
     $creds = parse_ini_file($rootDir."/.ini");
     $server = $creds["server"];
     $username = $creds["username"];
