@@ -20,7 +20,7 @@ include('../internal/header.php');
                 }
                 echo "</div>";
             }
-            if(isset($_GET["success"])){
+            if(isset($_GET["signup"])){
                 echo "<div class=\"alert alert-success\">";
                 if(isset($_SESSION["userErrMsg"])){
                     //get err msg
@@ -34,7 +34,7 @@ include('../internal/header.php');
         <div class="col pb-3">
             <h3 class="fw-black">SIGN UP</h3>
             <p>Sign up for the HEARTVELO membership now! Please fill in this form to continue.</p>
-            <form id="signupForm" action="doSignUp.php" method="post">
+            <form id="signupForm" action="/api/auth/signup.php" method="post">
                 <div class="form-floating mb-3">
                     <input class="form-control" name="email" type="email" placeholder="Email Address" required/>
                     <label for="emailAddress">Email Address</label>
@@ -70,19 +70,19 @@ include('../internal/header.php');
                 <!--The code below is left as is to enable the usage of doSignUp.php as a some sort of an API to allow other
                 forms to reuse the same code. (cant leave the role POST as null)-->
                 <div class="form-floating mb-3">
-                    <select class="form-select" name="role" aria-label="Role">
+                    <select id="userRole" class="form-select" name="role" aria-label="Role">
                         <option value="0">Customer</option>
                         <option value="1">Staff</option>
                         <option value="2">Admin</option>
                     </select>
                     <label for="role">Role</label>
                 </div>
-                <div class="form-floating mb-3" id="clubField" style="display: none;">
-                    <select class="form-select" name="clubid" id="clublist" aria-label="Club" required>
+                <div class="form-floating mb-3" id="posField" style="display: none;">
+                    <select class="form-select" name="posid" id="poslist" aria-label="Club">
                         <option value=""></option>
                         <!--Code here-->
                     </select>
-                    <label for="clubid">Club</label>
+                    <label for="posid">Position</label>
                 </div>
                 <div class="d-grid">
                     <button class="btn btn-primary btn-lg ahvbutton" id="signUpButton" type="submit">Sign Up</button>
@@ -112,8 +112,13 @@ include('../internal/header.php');
     </div>
 </div>
 <script type="application/javascript">
+    $('#signInButton').click(function(){
+        <?php
+            $_SESSION["errorType"] = "error";
+        ?>
+    });
     var xmlhttp = new XMLHttpRequest();
-    var url = "/clubs/getClubId.php";
+    var url = "/api/get/positions.php";
     document.querySelector(".number").addEventListener("keypress", function (evt) {
         if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
         {
@@ -125,10 +130,10 @@ include('../internal/header.php');
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
             var htmlData = "<option value=\"\"></option>";
-            for(let i = 0; i < data.clubId.length; i++){
-                htmlData = htmlData.concat("\n", "<option value=\""+data.clubId[i]+"\">"+data.clubName[i]+"</option>\n");
+            for(let i = 0; i < data.posId.length; i++){
+                htmlData = htmlData.concat("\n", "<option value=\""+data.posId[i]+"\">"+data.posName[i]+"</option>\n");
             }
-            document.getElementById("clublist").innerHTML = htmlData;
+            document.getElementById("poslist").innerHTML = htmlData;
         }
     }
     xmlhttp.open("GET", url, true);
@@ -136,23 +141,12 @@ include('../internal/header.php');
 
     var roleSelection = document.getElementById('userRole');
     roleSelection.onchange = function(){
-        if(roleSelection.selectedIndex === 1) {
-            document.getElementById('courseId').style.display = "none";
-            document.getElementById('courseCode').required = false;
-            document.getElementById('courseCode').innerText = null;
-            document.getElementById('clubField').style.display = "block";
-            document.getElementById('clublist').required = true;
-        } else if(roleSelection.selectedIndex === 4) {
-            document.getElementById('clubField').style.display = "none";
-            document.getElementById('clublist').required = false;
-            document.getElementById('courseId').style.display = "block";
-            document.getElementById('courseCode').required = true;
+        if(roleSelection.selectedIndex === 1 || roleSelection.selectedIndex === 2) {
+            document.getElementById('posField').style.display = "block";
+            document.getElementById('poslist').required = true;
         } else {
-            document.getElementById('clubField').style.display = "none";
-            document.getElementById('clublist').required = false;
-            document.getElementById('courseId').style.display = "none";
-            document.getElementById('courseCode').required = false;
-            document.getElementById('courseCode').innerText = null;
+            document.getElementById('posField').style.display = "none";
+            document.getElementById('poslist').required = false;
         }
     }
 </script>
