@@ -18,12 +18,13 @@
                 $backPage = "/index.php";
             }
 
-            if(!isset($_SESSION["errorType"])){
+            $errorType = $_GET["errorType"];
+
+            if(!isset($_GET["errorType"])){
                 //errorType is not set, defaulting to error
                 $errorType = "error";
             }
 
-            $errorType = $_SESSION["errorType"];
             $backPage = $_SESSION["backPage"];
 
             if(isset($_SESSION["uid"])){
