@@ -95,7 +95,7 @@ include('../internal/header.php');
         <div class="col py-3">
             <h3 class="fw-black">SIGN IN</h3>
             <p>Alternatively, sign in if you have a HEARTVELO membership account.</p>
-            <form id="signupLoginForm" action="/api/auth/login.php" method="post">
+            <form id="signupLoginForm" action="/api/auth/login.php?errorType=error" method="post">
                 <div class="form-floating mb-2">
                     <input class="form-control" name="signInEmail" type="email" placeholder="Email Address" required/>
                     <label for="emailAddress">Email Address</label>
@@ -112,11 +112,6 @@ include('../internal/header.php');
     </div>
 </div>
 <script type="application/javascript">
-    $('#signInButton').click(function(){
-        <?php
-            $_SESSION["errorType"] = "error";
-        ?>
-    });
     var xmlhttp = new XMLHttpRequest();
     var url = "/api/get/positions.php";
     document.querySelector(".number").addEventListener("keypress", function (evt) {

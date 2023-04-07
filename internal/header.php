@@ -220,7 +220,7 @@ body{
                                 background-color:transparent!important;
                             }
                         </style>
-                        <form id="drpLoginForm" action="/api/auth/login.php" method="post">
+                        <form id="drpLoginForm" action="/api/auth/login.php?errorType=autherror" method="post">
                             <div class="form-floating mb-2">
                                 <input class="form-control" name="signInEmail" type="email" placeholder="Email Address" required/>
                                 <label for="emailAddress">Email Address</label>
@@ -296,12 +296,6 @@ body{
                 //error exists
                 echo "$('#loginModal').modal('show');";
             }
-        ?>
-    })
-
-    $('#drpSignInButton').click(function() {
-        <?php
-            $_SESSION["errorType"] = "autherror";
         ?>
     })
 
