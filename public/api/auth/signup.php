@@ -11,7 +11,7 @@
             error_reporting(E_ALL);
             ini_set('display_errors', 1);
             // Include config file
-            require_once "inc/connect.php";
+            require_once "../../../internal/db.php";
 
             if(!isset($_SESSION["backPage"])){
                 //backPage is not set, defaulting to login.php
@@ -37,12 +37,12 @@
                 $posid = $_POST["posid"];
                 $role = $_POST["role"];
 
-                if($role == 0){
+                if($role > 0){
                     //get poslist
                     //check if poslist exists
                     $poslistsql = "SELECT pos_id FROM positions WHERE pos_id = (?)" ;
-                    if ($stmt=mysqli_prepare($conn, $clublistsql)){
-                        mysqli_stmt_bind_param($stmt, "i", $club_id);
+                    if ($stmt=mysqli_prepare($conn, $poslistsql)){
+                        mysqli_stmt_bind_param($stmt, "i", $pos_id);
 
                         $pos_id = $posid;
 
@@ -201,10 +201,11 @@
                     //customers
                     $custSignUpSQL = "INSERT INTO customers (cust_name, cust_dob, cust_gender, cust_phone, user_id) VALUES (?, ?, ?, ?, ?)";
                     if ($stmt=mysqli_prepare($conn, $custSignUpSQL)){
-                        mysqli_stmt_bind_param($stmt, "ssii", $ct_name, $ct_dob, $ct_gender, $ct_phone, $u_id);
+                        mysqli_stmt_bind_param($stmt, "ssssi", $ct_name, $ct_dob, $ct_gender, $ct_phone, $u_id);
 
                         $ct_name = $name;
                         $ct_dob = $dob;
+                        $ct_gender = $gender;
                         $ct_phone = $tel;
                         $u_id = $userId;
 
