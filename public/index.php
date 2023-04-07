@@ -55,8 +55,8 @@ include('../internal/header.php');
                             <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
                         </svg>
                         <div class="flex-row fw-normal fs-4 py-2">Test</div>
-                        <button class="flex-row fw-normal ahvsc rounded-pill fs-4 text-light align-middle text-center border-0 pe-2 py-2">
-                            <span class="material-symbols-outlined align-middle text-center px-2">
+                        <button class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 pe-2 py-2">
+                            <span class="material-symbols-outlined align-middle text-center px-0">
                                 add_shopping_cart
                             </span>
                             Add to Cart
@@ -72,7 +72,7 @@ include('../internal/header.php');
                 <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
                 <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
             </svg>
-            <button id="rightbutton" class="btn btn-primary rounded-circle align-items-center justify-content-center p-0 ahvsc border-0 shadow" style="height:48px;width:48px;">
+            <button id="rightbutton" class="btn btn-primary rounded-circle align-items-center justify-content-center p-0 ahvbutton border-0 shadow" style="height:48px;width:48px;">
                 <span class="material-symbols-outlined text-center align-middle mb-0" style="color:white; font-size:32px;">
                     navigate_next
                 </span>
