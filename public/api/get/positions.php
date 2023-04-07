@@ -5,7 +5,7 @@
         //get clublist
         $getPosSQL = "SELECT pos_id, pos_name FROM positions";
         $posRes = mysqli_query($conn, $getPosSQL);
-        if(!is_bool($clubRes)){
+        if(!is_bool($posRes)){
             $outputPosId = array();
             $outputPosName = array();
             $outputPosArr = array();
