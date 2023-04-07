@@ -269,64 +269,6 @@ body{
     </header>
 </div>
 
-<!-- Auth Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg-uitm">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <?php 
-                    $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
-                    //check if $_GET isset
-                    if(isset($_GET["error"])){
-                        //error exists
-                        echo "<div class=\"alert alert-danger my-4\" style=\"margin-left: 13%; margin-right: 13%;\">";
-                        if(isset($_SESSION["userErrMsg"])){
-                            //get err msg
-                            $errMsg = $_SESSION["userErrMsg"];
-                            $errCode = $_SESSION["userErrCode"];
-                            echo "<h5 style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
-                            echo "<br><p>Error code: $errCode</p>";
-                        }
-                        echo "</div>";
-                    }
-                    if(isset($_GET["signup"])){
-                        echo "<div class=\"alert alert-success my-4\" style=\"margin-left: 13%; margin-right: 13%;\">";
-                        if(isset($_SESSION["userErrMsg"])){
-                            //get err msg
-                            $errMsg = $_SESSION["userErrMsg"];
-                            $errCode = $_SESSION["userErrCode"];
-                            echo "<h5 style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
-                        }
-                        echo "</div>";
-                    }
-                ?>
-                <div class="container px-5">
-                    <h3>Sign In</h3>
-                    <p>Please enter the email and password to continue.</p>
-                    <form id="loginForm" action="/doSignIn.php" method="post">
-                        <div class="form-floating mb-3">
-                            <input class="form-control" name="signInEmail" type="email" placeholder="Email Address" required/>
-                            <label for="emailAddress">Email Address</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input class="form-control" name="signInPassword" type="password" placeholder="Password" required/>
-                            <label for="password">Password</label>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: white; color: #7700ff;">Close</button>
-                <button class="btn btn-primary" form="loginForm" id="drpSignInButton" type="submit">Sign In</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
