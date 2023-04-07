@@ -15,6 +15,77 @@
 </script>
 
 <style>
+.avnav{
+    display:inline;
+}
+.avside{
+    display:none;
+}
+@media only screen and (max-width: 824px) {
+    .avnav{
+        display:none!important;
+    }
+    .avside{
+        display:block;
+    }
+}
+.sgfd-parent{
+    width:10px;
+    height:70%;
+    margin:0px;
+}
+.sgfd{
+    opacity: 20%;
+    background-color:black;
+    width:1px;
+    height:100%;
+    margin: 5px 0px 5px 0px;
+}
+@media only screen and (max-width: 768px) {
+    .sgfd-parent{
+        width:100%;
+        height:30px;
+    }
+   .sgfd{
+        width:100%;
+        height:1px;
+        margin: 10px 0px 10px 0px;
+    }
+}
+
+.ahvnavbut{
+    color:white;
+    background-color: #D02A2A!important;
+    border-radius:30px;
+    transition-duration: 0.1s;
+    border:0px;
+}
+.ahvnavbut:hover{
+    background-color: #FA3F3F!important;
+}
+.ahvnavbuthover{
+    background-color: #FA3F3F!important;
+}
+.ahvnavbut:active{
+    transition-duration: 0s;
+    background-color: #FF6E6E!important;
+}
+
+.ahvbutton{
+    color:white;
+    background-color: #FA3F3F!important;
+    border-radius:30px;
+    transition-duration: 0.1s;
+    border:0px;
+}
+.ahvbutton:hover{
+    background-color: #D02A2A!important;
+}
+.ahvbutton:active{
+    transition-duration: 0s;
+    background-color: #FF6E6E!important;
+}
+
 .ahvpc{
     background-color: #D02A2A!important;
 }
@@ -58,23 +129,33 @@ body{
 }
 </style>
 
-<div class="shadow text-light<?php if(!($_SERVER["PHP_SELF"] == "/index.php" || $_SERVER["PHP_SELF"] == "/login.php")){echo " mb-5";} ?> container-fluid" style="background-color:#D02A2A;">
-    <header class="row d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
-        <div class="d-flex align-items-center col mb-md-0">
-            <button class="pe-2 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarmain" style="width:48px; height:48px;">
+<div class="shadow text-light<?php if(!($_SERVER["PHP_SELF"] == "/index.php" || $_SERVER["PHP_SELF"] == "/login.php")){echo " mb-4";} ?> container-fluid" style="background-color:#D02A2A;">
+    <header class="row d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">
+        <div class="d-flex flex-row align-items-center justify-content-start col mb-md-0">
+            <button class="pe-2 navbar-toggler avside" type="button" data-bs-toggle="collapse" data-bs-target="#navbarmain" style="width:48px; height:48px;">
                 <span class="material-symbols-outlined" style="font-size:32px;">
                     menu
                 </span>
             </button>
-            <a href="/" class="d-flex align-items-center col mb-md-0 text-light text-decoration-none">
+            <a href="/" class="mb-0 flex-wrap align-items-center text-light text-decoration-none">
                 <!--svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg-->
                 <!--img src="https://saringc19.uitm.edu.my/statics/LogoUiTM.png" class="" height="50px" alt="UiTM Logo"-->
-                <p class="h3 m-0 fw-black">AHVELO COFFEE</p>
+                <p class="h3 col mb-0 fw-black text-light text-decoration-none d-flex flex-wrap align-items-center">AHVELO</p>
             </a>
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-center col-sm-6 avnav">
+            <div class="row navbarh">
+                <a class="col btn ahvnavbut" id="home" href="/">Home</a>
+                <a class="col btn ahvnavbut" href="/shop.php">Shop</a>
+                <a class="col btn ahvnavbut" href="/signup.php">Account</a>
+                <a class="col btn ahvnavbut" href="/about.php">About</a>
+                <a class="col btn ahvnavbut" href="/faq.php">FAQs</a>
+                <a class="col btn ahvnavbut" href="/contact.php">Contact</a>
+            </div>
         </div>
         <div class="col d-flex flex-row text-end justify-content-end">
             <div class="dropdown flex-column d-flex text-end" id="cartdrp">
-                <button class="border-0 btn-lg align-middle navbar-toggler" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <span class="align-middle material-symbols-outlined" style="font-size:32px;">shopping_cart</span>
                 </button>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
@@ -92,39 +173,39 @@ body{
                         echo "<label class=\"px-2\">Welcome, <a class=\"text-decoration-none\" href=/".$url."/>".$shortName."</a>!</label>";
                         echo '<button type="button" class="btn btn-danger" onclick="location.href=\'/doSignOut.php\';">Logout</button>';
                     } else {
-                        echo '<button class="border-0 btn-lg align-middle navbar-toggler" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span></button>';
+                        echo '<button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span></button>';
                         //echo '<button type="button" class="btn btn-primary mx-1" onclick="location.href=\'/login.php\'">Sign Up</button>';
                     }
                 ?>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownMenuButton" id="drpmenu" style="min-width:50vw;">
-                    <?php 
-                        $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
-                        //check if $_GET isset
-                        if(isset($_GET["error"])){
-                            //error exists
-                            echo "<div class=\"alert alert-danger my-4\" style=\"margin-left: 13%; margin-right: 13%;\">";
-                            if(isset($_SESSION["userErrMsg"])){
-                                //get err msg
-                                $errMsg = $_SESSION["userErrMsg"];
-                                $errCode = $_SESSION["userErrCode"];
-                                echo "<h5 style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
-                                echo "<br><p>Error code: $errCode</p>";
-                            }
-                            echo "</div>";
-                        }
-                        if(isset($_GET["signup"])){
-                            echo "<div class=\"alert alert-success my-4\" style=\"margin-left: 13%; margin-right: 13%;\">";
-                            if(isset($_SESSION["userErrMsg"])){
-                                //get err msg
-                                $errMsg = $_SESSION["userErrMsg"];
-                                $errCode = $_SESSION["userErrCode"];
-                                echo "<h5 style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
-                            }
-                            echo "</div>";
-                        }
-                    ?>
                     <div class="container px-3 py-2">
-                        <h3>Sign In</h3>
+                        <h3 class="fw-black">SIGN IN</h3>
+                        <?php 
+                            $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
+                            //check if $_GET isset
+                            if(isset($_GET["autherror"])){
+                                //error exists
+                                echo "<div class=\"alert alert-danger\">";
+                                if(isset($_SESSION["userErrMsg"])){
+                                    //get err msg
+                                    $errMsg = $_SESSION["userErrMsg"];
+                                    $errCode = $_SESSION["userErrCode"];
+                                    echo "<p class=\"my-0 fw-semibold\"style=\"text-align: justify; text-justify: inter-word;\">$errMsg</p>";
+                                    echo "<p class=\"my-0 fst-italic fw-light\">Error code: $errCode</p>";
+                                }
+                                echo "</div>";
+                            }
+                            if(isset($_GET["signup"])){
+                                echo "<div class=\"alert alert-success my-4\" style=\"margin-left: 13%; margin-right: 13%;\">";
+                                if(isset($_SESSION["userErrMsg"])){
+                                    //get err msg
+                                    $errMsg = $_SESSION["userErrMsg"];
+                                    $errCode = $_SESSION["userErrCode"];
+                                    echo "<h5 style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                                }
+                                echo "</div>";
+                            }
+                        ?>
                         <p>Please enter the email and password to continue.</p>
                         <style>
                             #form-floating,::before{
@@ -132,7 +213,7 @@ body{
                                 background-color:transparent!important;
                             }
                         </style>
-                        <form id="loginForm" action="/doSignIn.php" method="post">
+                        <form id="drpLoginForm" action="/api/auth/login.php" method="post">
                             <div class="form-floating mb-2">
                                 <input class="form-control" name="signInEmail" type="email" placeholder="Email Address" required/>
                                 <label for="emailAddress">Email Address</label>
@@ -143,7 +224,7 @@ body{
                             </div>
                         </form>
                         <button type="button" class="btn btn-outline-danger border-0" id="closebtn">Close</button>
-                        <button class="btn btn-primary" form="loginForm" id="signInButton" type="submit">Sign In</button>
+                        <button class="btn btn-primary ahvbutton" form="drpLoginForm" id="drpSignInButton" type="submit">Sign In</button>
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="container px-3 py-2">
@@ -157,13 +238,11 @@ body{
                 <li><a href="/" class="nav-link px-3">Home</a></li>
                 <li><a href="/shop.php" class="nav-link px-3">Shop</a></li>
                 <?php
-                /*
                     if(isset($_SESSION["uid"])){
-                        echo '<li><a href="/doSignOut.php" class="nav-link px-2 link-dark">Logout</a></li>';
+                        echo '<li><a href="/api/auth/signout.php" class="nav-link px-3">Logout</a></li>';
                     } else {
-                        echo '<li><a href="/login.php" class="nav-link px-2 link-dark">Login</a></li>';
+                        echo '<li><a href="/signup.php" class="nav-link px-3">Sign Up</a></li>';
                     }
-                */
                 ?>
                 <li><a href="/contact.php" class="nav-link px-3">Contact</a></li>
                 <li><a href="/faq.php" class="nav-link px-3">FAQs</a></li>
@@ -234,13 +313,39 @@ body{
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(urlParams.has('autherror')){
+            if ($('#logindrp').find('#drpmenu').is(":hidden")){
+                $('#dropdownMenuButton').dropdown('toggle');
+            }
+        }
+        var current = window.location.pathname;
+        if(current != '/'){
+            $('.ahvnavbut').each(function(){
+                var $this = $(this);
+                // if the current path is like this link, make it active
+                if($this.attr('href').indexOf(current) !== -1){
+                    $this.addClass('ahvnavbuthover');
+                }
+            })
+        } else {
+            $('#home').addClass('ahvnavbuthover')
+        }
         <?php
-            if(isset($_GET["error"])){
+            if(isset($_GET["modalerror"])){
                 //error exists
                 echo "$('#loginModal').modal('show');";
             }
         ?>
     })
+
+    $('#drpSignInButton').click(function() {
+        <?php
+            $_SESSION["errorType"] = "autherror";
+        ?>
+    })
+
     $('#loginModal').on('hidden.bs.modal', function(){
         let url = new URL(window.location.href);
         url.searchParams.delete('error');
@@ -252,5 +357,10 @@ body{
         //$(this).parents('.dropdown').find('button.dropdown-toggle').dropdown('toggle');
         $("#drpmenu").dropdown("toggle");
         //$("#drpmenu").toggle();
+        let url = new URL(window.location.href);
+        url.searchParams.delete('error');
+        url.searchParams.delete('signup');
+        url.searchParams.delete('autherror');
+        window.history.pushState({}, document.title, url);
     });
 </script>
