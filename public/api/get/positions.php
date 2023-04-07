@@ -16,8 +16,8 @@
                 array_push($outputPosName, $currPos[1]);
             }
             $outputPosArr = array(
-                "clubId" => $outputPosId,
-                "clubName" => $outputPosName,
+                "posId" => $outputPosId,
+                "posName" => $outputPosName,
             );
         } else {
             $posArr = array("0" => "Error");
@@ -30,7 +30,7 @@
         die();
     }
     else {
-        header('X-PHP-Response-Code: 500', true, 500);
+        header('X-PHP-Response-Code: 403', true, 500);
         die();
     }
 ?>
