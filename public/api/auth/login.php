@@ -122,7 +122,7 @@
                     //correct password
                     if($userType == 0){
                         //customer
-                        $getCustInfoSQL = "SELECT cust_id, cust_name, cust_dob, cust_gender, student_phone FROM students WHERE user_id = (?)";
+                        $getCustInfoSQL = "SELECT cust_id, cust_name, cust_dob, cust_gender, cust_phone FROM customers WHERE user_id = (?)";
                         if ($stmt=mysqli_prepare($conn, $getCustInfoSQL)){
                             mysqli_stmt_bind_param($stmt, "i", $u_id);
 
