@@ -11,7 +11,7 @@
             $outputPosArr = array();
             $posArr = mysqli_fetch_all($posRes);
             $posArr = array_values($posArr);
-            foreach($clubArr as $currPos){
+            foreach($posArr as $currPos){
                 array_push($outputPosId, $currPos[0]);
                 array_push($outputPosName, $currPos[1]);
             }
