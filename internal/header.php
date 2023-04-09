@@ -176,7 +176,7 @@ body{
                 <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <span class="align-middle material-symbols-outlined" style="font-size:32px;">shopping_cart</span>
                 </button>
-                <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
+                <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
                     <div class="container px-3 py-2">
                         <h4 class="fw-black">YOUR CART</h4>
                         <?php include "notimp.php" ?>
@@ -187,7 +187,7 @@ body{
                 <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span>
                 </button>
-                <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownMenuButton" id="drpmenu" style="min-width:50vw;">
+                <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownMenuButton" id="drpmenu">
                     <?php
                         if(!isset($_SESSION["uid"])){
                     ?>
