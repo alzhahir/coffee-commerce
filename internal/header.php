@@ -182,10 +182,10 @@ body{
                     <span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span>
                 </button>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow" aria-labelledby="dropdownMenuButton" id="drpmenu" style="min-width:50vw;">
+                    <?php
+                        if(!isset($_SESSION["uid"])){
+                    ?>
                     <div class="container px-3 py-2">
-                        <?php
-                            if(!isset($_SESSION["uid"])){
-                        ?>
                         <h4 class="fw-black">SIGN IN</h4>
                         <?php 
                             $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
@@ -241,10 +241,12 @@ body{
                         } else {
                             $url = $_SESSION["utype"];
                             $shortName = strtok($_SESSION["name"], " ");
-                            ?>
-                            <label class="px-2">Welcome, <a class="text-decoration-none" href="/<?php echo $url ?>/index.php"><?php echo $shortName ?></a>!</label>
-                            <button type="button" class="btn btn-danger" onclick="location.href='/api/auth/signout.php';">Logout</button>
-                            <?php
+                    ?>
+                    <div class="container px-3 py-2">
+                        <label class="px-2">Welcome, <a class="text-decoration-none" href="/<?php echo $url ?>/index.php"><?php echo $shortName ?></a>!</label>
+                        <button type="button" class="btn btn-danger" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                    </div>
+                    <?php
                         }
                     ?>
                 </div>
