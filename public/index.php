@@ -44,7 +44,7 @@ include('../internal/header.php');
     </div>
     <div id="prodlist" class="container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between horizontal-scrollable" style="position:relative;">
         <div class="fw-black row p-2">BESTSELLERS</div>
-        <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; padding-right:100px">
+        <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; padding-right:100px; position:relative;">
             <?php
                 for($x = 0; $x <= 10; $x++){
                     ?>
