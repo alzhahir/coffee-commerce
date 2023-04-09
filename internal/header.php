@@ -15,6 +15,9 @@
 </script>
 
 <style>
+.avdrpd{
+    min-width:50vw;
+}
 .avnav{
     display:inline;
 }
@@ -22,6 +25,9 @@
     display:none;
 }
 @media only screen and (max-width: 824px) {
+    .avdrpd{
+        min-width:100vw;
+    }
     .avnav{
         display:none!important;
     }
