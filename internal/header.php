@@ -310,7 +310,7 @@ body{
     })
 
     $('#dropdownMenuButton').click(function() {
-        if ($('.avdrpd').is(":visible")){
+        if ($('.avdrpd').is(":visible") && screen.width < 580){
             $('body').css('overflow', 'hidden');
         } else {
             $('body').css('overflow', 'auto');
@@ -318,7 +318,7 @@ body{
     });
 
     $('#dropdownCartButton').click(function() {
-        if ($('.avdrpd').is(":visible")){
+        if ($('.avdrpd').is(":visible") && screen.width < 580){
             $('body').css('overflow', 'hidden');
         } else {
             $('body').css('overflow', 'auto');
