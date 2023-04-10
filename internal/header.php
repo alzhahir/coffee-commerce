@@ -24,10 +24,12 @@
 .avside{
     display:none;
 }
-@media only screen and (max-width: 824px) {
+@media only screen and (max-width: 580px) {
     .avdrpd{
         min-width:100vw;
     }
+}
+@media only screen and (max-width: 824px) {
     .avnav{
         display:none!important;
     }
@@ -306,6 +308,30 @@ body{
             }
         ?>
     })
+
+    $('#dropdownMenuButton').click(function() {
+        if ($('.avdrpd').is(":visible")){
+            $('body').css('overflow', 'hidden');
+        } else {
+            $('body').css('overflow', 'auto');
+        }
+    });
+
+    $('#dropdownCartButton').click(function() {
+        if ($('.avdrpd').is(":visible")){
+            $('body').css('overflow', 'hidden');
+        } else {
+            $('body').css('overflow', 'auto');
+        }
+    });
+
+    $('.navbar-toggler').on('hidden.bs.dropdown', function() {
+        if ($('.avdrpd').is(":hidden")){
+            $('body').css('overflow', 'auto');
+        } else {
+            $('body').css('overflow', 'hidden');
+        }
+    });
 
     $('#loginModal').on('hidden.bs.modal', function(){
         let url = new URL(window.location.href);
