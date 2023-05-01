@@ -42,9 +42,9 @@ include('../internal/header.php');
             </button>
         </div>
     </div>
-    <div id="prodlist" class="container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between horizontal-scrollable" style="position:relative;">
+    <div id="prodlist" class="container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between" style="position:relative; overflow:overflow;">
         <div class="fw-black row p-2">BESTSELLERS</div>
-        <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; padding-right:100px; position:relative;">
+        <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:pan-x;">
             <?php
                 for($x = 0; $x <= 10; $x++){
                     ?>
@@ -54,8 +54,9 @@ include('../internal/header.php');
                             <rect width="100%" height="100%" fill="#777"></rect>
                             <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
                         </svg>
-                        <div class="flex-row fw-normal fs-4 py-2">Test</div>
-                        <button class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 pe-2 py-2">
+                        <div id="prodNameLabel" class="flex-row fw-bold fs-4 pt-2">ProductName</div>
+                        <div id="prodPriceLabel" class="flex-row fw-normal fs-4 pb-2">#PRICE</div>
+                        <button class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2">
                             <span class="material-symbols-outlined align-middle text-center px-0">
                                 add_shopping_cart
                             </span>
@@ -66,8 +67,20 @@ include('../internal/header.php');
                 }
             ?>
         </div>
-        <div class="catgrad" style="bottom:15px;right:-5px;position:absolute;">
-            <svg class="bd-placeholder-img bd-placeholder-img-lg" width="50" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <div class="catgradb overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
+            <button id="leftbutton" class="btn btn-primary rounded-circle align-items-center justify-content-center p-0 ahvbutton border-0 shadow" style="height:48px;width:48px;">
+                <span class="material-symbols-outlined text-center align-middle mb-0" style="color:white; font-size:32px;">
+                    navigate_before
+                </span>
+            </button>
+            <svg class="bd-placeholder-img bd-placeholder-img-lg" width="25" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <!--title>Placeholder</title-->
+                <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
+                <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
+            </svg>
+        </div>
+        <div class="catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg" width="25" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <!--title>Placeholder</title-->
                 <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
                 <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
@@ -89,11 +102,33 @@ include('../internal/header.php');
     $.fn.hasHorizontalScrollBar = function () {
         return this[0].clientWidth < this[0].scrollWidth;
     }
+    //padding-right:100px;
+    $('#prodcat').scroll(function(){
+        if($('#prodcat').scrollLeft() <= 0){
+            $('.catgradb').fadeOut(100);
+        }
+        if($('#prodcat').scrollLeft() > 0){
+            $('.catgradb').fadeIn(100);
+        }
+        if($('#prodcat').scrollLeft() >= $('#prodcat')[0].scrollWidth - $('#prodcat')[0].clientWidth - 5){
+            $('.catgrad').fadeOut(100);
+        }
+        if($('#prodcat').scrollLeft() < $('#prodcat')[0].scrollWidth - $('#prodcat')[0].clientWidth - 5){
+            $('.catgrad').fadeIn(100);
+        }
+    })
+
     if($('#prodcat').hasHorizontalScrollBar()){
         $('#rightbutton').click(function() {
             event.preventDefault();
             $('#prodcat').animate({
                 scrollLeft: "+=500px"
+            }, "slow");
+        });
+        $('#leftbutton').click(function() {
+            event.preventDefault();
+            $('#prodcat').animate({
+                scrollLeft: "-=500px"
             }, "slow");
         });
     };

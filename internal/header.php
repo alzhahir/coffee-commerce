@@ -102,6 +102,15 @@
     background-color: #FA3F3F!important;
 }
 
+#prodcat::-webkit-scrollbar {
+  display: none;
+}
+
+#prodcat {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .carousel-inner > .item > img {
   width: 100%;
 }
@@ -109,6 +118,10 @@
 .catgrad {
     background: rgb(255,255,255);
     background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+.catgradb {
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:&display=swap');
