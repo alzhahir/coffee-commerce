@@ -179,18 +179,19 @@
 
                             mysqli_stmt_close($stmt);
                         }
-                        $_SESSION["utype"] = "admin";
                         $_SESSION["email"] = $email;
                         $_SESSION["uid"] = $userId;
                         $_SESSION["name"] = $empName;
                         $_SESSION["tel"] = $empTel;
-                        $_SESSION["admin_id"] = $empId;
+                        $_SESSION["emp_id"] = $empId;
                         $_SESSION["pos_id"] = $posId;
                         switch($userType){
                             case 1: //staff
+                                $_SESSION["utype"] = "staff";
                                 header("refresh:0;url=/staff/index.php");
                                 break;
                             case 2: //admin
+                                $_SESSION["utype"] = "admin";
                                 header("refresh:0;url=/admin/index.php");
                                 break;
                         }
