@@ -14,8 +14,8 @@
             foreach($prodArr as $currProd){
                 array_push($outputProdId, $currProd[0]);
                 array_push($outputProdName, $currProd[1]);
-                array_push($outputProdPrice, $currProd[1]);
-                array_push($outputProdStock, $currProd[1]);
+                array_push($outputProdPrice, $currProd[2]);
+                array_push($outputProdStock, $currProd[3]);
             }
             $outputProdArr = array(
                 "prodId" => $outputProdId,
@@ -34,7 +34,7 @@
         die();
     }
     else {
-        header('X-PHP-Response-Code: 403', true, 500);
+        header('X-PHP-Response-Code: 405', true, 405);
         die();
     }
 ?>

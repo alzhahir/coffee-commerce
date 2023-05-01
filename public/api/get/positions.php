@@ -2,7 +2,6 @@
     require_once "../../../internal/db.php";
 
     if($_SERVER["REQUEST_METHOD"] == "GET"){
-        //get clublist
         $getPosSQL = "SELECT pos_id, pos_name FROM positions";
         $posRes = mysqli_query($conn, $getPosSQL);
         if(!is_bool($posRes)){
@@ -30,7 +29,7 @@
         die();
     }
     else {
-        header('X-PHP-Response-Code: 403', true, 500);
+        header('X-PHP-Response-Code: 405', true, 405);
         die();
     }
 ?>
