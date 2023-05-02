@@ -1,13 +1,8 @@
 <?php
 session_start();
+include('../../internal/custcontrol.php');
 include('../../internal/htmlhead.php');
 include('../../internal/header.php');
-if (!isset($_SESSION["cust_id"])){
-    $_SESSION["userErrCode"] = "CUST_ID_NOT_SET";
-    $_SESSION["userErrMsg"] = "The session has expired or is invalid. Please login again. Do contact the administrator if you believe that this should not happen.";
-    header("refresh:0;url=/signup.php?error=true");
-    die();
-}
 $shortName = strtok($_SESSION["name"], " ");
 ?>
 <div class="px-3">
