@@ -1,10 +1,11 @@
 <?php
     session_start();
+    $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     //echo "<p>Processing your sign up request...</p>";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     // Include config file
-    require_once "../../../internal/db.php";
+    require_once $ROOTPATH . "/internal/db.php";
 
     if(!isset($_SESSION["backPage"])){
         //backPage is not set, defaulting to login.php
