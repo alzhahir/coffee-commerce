@@ -1,14 +1,18 @@
 <?php
     session_start();
+    $SERVERROOT = $_SERVER["DOCUMENT_ROOT"];
+    $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     if(!isset($_SESSION["uid"])){
-        header('X-PHP-Response-Code: 401', true, 401);
+        http_response_code(401);
+        include($SERVERROOT . "/error/401.php");
         die();
     }
     if(!isset($_SESSION["cust_id"])){
-        header('X-PHP-Response-Code: 403', true, 403);
+        http_response_code(403);
+        include($SERVERROOT . "/error/403.php");
         die();
     }
-    require_once "../../../../internal/db.php";
+    require_once $PROJECTROOT . "/internal/db.php";
 
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         $cid = $_SESSION["cust_id"];
