@@ -3,8 +3,23 @@ session_start();
 if(!isset($ROOTPATH)){
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 }
+
+$currentPath = $_SERVER['REQUEST_URI'];
+$parentDirs = explode("/", $currentPath);
+foreach($parentDirs as $thisDir){
+    if(str_contains($thisDir, "api")){
+        $isApiPage = true;
+        break;
+    } else {
+        $isApiPage = false;
+    }
+}
+
 $userType = "";
-if(isset($_SESSION["utype"])){
+if(isset($isApiPage) && $isApiPage){
+    include($ROOTPATH . '/internal/htmlhead.php');
+    include($ROOTPATH . '/internal/apiheader.php');
+} else if(isset($_SESSION["utype"])){
     $userType = $_SESSION["utype"];
     switch($userType){
         case "customer":
