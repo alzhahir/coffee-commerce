@@ -1,22 +1,7 @@
 <?php
 session_start();
-$userType = $_SESSION["utype"];
-switch($userType){
-    case "customer":
-        include('../../internal/htmlhead.php');
-        include('../../internal/header.php');
-        break;
-    case "staff": //staff
-        include('../../internal/staffcontrol.php');
-        include('../../internal/htmlhead.php');
-        include('../../internal/staffheader.php');
-        break;
-    case "admin": //admin
-        include('../../internal/admincontrol.php');
-        include('../../internal/htmlhead.php');
-        include('../../internal/adminheader.php');
-        break;
-}
+$ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+include($ROOTPATH . '/internal/errorcontrol.php');
 ?>
 <div class="px-3 my-auto">
     <div style="margin:auto; text-align:center; width:50%;">
@@ -24,9 +9,9 @@ switch($userType){
             unknown_document
         </span>
         <p class="h3 fw-medium user-select-none">The page you requested for cannot be found on the server.</p>
-        <a href="/<?php echo($_SESSION["utype"]); ?>/index.php" class="btn btn-outline-danger">RETURN HOME</a>
+        <a href="/<?php echo($userType); ?>index.php" class="btn btn-outline-danger">RETURN HOME</a>
     </div>
 </div>
 <?php
-include('../../internal/footer.php');
+include($ROOTPATH . '/internal/footer.php');
 ?>
