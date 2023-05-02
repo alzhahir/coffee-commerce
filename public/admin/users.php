@@ -1,4 +1,6 @@
 <?php
+session_start();
+include('../../internal/admincontrol.php');
 include('../../internal/htmlhead.php');
 include('../../internal/adminheader.php');
 ?>
