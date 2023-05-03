@@ -1,7 +1,8 @@
 <?php
 session_start();
+$ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 if (isset($_SESSION["emp_id"])){
-    include('../../public/error/403.php');
+    include($ROOTPATH . '/public/error/403.php');
     die();
 }
 if (!isset($_SESSION["cust_id"])){
