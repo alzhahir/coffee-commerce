@@ -34,7 +34,12 @@ include($ROOTPATH . '/internal/adminheader.php');
             }
         ?>
         <div class="col pb-3">
-            <h3 class="fw-black">CREATE NEW USER</h3>
+            <h3 class="fw-black">
+                CREATE NEW USER
+                <a class="btn btn-primary ahvbutton float-end" href="/admin/users/">
+                    Go Back
+                </a>
+            </h3>
             <p>You can use this form to create new users.</p>
             <form id="signupForm" action="/api/auth/signup.php" method="post">
                 <div class="form-floating mb-3">
