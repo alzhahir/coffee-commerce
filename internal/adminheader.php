@@ -15,6 +15,10 @@
 </script>
 
 <style>
+#form-floating,::before{
+    pointer-events:none;
+    background-color:transparent!important;
+}
 .avdrpd{
     min-width:50vw;
 }
@@ -234,12 +238,6 @@ body{
                             }
                         ?>
                         <p>Please enter the email and password to continue.</p>
-                        <style>
-                            #form-floating,::before{
-                                pointer-events:none;
-                                background-color:transparent!important;
-                            }
-                        </style>
                         <form id="drpLoginForm" action="/api/auth/login.php?errorType=autherror" method="post">
                             <div class="form-floating mb-2">
                                 <input class="form-control" name="signInEmail" type="email" placeholder="Email Address" required/>

@@ -15,6 +15,10 @@
 </script>
 
 <style>
+#form-floating,::before{
+    pointer-events:none;
+    background-color:transparent!important;
+}
 .avdrpd{
     min-width:50vw;
 }
