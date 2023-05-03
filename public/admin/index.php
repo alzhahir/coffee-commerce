@@ -1,8 +1,9 @@
 <?php
 session_start();
-include('../../internal/admincontrol.php');
-include('../../internal/htmlhead.php');
-include('../../internal/adminheader.php');
+$ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+include($ROOTPATH . '/internal/admincontrol.php');
+include($ROOTPATH . '/internal/htmlhead.php');
+include($ROOTPATH . '/internal/adminheader.php');
 $shortName = "admin";
 $shortName = strtok($_SESSION["name"], " ");
 ?>
@@ -32,5 +33,5 @@ $shortName = strtok($_SESSION["name"], " ");
     wlc.innerText=txt
 </script>
 <?php
-include('../../internal/footer.php');
+include($ROOTPATH . '/internal/footer.php');
 ?>
