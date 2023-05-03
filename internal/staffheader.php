@@ -180,8 +180,8 @@ body{
                         <?php
                     }
                 ?>
-                <a class="col btn ahvnavbut" href="products.php">Products</a>
-                <a class="col btn ahvnavbut" href="orders.php">Orders</a>
+                <a class="col btn ahvnavbut" href="/staff/products/">Products</a>
+                <a class="col btn ahvnavbut" href="/staff/orders/">Orders</a>
             </div>
         </div>
         <div class="col d-flex flex-row text-end justify-content-end">
@@ -281,8 +281,8 @@ body{
                         echo '<li><a href="/signup.php" class="nav-link px-3">Sign Up</a></li>';
                     }
                 ?>
-                <li><a href="products.php" class="nav-link px-3">Products</a></li>
-                <li><a href="orders.php" class="nav-link px-3">Orders</a></li>
+                <li><a href="/staff/products/" class="nav-link px-3">Products</a></li>
+                <li><a href="/staff/orders/" class="nav-link px-3">Orders</a></li>
             </ul>
         </div>
     </header>
