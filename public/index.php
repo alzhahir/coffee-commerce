@@ -1,7 +1,9 @@
 <?php
+$SERVERROOT = $_SERVER["DOCUMENT_ROOT"];
+$PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
 session_start();
-include('../internal/htmlhead.php');
-include('../internal/header.php');
+include($PROJECTROOT . '/internal/htmlhead.php');
+include($PROJECTROOT . '/internal/header.php');
 ?>
 <div class="px-3 py-3">
     <div class="py-2 px-2">
@@ -43,28 +45,10 @@ include('../internal/header.php');
         </div>
     </div>
     <div id="prodlist" class="container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between" style="position:relative; overflow:overflow;">
-        <div class="fw-black row p-2">BESTSELLERS</div>
+        <div class="w-100 fw-black row p-2">BESTSELLERS</div>
         <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:pan-x;">
             <?php
-                for($x = 0; $x <= 10; $x++){
-                    ?>
-                    <div class="col w-100 align-items-center justify-content-center align-middle text-center" style="display: inline-block;">
-                        <svg class="flex-row bd-placeholder-img bd-placeholder-img-lg d-block rounded-5" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#777"></rect>
-                            <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
-                        </svg>
-                        <div id="prodNameLabel" class="flex-row fw-bold fs-4 pt-2">ProductName</div>
-                        <div id="prodPriceLabel" class="flex-row fw-normal fs-4 pb-2">#PRICE</div>
-                        <button class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2">
-                            <span class="material-symbols-outlined align-middle text-center px-0">
-                                add_shopping_cart
-                            </span>
-                            Add to Cart
-                        </button>
-                    </div>
-                <?php
-                }
+                include($PROJECTROOT . "/internal/productgalleryobject.php");
             ?>
         </div>
         <div class="catgradb overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
@@ -79,7 +63,7 @@ include('../internal/header.php');
                 <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
             </svg>
         </div>
-        <div class="catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;">
+        <div class="catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
             <svg class="bd-placeholder-img bd-placeholder-img-lg" width="25" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <!--title>Placeholder</title-->
                 <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
@@ -95,6 +79,11 @@ include('../internal/header.php');
 </div>
 
 <script>
+    $(window).on("load", function(){
+        if($('#prodcat')[0].clientWidth < $('#prodcat')[0].scrollWidth){
+            $('.catgrad').fadeIn(100);
+        }
+    });
     $.fn.hasVerticalScrollBar = function () {
         return this[0].clientHeight < this[0].scrollHeight;
     }
@@ -134,5 +123,5 @@ include('../internal/header.php');
     };
 </script>
 <?php
-include('../internal/footer.php');
+include($PROJECTROOT . '/internal/footer.php');
 ?>

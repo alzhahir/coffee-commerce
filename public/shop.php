@@ -1,7 +1,9 @@
 <?php
+$SERVERROOT = $_SERVER["DOCUMENT_ROOT"];
+$PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
 session_start();
-include('../internal/htmlhead.php');
-include('../internal/header.php');
+include($PROJECTROOT . '/internal/htmlhead.php');
+include($PROJECTROOT . '/internal/header.php');
 ?>
 <div class="px-3 pb-3">
     <div class="px-2">
@@ -9,29 +11,11 @@ include('../internal/header.php');
         <div>Order now!</div>
         <div id="prodcat" class="d-flex justify-content-center row row-cols-auto w-100 align-items-start">
             <?php
-                for($x = 0; $x <= 10; $x++){
-                    ?>
-                    <div class="col align-items-center justify-content-center align-middle text-center my-3" style="display: inline-block;">
-                        <svg class="flex-row bd-placeholder-img bd-placeholder-img-lg rounded-5" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#777"></rect>
-                            <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
-                        </svg>
-                        <div id="prodNameLabel" class="flex-row fw-bold fs-4 pt-2">ProductName</div>
-                        <div id="prodPriceLabel" class="flex-row fw-normal fs-4 pb-2">#PRICE</div>
-                        <button class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2">
-                            <span class="material-symbols-outlined align-middle text-center px-0">
-                                add_shopping_cart
-                            </span>
-                            Add to Cart
-                        </button>
-                    </div>
-                <?php
-                }
+                include($PROJECTROOT . "/internal/productgalleryobject.php");
             ?>
         </div>
     </div>
 </div>
 <?php
-include('../internal/footer.php');
+include($PROJECTROOT . '/internal/footer.php');
 ?>
