@@ -38,6 +38,56 @@ include($ROOTPATH . '/internal/adminheader.php');
             + Add Product
         </button>
     </p>
+    <script type="text/javascript">
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        $(document).ready( function () {
+            var mainTable = $('#prodTable').DataTable({
+                                ajax: {
+                                    url: '/api/get/products.php',
+                                    dataSrc: 'data',
+                                },
+                                responsive: true,
+                                columnDefs: [
+                                    {
+                                        targets: 2,
+                                        visible: false,
+                                    },
+                                    {
+                                        "defaultContent": '<button class="btn btn-primary ahvbutton">Edit Product</button>',
+                                        "targets": -1
+                                    },
+                                    {
+                                        "defaultContent": "-",
+                                        "targets": "_all"
+                                    },
+                                ],
+                                //dom: 'Bfrtip',
+                                buttons: [
+                                    'print'
+                                ],
+                            });
+            $("#prodTable tbody").on('click', 'button', function() {
+                var data = mainTable.row($(this).parents('tr')).data();
+                //window.location.href = "applicationDetails.php?app_id="+data[0];
+            })
+            new $.fn.dataTable.FixedHeader( mainTable );
+        } );
+    </script>
+    <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
+            <table id="prodTable" class="table table-bordered table-hover dt-responsive">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Product Image URL</th>
+                        <th>Product Price</th>
+                        <th>Product Stock</th>
+                        <th>Edit Product</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
 </div>
 <div class="modal fade" id="newProd" tabindex="-1" aria-labelledby="createNewProduct" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
