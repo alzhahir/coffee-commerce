@@ -1,5 +1,6 @@
 <?php
-    require_once "../../../internal/db.php";
+    $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    require_once $PROJECTROOT . "/internal/db.php";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         $getCustSQL = "SELECT c.cust_id, c.cust_name, u.user_email, c.cust_gender FROM users AS u INNER JOIN customers AS c ON u.user_id=c.user_id";
         $custRes = mysqli_query($conn, $getCustSQL);

@@ -1,6 +1,6 @@
 <?php
-    require_once "../../../internal/db.php";
-
+    $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    require_once $PROJECTROOT . "/internal/db.php";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         $getPosSQL = "SELECT pos_id, pos_name FROM positions";
         $posRes = mysqli_query($conn, $getPosSQL);
