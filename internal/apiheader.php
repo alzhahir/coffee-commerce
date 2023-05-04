@@ -258,7 +258,7 @@ body{
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="container px-3 py-2">
-                        Don't have any account? <a href="/signup.php">Sign up</a> now!
+                        Don't have an account? <a href="/signup.php">Sign up</a> now!
                     </div>
                     <?php
                         } else {
@@ -295,6 +295,8 @@ body{
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
+        //const toastElList = document.querySelectorAll('.toast')
+        //const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.has('autherror')){
