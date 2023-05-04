@@ -85,6 +85,10 @@ include($ROOTPATH . '/internal/adminheader.php');
                             <label for="name">Product Name</label>
                         </div>
                         <div class="form-floating mb-3">
+                            <input class="form-control" name="prodName" type="text" placeholder="Product Image URL" required/>
+                            <label for="name">Product Image URL</label>
+                        </div>
+                        <div class="form-floating mb-3">
                             <input class="form-control" name="prodPrice" type="text" placeholder="Product Price" required/>
                             <label for="price">Unit Price</label>
                         </div>
