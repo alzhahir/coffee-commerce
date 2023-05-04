@@ -19,6 +19,7 @@
             $productName = $_POST["prodName"];
             $productPrice = $_POST["prodPrice"];
             $productStock = $_POST["prodStock"];
+            $productImg = $_POST["prodImgUrl"];
         } else {
             $_SESSION["userErrCode"] = "FORM_FAILED";
             $_SESSION["userErrMsg"] = "Cannot get POST data from form. Please contact the administrator if you believe that this should not happen.";
@@ -26,12 +27,17 @@
             die();
         }
 
+        if(!isset($_POST["prodImgUrl"])){
+            $productImg = null;
+        }
 
-        $addTrackingSQL = "INSERT INTO products (prod_name, prod_price, prod_stock) VALUES (?, ?, ?)";
+
+        $addTrackingSQL = "INSERT INTO products (prod_name, prod_img_url, prod_price, prod_stock) VALUES (?, ?, ?, ?)";
         if ($stmt=mysqli_prepare($conn, $addTrackingSQL)){
-            mysqli_stmt_bind_param($stmt, "sss", $product_name, $product_price, $product_stock);
+            mysqli_stmt_bind_param($stmt, "ssss", $product_name, $product_imgurl, $product_price, $product_stock);
 
             $product_name = $productName;
+            $product_imgurl = $productImg;
             $product_price = $productPrice;
             $product_stock = $productStock;
 
