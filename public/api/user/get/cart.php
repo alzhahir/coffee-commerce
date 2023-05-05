@@ -54,8 +54,32 @@
         }
 
         if(!isset($included) || !$included){
+            $included = true;
+            include($SERVERROOT . '/api/get/products.php');
+            $included = false;
+            $newItmArr = array();
+            $newOutputArr = array();
+            foreach($outputItmArr as $currItm){
+                foreach($outputProdArr as $currProd){
+                    if($currItm[0] == $currProd[0]){
+                        array_push($newItmArr, array_values(array(
+                            "id" => $currItm[0],
+                            "name" => $currProd[1],
+                            "quantity" => $currItm[1],
+                            "price" => $currProd[3],
+                            "subtotal" => $currProd[3] * $currItm[1]
+                        )));
+                    }
+                }
+            }
+            foreach($cartArr as $currCart){
+                $newOutputArr = array(
+                    "dateCreated" => $currCart[1],
+                    "data" => $newItmArr,
+                );
+            }
             header("Content-Type: application/json;");
-            echo json_encode(array("data" => $outputCartArr), JSON_PRETTY_PRINT);
+            echo json_encode($newOutputArr, JSON_PRETTY_PRINT);
             die();
         }
     }
