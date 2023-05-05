@@ -19,28 +19,39 @@
         $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total FROM orders WHERE cust_id = $cid";
         $ordRes = mysqli_query($conn, $getOrdSQL);
         if(!is_bool($ordRes)){
-            $outputOrdId = array();
-            $outputOrdDate = array();
-            $outputOrdTime = array();
-            $outputOrdStatus = array();
-            $outputOrdTotal = array();
+            $outputItmArr = array();
             $outputOrdArr = array();
             $ordArr = mysqli_fetch_all($ordRes);
             $ordArr = array_values($ordArr);
             foreach($ordArr as $currOrd){
-                array_push($outputOrdId, $currOrd[0]);
-                array_push($outputOrdDate, $currOrd[1]);
-                array_push($outputOrdTime, $currOrd[2]);
-                array_push($outputOrdStatus, $currOrd[3]);
-                array_push($outputOrdTotal, $currOrd[4]);
+                $oid = $currOrd[0];
+                $getOrdItmSQL = "SELECT prod_id, ord_list_qty, ord_list_price, ord_list_amt FROM order_lists WHERE order_id = $oid";
+                $ordItmRes = mysqli_query($conn, $getOrdItmSQL);
+                if(!is_bool($ordItmRes)){
+                    $ordItmArr = mysqli_fetch_all($ordItmRes);
+                    $ordItmArr = array_values($ordItmArr);
+                    foreach($ordItmArr as $currItm){
+                        array_push($outputItmArr, array_values(array(
+                            "id" => $currItm[0],
+                            "quantity" => $currItm[1],
+                            "price" => $currItm[2],
+                            "subtotal" => $currItm[3],
+                        )));
+                    }
+                } else {
+                    $ordArr = array("0" => "Error");
+                    header('X-PHP-Response-Code: 500', true, 500);
+                    die();
+                }
+                array_push($outputOrdArr, array_values(array(
+                    "id" => $currOrd[0],
+                    "date" => $currOrd[1],
+                    "time" => $currOrd[2],
+                    "status" => $currOrd[3],
+                    "total" => $currOrd[4],
+                    "items" => $outputItmArr,
+                )));
             }
-            $outputOrdArr = array(
-                "ordId" => $outputOrdId,
-                "ordDate" => $outputOrdDate,
-                "ordTime" => $outputOrdTime,
-                "ordStatus" => $outputOrdStatus,
-                "ordTotal" => $outputOrdTotal,
-            );
         } else {
             $ordArr = array("0" => "Error");
             header('X-PHP-Response-Code: 500', true, 500);
