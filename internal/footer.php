@@ -6,28 +6,57 @@
     $timeNow = date('H:i:s');
     $yearNow = date('Y');
 ?>
-<div class="toast-container mb-5 me-3 bottom-0 end-0">
-    <div id="toastErr" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                Failed to add item to Your Cart!
+<div class="w-100">
+    <div class="toast-container fixed-bottom me-3 bottom-0 end-0 float-end" style="left:unset;">
+        <div id="toastErr" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <span class="material-symbols-outlined align-middle text-center px-0">
+                        warning
+                    </span>
+                    Failed to add item to Your Cart!
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-    </div>
-    <div id="toastSucc" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                The item has been added to Your Cart.
+        <div id="toastSucc" class="toast align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <span class="material-symbols-outlined align-middle text-center px-0">
+                        check_circle
+                    </span>
+                    The item has been added to Your Cart.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div id="toastUpdSucc" class="toast align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <span class="material-symbols-outlined align-middle text-center px-0">
+                        check_circle
+                    </span>
+                    Your Cart has been updated.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div id="toastUpdErr" class="toast align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <span class="material-symbols-outlined align-middle text-center px-0">
+                        warning
+                    </span>
+                    Failed to update Your Cart.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
         </div>
     </div>
 </div>
     <script>
         $(document).on('click', '#prodShoppingBtn', function(){
             btnData = $(this).data("value");
-            alert(btnData);
             $.post("/api/user/post/cart.php",
             {
                 value: btnData,
@@ -35,14 +64,18 @@
             .done(function(){
                 //success
                 const toastElList = document.querySelectorAll('#toastSucc')
-                const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:false, animation:true, delay:3000}))
-                toastElList.foreach(toast => toast.show());
+                const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
+                toastList.forEach(toast => toast.show());
             })
             .fail(function(){
                 //fail
                 const toastElList = document.querySelectorAll('#toastErr')
-                const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:false, animation:true, delay:3000}))
+                const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
                 toastList.forEach(toast => toast.show());
+            });
+            $.get('/api/user/get/cart.php', function(data, status){
+                $('.qtynum').attr('value', data.data[0][2][0][1]);
+                $('.qtynum').val(data.data[0][2][0][1]);
             });
         });
     </script>
