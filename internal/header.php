@@ -197,8 +197,8 @@ body{
                 </button>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
                     <div class="container px-3 py-2">
-                        <h4 class="fw-black">YOUR CART</h4>
-                        <?php include "notimp.php" ?>
+                        <h4 class="fw-black">YOUR (MINI) CART</h4>
+                        <?php include "minicart.php" ?>
                     </div>
                 </div>
             </div>
