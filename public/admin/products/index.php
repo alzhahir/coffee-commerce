@@ -62,7 +62,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                                         "targets": "_all"
                                     },
                                 ],
-                                //dom: 'Bfrtip',
+                                dom: 'Bfrtip',
                                 buttons: [
                                     'print'
                                 ],
@@ -75,19 +75,19 @@ include($ROOTPATH . '/internal/adminheader.php');
         } );
     </script>
     <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
-            <table id="prodTable" class="table table-bordered table-hover dt-responsive">
-                <thead>
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Product Name</th>
-                        <th>Product Image URL</th>
-                        <th>Product Price</th>
-                        <th>Product Stock</th>
-                        <th>Edit Product</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+        <table id="prodTable" class="table table-bordered table-hover dt-responsive">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Product Image URL</th>
+                    <th>Product Price</th>
+                    <th>Product Stock</th>
+                    <th>Edit Product</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 <div class="modal fade" id="newProd" tabindex="-1" aria-labelledby="createNewProduct" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
