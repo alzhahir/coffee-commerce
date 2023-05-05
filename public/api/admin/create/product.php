@@ -27,7 +27,7 @@
             die();
         }
 
-        if(!isset($_POST["prodImgUrl"])){
+        if(!isset($_POST["prodImgUrl"]) || empty($_POST["prodImgUrl"])){
             $productImg = null;
         }
 
