@@ -4,6 +4,7 @@
     $included = true;
     include($PROJECTROOT . '/public/api/user/get/cart.php');
     include($PROJECTROOT . '/public/api/get/products.php');
+    $included = false;
     //outputProdArr are products, outputCartArr is cart
 ?>
 <div>
@@ -64,6 +65,30 @@
     </div>
 </div>
 <script>
+    function createCartTable(){
+        var mainTable = $('#cartTable').DataTable({
+                                ajax: {
+                                    url: '/api/user/get/cart.php',
+                                    dataSrc: 'data',
+                                },
+                                responsive: true,
+                                columnDefs: [
+                                    {
+                                        targets: 0,
+                                        visible: false,
+                                    },
+                                ],
+                                //dom: 'Bfrtip',
+                                buttons: [
+                                    'print'
+                                ],
+                            });
+            $("#cartTable tbody").on('click', 'button', function() {
+                var data = mainTable.row($(this).parents('tr')).data();
+                //window.location.href = "applicationDetails.php?app_id="+data[0];
+            })
+            new $.fn.dataTable.FixedHeader( mainTable );
+    }
     $('.qtybtnminus').on('load', function(){
         qtyval = parseInt($(this).closest('.qtycol').children('.qtynum').attr('value'));
         if(qtyval - 1 <= 1){
@@ -93,6 +118,7 @@
                         const toastElList = document.querySelectorAll('#toastUpdSucc')
                         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
                         toastList.forEach(toast => toast.show());
+                        $('#cartTable').DataTable().ajax.reload();
                     })
                     .fail(function(){
                         //fail
@@ -123,6 +149,7 @@
                         const toastElList = document.querySelectorAll('#toastUpdSucc')
                         const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
                         toastList.forEach(toast => toast.show());
+                        $('#cartTable').DataTable().ajax.reload();
                     })
                     .fail(function(){
                         //fail
