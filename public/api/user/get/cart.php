@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $SERVERROOT = $_SERVER["DOCUMENT_ROOT"];
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     if(!isset($_SESSION["uid"])){
@@ -33,7 +34,7 @@
                         array_push($outputItmArr, array_values(array(
                             "id" => $currItm[0],
                             "qty" => $currItm[1],
-                        )))
+                        )));
                     }
                 } else {
                     $cartArr = array("0" => "Error");
@@ -41,10 +42,10 @@
                     die();
                 }
                 array_push($outputCartArr, array_values(array(
-                    "id" => $currCart[0],
-                    "date" => $currCart[1],
-                    "items" => $outputItmArr,
-                )))
+                    $currCart[0],
+                    $currCart[1],
+                    $outputItmArr,
+                )));
             }
         } else {
             $cartArr = array("0" => "Error");
@@ -52,9 +53,11 @@
             die();
         }
 
-        header("Content-Type: application/json");
-        echo json_encode($outputCartArr);
-        die();
+        if(!isset($included) || !$included){
+            header("Content-Type: application/json;");
+            echo json_encode(array("data" => $outputCartArr), JSON_PRETTY_PRINT);
+            die();
+        }
     }
     else {
         header('X-PHP-Response-Code: 405', true, 405);
