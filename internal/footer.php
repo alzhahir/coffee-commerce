@@ -14,7 +14,7 @@
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         warning
                     </span>
-                    Failed to add item to Your Cart!
+                    Failed to add item to Your Cart! Are you logged in?
                 </div>
                 <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
