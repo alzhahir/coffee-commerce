@@ -203,7 +203,7 @@ body{
                                 include "minicart.php";
                             } else {
                                 ?>
-                                Login to use this feature!
+                                <p class="fw-medium">Your Cart is only available for registed users! Login now to use the cart!</p>
                                 <?php
                             }
                         ?>
@@ -296,6 +296,24 @@ body{
             </ul>
         </div>
     </header>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="loginRequiredModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginRequiredLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-black" id="loginRequiredLabel">LOGIN TO CONTINUE</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fw-bold">To use this function, please login or create an account.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ahvbutton" data-bs-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
