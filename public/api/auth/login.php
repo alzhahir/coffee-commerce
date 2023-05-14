@@ -7,6 +7,8 @@
     // Include config file
     require_once $ROOTPATH . "/internal/db.php";
     
+    $backPage = $_SESSION["backPage"];
+    
     if(!isset($_SESSION["backPage"])){
         //backPage is not set, defaulting to login.php
         $backPage = "/index.php";
@@ -18,8 +20,6 @@
     } else {
         $errorType = $_GET["errorType"];
     }
-
-    $backPage = $_SESSION["backPage"];
 
     if(isset($_SESSION["uid"])){
         //user is logged in already
