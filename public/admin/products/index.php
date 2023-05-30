@@ -1,5 +1,6 @@
 <?php
 session_start();
+$pageTitle = "Ahvelo Admin - Products";
 $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 include($ROOTPATH . '/internal/admincontrol.php');
 include($ROOTPATH . '/internal/htmlhead.php');
@@ -68,8 +69,15 @@ include($ROOTPATH . '/internal/adminheader.php');
                                 ],
                             });
             $("#prodTable tbody").on('click', 'button', function() {
+                var updEndpoint = '/api/admin/update/products.php';
                 var data = mainTable.row($(this).parents('tr')).data();
-                //window.location.href = "applicationDetails.php?app_id="+data[0];
+                //window.location.href = "index.php?edit=true&app_id="+data[0];
+                $('#editProdForm').attr('action', updEndpoint+'?prod_id='+data[0]);
+                $('#edProdName').val(data[1]);
+                $('#edProdImgUrl').val(data[2]);
+                $('#edProdPrice').val(data[3]);
+                $('#edProdStock').val(data[4]);
+                $('#editProd').modal('show');
             })
             new $.fn.dataTable.FixedHeader( mainTable );
         } );
@@ -89,6 +97,77 @@ include($ROOTPATH . '/internal/adminheader.php');
         </table>
     </div>
 </div>
+
+<!-- MODAL FOR EDITING PRODUCTS -->
+<div class="modal fade" id="editProd" tabindex="-1" aria-labelledby="editProduct" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fw-black" id="editProduct">EDIT PRODUCT</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col pb-3">
+                    <p>You can use this form to edit products.</p>
+                    <?php 
+                        $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
+                        //check if $_GET isset
+                        if(isset($_GET["prodstat"])){
+                            if($_GET["prodstat"] == "error"){
+                                //err
+                                echo "<div class=\"alert alert-danger\">";
+                                if(isset($_SESSION["userErrMsg"])){
+                                    //get err msg
+                                    $errMsg = $_SESSION["userErrMsg"];
+                                    $errCode = $_SESSION["userErrCode"];
+                                    echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                                    echo "<p class=\"my-0 fst-italic fw-light\">Error code: $errCode</p>";
+                                }
+                                echo "</div>";
+                            } else if($_GET["prodstat"] == "success"){
+                                //noerr
+                                echo "<div class=\"alert alert-success\">";
+                                if(isset($_SESSION["userErrMsg"])){
+                                    //get err msg
+                                    $errMsg = $_SESSION["userErrMsg"];
+                                    $errCode = $_SESSION["userErrCode"];
+                                    echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                                }
+                                echo "</div>";
+                            } else {
+                                //echo "Test lol";
+                            }
+                        }
+                    ?>
+                    <form id="editProdForm" action="/api/admin/update/products.php" method="post">
+                        <div class="form-floating mb-3">
+                            <input id="edProdName" class="form-control" name="prodName" type="text" placeholder="Product Name" required/>
+                            <label for="prodName">Product Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="edProdImg" class="form-control" name="prodImg" type="text" placeholder="Product Image URL"/>
+                            <label for="prodImg">Product Image URL</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="edProdPrice" class="form-control" name="prodPrice" type="text" placeholder="Product Price" required/>
+                            <label for="prodPrice">Unit Price</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="edProdStock" class="form-control" name="prodStock" type="text" placeholder="Stock Amount" required/>
+                            <label for="prodStock">Stock Amount</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary ahvbutton" form="editProdForm" id="signUpButton" type="submit">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL FOR NEW PRODUCTS -->
 <div class="modal fade" id="newProd" tabindex="-1" aria-labelledby="createNewProduct" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -132,19 +211,19 @@ include($ROOTPATH . '/internal/adminheader.php');
                     <form id="newProdForm" action="/api/admin/create/product.php" method="post">
                         <div class="form-floating mb-3">
                             <input class="form-control" name="prodName" type="text" placeholder="Product Name" required/>
-                            <label for="name">Product Name</label>
+                            <label for="prodName">Product Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" name="prodName" type="text" placeholder="Product Image URL" required/>
-                            <label for="name">Product Image URL</label>
+                            <input class="form-control" name="prodImg" type="text" placeholder="Product Image URL"/>
+                            <label for="prodImg">Product Image URL</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input class="form-control" name="prodPrice" type="text" placeholder="Product Price" required/>
-                            <label for="price">Unit Price</label>
+                            <label for="prodPrice">Unit Price</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input class="form-control" name="prodStock" type="text" placeholder="Stock Amount" required/>
-                            <label for="stock">Stock Amount</label>
+                            <label for="prodStock">Stock Amount</label>
                         </div>
                     </form>
                 </div>
