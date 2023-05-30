@@ -12,18 +12,26 @@ include('../internal/header.php');
             createCartTable();
         });
     </script>
-    <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
+    <div class="mx-2 px-4 py-4 bg-white rounded-4 shadow">
         <table id="cartTable" class="table table-bordered table-hover dt-responsive">
             <thead>
                 <tr>
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Subtotal</th>
+                    <th>Unit Price (RM)</th>
+                    <th>Subtotal (RM)</th>
                 </tr>
             </thead>
         </table>
+    </div>
+    <div>
+        <button class="my-4 me-2 float-end btn btn-lg btn-success rounded-pill checkoutBtn">
+            <span class="material-symbols-outlined align-middle text-center px-0">
+                shopping_cart_checkout
+            </span>    
+            Checkout
+        </button>
     </div>
 </div>
 <?php
