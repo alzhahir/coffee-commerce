@@ -192,11 +192,11 @@ body{
         <div class="col d-flex flex-row text-end justify-content-end">
             <div class="dropdown flex-column d-flex text-end" id="cartdrp">
                 <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
-                    <span class="align-middle material-symbols-outlined" style="font-size:32px;">shopping_cart</span>
+                    <span class="align-middle material-symbols-outlined" style="font-size:32px;">notifications</span>
                 </button>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
                     <div class="container px-3 py-2">
-                        <h4 class="fw-black">YOUR CART</h4>
+                        <h4 class="fw-black">NOTIFICATIONS</h4>
                         <?php include "notimp.php" ?>
                     </div>
                 </div>
@@ -262,7 +262,7 @@ body{
                     ?>
                     <div class="container px-3 py-2">
                         <label class="px-2">Welcome, <a class="text-decoration-none" href="/<?php echo $url ?>/index.php"><?php echo $shortName ?></a>!</label>
-                        <button type="button" class="btn btn-danger" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                        <button type="button" class="btn btn-danger ahvbutton float-end" onclick="location.href='/api/auth/signout.php';">Logout</button>
                     </div>
                     <?php
                         }
