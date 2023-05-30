@@ -22,6 +22,7 @@ if(!isset($pageTitle)){
         <link href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.css" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.dataTables.css" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.css" rel="stylesheet"/>
+        <link href="ahvelo-general.css" rel="stylesheet"/>
     </head>
     <body class="d-flex flex-column h-100">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js" integrity="sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -42,3 +43,4 @@ if(!isset($pageTitle)){
         <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.js"></script>
         <!-- Tempus Dominus JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.4.4/dist/js/tempus-dominus.min.js" crossorigin="anonymous"></script>
+        <script src="ahvelo-general.js"></script>
