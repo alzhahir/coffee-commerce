@@ -8,7 +8,7 @@
 ?>
 <div class="w-100">
     <div class="toast-container fixed-bottom me-3 bottom-0 end-0 float-end" style="left:unset;">
-        <div id="toastAuthErr" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastAuthErr" class="toast text-bg-error align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     <span class="material-symbols-outlined align-middle text-center px-0">
@@ -16,10 +16,10 @@
                     </span>
                     You need to login to add to cart.
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-        <div id="toastErr" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastErr" class="toast text-bg-error align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     <span class="material-symbols-outlined align-middle text-center px-0">
@@ -27,10 +27,10 @@
                     </span>
                     Failed to add item to Your Cart!
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-        <div id="toastSucc" class="toast align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastSucc" class="toast text-bg-success align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     <span class="material-symbols-outlined align-middle text-center px-0">
@@ -38,10 +38,10 @@
                     </span>
                     The item has been added to Your Cart.
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-        <div id="toastUpdSucc" class="toast align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastUpdSucc" class="toast text-bg-success align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     <span class="material-symbols-outlined align-middle text-center px-0">
@@ -49,10 +49,10 @@
                     </span>
                     Your Cart has been updated.
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-        <div id="toastUpdErr" class="toast align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastUpdErr" class="toast text-bg-error align-items-center mb-3" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     <span class="material-symbols-outlined align-middle text-center px-0">
@@ -60,14 +60,15 @@
                     </span>
                     Failed to update Your Cart.
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>
 </div>
     <script>
-        $(document).on('click', '#prodShoppingBtn', function(){
+        $(document).on('click', '.prodShoppingBtn', function(){
             btnData = $(this).data("value");
+            itmId = btnData;
             $.ajax('/api/user/post/cart.php', {
                 type: 'POST',
                 data: {
@@ -77,6 +78,23 @@
                     const toastElList = document.querySelectorAll('#toastSucc')
                     const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
                     toastList.forEach(toast => toast.show());
+                    itemExists = false;
+                    $('.qtynum').each(function(){
+                        if($(this).data('id') == itmId){
+                            itmQty = parseInt($(this).attr('value'));
+                            $(this).attr('value', (itmQty + 1));
+                            $(this).val((itmQty + 1));
+                            itemExists = true;
+                        }
+
+                    })
+                    if(!itemExists){
+                        location.reload();
+                    }
+                    //qtyval = parseInt($('input[data-id="'+btnData+'"]').attr('value'));
+                    //$('input[data-id="'+btnData+'"]').val(qtyval+1).trigger('change');
+                    //$('input[data-id="'+btnData+'"]').attr('value', qtyval+1).trigger('change');
+                    //window.location.reload();
                 },
                 error: function(jqXHR){
                     if(jqXHR.status == "401"){
@@ -108,10 +126,10 @@
                 const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
                 toastList.forEach(toast => toast.show());
             });*/
-            $.get('/api/user/get/cart.php', function(data, status){
-                $('.qtynum').attr('value', data.data[0][2][0][1]);
-                $('.qtynum').val(data.data[0][2][0][1]);
-            });
+            //$.get('/api/user/get/cart.php', function(data, status){
+            //    $('.qtynum').attr('value', data.data[0][2][0][1]);
+            //    $('.qtynum').val(data.data[0][2][0][1]);
+            //});
         });
     </script>
     <footer class="flex-wrap align-items-center justify-content-center justify-content-md-between footer mt-auto bg-dark py-2 px-3 mt-5">
