@@ -28,7 +28,7 @@
             $prodQty = $_POST["quantity"];
         }
 
-        $testCartSQL = "SELECT 1 FROM carts WHERE cust_id = $custId";
+        $testCartSQL = "SELECT * FROM carts WHERE cust_id = $custId";
         $testCartRes = mysqli_query($conn, $testCartSQL);
         if(!is_bool($testCartRes)){
             if(mysqli_num_rows($testCartRes) != 0){
@@ -76,13 +76,13 @@
             }
         }
 
-        $testItmSQL = "SELECT 1 FROM cart_items WHERE prod_id = $productId";
+        $testItmSQL = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid";
         $itmRes = mysqli_query($conn, $testItmSQL);
         if(!is_bool($itmRes)){
-            if(mysqli_num_rows($itmRes) == 0){
+            if(mysqli_num_rows($itmRes) < 1){
                 $addCartItmSQL = "INSERT INTO cart_items (cart_id, prod_id, cart_item_qty) VALUES (?, ?, ?)";
                 if ($stmt=mysqli_prepare($conn, $addCartItmSQL)){
-                    mysqli_stmt_bind_param($stmt, "sss", $cart_id, $prod_id, $cart_item_qty);
+                    mysqli_stmt_bind_param($stmt, "iii", $cart_id, $prod_id, $cart_item_qty);
 
                     $cart_id = $caid;
                     $prod_id = $productId;
@@ -110,6 +110,53 @@
                 } else {
                     http_response_code(500);
                     die();
+                }
+
+                if(isset($_POST['quantity']) && $_POST['quantity'] < 1){
+                    $delCartItm = "DELETE FROM cart_items WHERE cart_id = ? AND prod_id = ?";
+                    if ($stmt=mysqli_prepare($conn, $delCartItm)){
+                        mysqli_stmt_bind_param($stmt, "ii", $cart_id, $prod_id);
+    
+                        $cart_id = $caid;
+                        $prod_id = $productId;
+    
+                        if(mysqli_stmt_execute($stmt)){
+                            $getCartItm = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid";
+                            $getCartItmRes = mysqli_query($conn, $getCartItm);
+                            if(!is_bool($getCartItmRes)){
+                                $cartItmNum = mysqli_num_rows($getCartItmRes);
+                                if($cartItmNum < 1){
+                                    $delCartSQL = "DELETE FROM carts WHERE cust_id = ?";
+                                    if ($stmt=mysqli_prepare($conn, $delCartSQL)){
+                                        mysqli_stmt_bind_param($stmt, "s", $cust_id);
+                    
+                                        $cust_id = $custId;
+                    
+                                        if(mysqli_stmt_execute($stmt)){
+                                            //
+                                        } else {
+                                            mysqli_stmt_close($stmt);
+                                            http_response_code(500);
+                                            die();
+                                        }
+                    
+                                        mysqli_stmt_close($stmt);
+                                    }
+                                } else {
+                                    //
+                                }
+                            } else {
+                                http_response_code(500);
+                                die();
+                            }
+                        } else {
+                            mysqli_stmt_close($stmt);
+                            http_response_code(500);
+                            die();
+                        }
+    
+                        mysqli_stmt_close($stmt);
+                    }
                 }
 
                 if(isset($currQty)){
