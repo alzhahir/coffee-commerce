@@ -23,7 +23,7 @@
         <?php
             if($currProd[4] > 0){
         ?>
-            <button id="prodShoppingBtn" data-value="<?php echo($currProd[0]); ?>" class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2">
+            <button id="prodShoppingBtn" data-value="<?php echo($currProd[0]); ?>" class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2 prodShoppingBtn">
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     add_shopping_cart
                 </span>
