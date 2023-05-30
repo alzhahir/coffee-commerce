@@ -3,68 +3,7 @@
 //header content
 
 ?>
-
-<script>
-    $(function(){
-        $('a').each(function(){
-            if ($(this).prop('href') == window.location.href) {
-                $(this).addClass('active'); $(this).parents('li').addClass('active');
-            }
-        });
-    });
-</script>
-
 <style>
-#form-floating,::before{
-    pointer-events:none;
-    background-color:transparent!important;
-}
-.avdrpd{
-    min-width:50vw;
-}
-.avnav{
-    display:inline;
-}
-.avside{
-    display:none;
-}
-@media only screen and (max-width: 580px) {
-    .avdrpd{
-        min-width:100vw;
-    }
-}
-@media only screen and (max-width: 824px) {
-    .avnav{
-        display:none!important;
-    }
-    .avside{
-        display:block;
-    }
-}
-.sgfd-parent{
-    width:10px;
-    height:70%;
-    margin:0px;
-}
-.sgfd{
-    opacity: 20%;
-    background-color:black;
-    width:1px;
-    height:100%;
-    margin: 5px 0px 5px 0px;
-}
-@media only screen and (max-width: 768px) {
-    .sgfd-parent{
-        width:100%;
-        height:30px;
-    }
-   .sgfd{
-        width:100%;
-        height:1px;
-        margin: 10px 0px 10px 0px;
-    }
-}
-
 .ahvnavbut{
     color:white;
     background-color: #D02A2A!important;
@@ -82,75 +21,9 @@
     transition-duration: 0s;
     background-color: #FF6E6E!important;
 }
-
-.ahvbutton{
-    color:white;
-    background-color: #FA3F3F!important;
-    border-radius:30px;
-    transition-duration: 0.1s;
-    border:0px;
-}
-.ahvbutton:hover{
-    background-color: #D02A2A!important;
-}
-.ahvbutton:active{
-    transition-duration: 0s;
-    background-color: #FF6E6E!important;
-}
-
-.ahvpc{
-    background-color: #D02A2A!important;
-}
-
-.ahvsc{
-    background-color: #FA3F3F!important;
-}
-
-#prodcat::-webkit-scrollbar {
-  display: none;
-}
-
-#prodcat {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.carousel-inner > .item > img {
-  width: 100%;
-}
-
-.catgrad {
-    background: rgb(255,255,255);
-    background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-}
-.catgradb {
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-}
-
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:&display=swap');
-body{
-    font-family: 'League Spartan', sans-serif;
-}
-
-.fw-black {
-    font-weight: 900;
-}
-
 #navbarmain .active {
     color:            #FFFFFF;
     background-color: #FA3F3F!important;
-}
-
-.material-symbols-outlined {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 48
 }
 </style>
 
@@ -338,8 +211,6 @@ body{
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
-        //const toastElList = document.querySelectorAll('.toast')
-        //const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.has('autherror')){
@@ -366,46 +237,4 @@ body{
             }
         ?>
     })
-
-    $('#dropdownMenuButton').click(function() {
-        if ($('.avdrpd').is(":visible") && screen.width < 580){
-            $('body').css('overflow', 'hidden');
-        } else {
-            $('body').css('overflow', 'auto');
-        }
-    });
-
-    $('#dropdownCartButton').click(function() {
-        if ($('.avdrpd').is(":visible") && screen.width < 580){
-            $('body').css('overflow', 'hidden');
-        } else {
-            $('body').css('overflow', 'auto');
-        }
-    });
-
-    $('.navbar-toggler').on('hidden.bs.dropdown', function() {
-        if ($('.avdrpd').is(":hidden")){
-            $('body').css('overflow', 'auto');
-        } else {
-            $('body').css('overflow', 'hidden');
-        }
-    });
-
-    $('#loginModal').on('hidden.bs.modal', function(){
-        let url = new URL(window.location.href);
-        url.searchParams.delete('error');
-        url.searchParams.delete('signup');
-        window.history.pushState({}, document.title, url);
-    })
-
-    $('#closebtn').click(function() {
-        //$(this).parents('.dropdown').find('button.dropdown-toggle').dropdown('toggle');
-        $("#drpmenu").dropdown("toggle");
-        //$("#drpmenu").toggle();
-        let url = new URL(window.location.href);
-        url.searchParams.delete('error');
-        url.searchParams.delete('signup');
-        url.searchParams.delete('autherror');
-        window.history.pushState({}, document.title, url);
-    });
 </script>
