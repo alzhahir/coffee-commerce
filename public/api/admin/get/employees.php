@@ -1,6 +1,6 @@
 <?php
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
-    include($ROOTPATH . '/internal/admincontrol.php')
+    include($ROOTPATH . '/internal/admincontrol.php');
     require_once $ROOTPATH . "/internal/db.php";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         $getEmpSQL = "SELECT u.usr_id, e.emp_name, u.user_email, e.emp_gender FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id";

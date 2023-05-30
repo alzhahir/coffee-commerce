@@ -91,7 +91,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                     </select>
                     <label for="posid">Position</label>
                 </div>
-                <div class="d-grid">
+                <div class="float-start">
                     <button class="btn btn-primary btn-lg ahvbutton" id="signUpButton" type="submit">Sign Up</button>
                 </div>
             </form>
