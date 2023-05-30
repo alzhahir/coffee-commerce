@@ -316,6 +316,25 @@ body{
     </div>
 </div>
 
+<!-- Modal for confirm cart item del -->
+<div class="modal fade" id="confirmCartDel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmCDelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-black" id="confirmCDelLabel">REMOVE ITEM</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fw-bold">Do you wish to remove this item from the cart?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal">CANCEL</button>
+                <button type="button" class="btn btn-danger ahvbutton" id="confirmCartDelBtn">CONFIRM</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
