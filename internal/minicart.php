@@ -1,6 +1,17 @@
 <?php
     session_start();
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    if(str_contains($_SERVER["REQUEST_URI"], "payment.php")){
+        ?>
+        <div style="display:table;">
+            <span class="material-symbols-outlined" style="display:table-cell;vertical-align:middle;">
+                warning
+            </span>
+            <span class="ps-2" style="font-size:18px;display:table-cell;vertical-align:middle;">Cart cannot be modified while on the payment page.</span>
+        </div>
+        <?php
+        return;
+    }
     $included = true;
     include($PROJECTROOT . '/public/api/user/get/cart.php');
     include($PROJECTROOT . '/public/api/get/products.php');
