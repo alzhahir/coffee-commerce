@@ -15,18 +15,21 @@ $shortName = strtok($_SESSION["name"], " ");
         $(document).ready(function(){
             try{
                 order_items = JSON.parse(sessionStorage.getItem('cartitems'))
+                console.log(order_items.data)
+                for(let i = 0; i < order_items.data.length; i++){
+                    $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+order_items.data[i][2]+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>')
+                }
+                subTotal.innerText = order_items.subtotal
+                taxTotal.innerText = order_items.tax
+                totalSum.innerText = order_items.total
             }catch(err){
                 if(err instanceof SyntaxError /*typeof order_items === 'undefined'*/){
                     showItemRequiredModal()
                 }
+                if(err instanceof TypeError /*typeof order_items === 'undefined'*/){
+                    showItemRequiredModal()
+                }
             }
-            console.log(order_items.data)
-            for(let i = 0; i < order_items.data.length; i++){
-                $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+order_items.data[i][2]+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>')
-            }
-            subTotal.innerText = order_items.subtotal
-            taxTotal.innerText = order_items.tax
-            totalSum.innerText = order_items.total
         })
     </script>
     <div class="mx-2 px-4 py-4 bg-white rounded-4 shadow">
