@@ -91,11 +91,7 @@ function createCheckoutTable(){
             t_items.push([items[i], itemNames[i], itemQty[i], itemPrices[i], curRow[0][i]])
         }
         if(typeof curRow === 'undefined'){
-            $('#itemRequiredModal').modal('show');
-            $("#itemRequiredModal").on("hidden.bs.modal", function () {
-                $('.btn').prop('disabled', true)
-                window.location.href = "/shop.php"
-            });
+            showItemRequiredModal()
         }
         curRow.each(function(index){
             for(let i = 0; i < index.length; i++){
