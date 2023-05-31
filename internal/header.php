@@ -208,6 +208,24 @@
     </div>
 </div>
 
+<!-- Modal to check if cart is empty -->
+<div class="modal fade" id="itemRequiredModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="itemRequiredLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-black" id="itemRequiredLabel">EMPTY CART</h1>
+                <button type="button" class="btn-close itmreqclose" <?php //data-bs-dismiss="modal" ?> aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fw-bold">To proceed, add any item to Your Cart.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ahvbutton itmreqclose" <?php //data-bs-dismiss="modal" ?> id="itemRequiredBtn">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
