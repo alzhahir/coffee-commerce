@@ -86,7 +86,7 @@
                                 "name" => $currProd[1],
                                 "quantity" => $currItm[1],
                                 "price" => $currProd[3],
-                                "subtotal" => $currProd[3] * $currItm[1]
+                                "subtotal" => number_format(($currProd[3] * $currItm[1]), 2)
                             )));
                         }
                     }
