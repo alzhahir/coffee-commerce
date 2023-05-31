@@ -12,7 +12,7 @@
 <?php
     foreach($prodData as $currProd){
         ?>
-        <div class="col w-100 align-items-center justify-content-center align-middle text-center" style="display:inline-block;width:224px!important;">
+        <div class="col w-100 align-items-center justify-content-center align-middle text-center <?php if(str_contains($_SERVER["REQUEST_URI"], "shop.php")){echo "pb-3";} ?>" style="display:inline-block;width:224px!important;">
             <svg class="flex-row bd-placeholder-img bd-placeholder-img-lg rounded-5" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Placeholder</title>
                 <rect width="100%" height="100%" fill="#777"></rect>
