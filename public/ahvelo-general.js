@@ -106,8 +106,6 @@ function createCheckoutTable(){
         finalTotal = total + tax
         gl_total = finalTotal.toFixed(2);
         gl_items.push({data: t_items, subtotal: subTotalVal, tax: taxVal, total: gl_total})
-        console.log(gl_items[0])
-        console.log(JSON.stringify(gl_items[0]))
         totalSum.innerText = finalTotal.toFixed(2);
     })
 }
