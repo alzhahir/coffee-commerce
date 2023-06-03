@@ -13,12 +13,17 @@ $shortName = strtok($_SESSION["name"], " ");
         //    createCheckoutTable();
         //});
         $(document).ready(function(){
+            var order_send_total;
+            var order_send_items;
+            var order_send_method;
             try{
                 order_items = JSON.parse(sessionStorage.getItem('cartitems'))
                 console.log(order_items.data)
                 for(let i = 0; i < order_items.data.length; i++){
                     $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+order_items.data[i][2]+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>')
                 }
+                order_send_items = order_items.data
+                order_send_total = order_items.total
                 subTotal.innerText = order_items.subtotal
                 taxTotal.innerText = order_items.tax
                 totalSum.innerText = order_items.total
@@ -30,6 +35,20 @@ $shortName = strtok($_SESSION["name"], " ");
                     showItemRequiredModal()
                 }
             }
+            $('.btnPayNow').on('click', function(){
+                order_send_method = $('input[name="paymentmethod"]:checked').val();
+                $.post("/api/user/post/orders.php", {
+                    paymethod: order_send_method,
+                    items: order_send_items,
+                    total: order_send_total,
+                })
+                .done(function(){
+                    window.location.href = '/customer/order.php?order=success'
+                })
+                .fail(function(){
+                    window.location.href = '/customer/order.php?order=fail'
+                })
+            })
         })
     </script>
     <div class="mx-2 px-4 py-4 bg-white rounded-4 shadow">
@@ -68,7 +87,7 @@ $shortName = strtok($_SESSION["name"], " ");
         <div>
             <span class="fw-black fs-4">PAYMENT METHOD</span>
             <div class="form-check py-2">
-                <input class="form-check-input" type="radio" name="paymentmethod" id="cashpayment" checked>
+                <input class="form-check-input" type="radio" name="paymentmethod" id="cashpayment" value="0" checked>
                 <label class="form-check-label" for="cashpayment">
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         payments
@@ -77,7 +96,7 @@ $shortName = strtok($_SESSION["name"], " ");
                 </label>
             </div>
             <div class="form-check py-2">
-                <input class="form-check-input" type="radio" name="paymentmethod" id="cardpayment" disabled>
+                <input class="form-check-input" type="radio" name="paymentmethod" id="cardpayment" value="1" disabled>
                 <label class="form-check-label" for="cardpayment">
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         credit_card
@@ -97,7 +116,7 @@ $shortName = strtok($_SESSION["name"], " ");
             </button>
         </div>
         <div class="col justify-content-end">
-            <button class="my-4 me-2 float-end btn btn-lg btn-success rounded-pill">
+            <button class="my-4 me-2 float-end btn btn-lg btn-success rounded-pill btnPayNow">
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     payments
                 </span>    
