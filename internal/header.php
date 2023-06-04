@@ -142,9 +142,11 @@
                             $url = $_SESSION["utype"];
                             $shortName = strtok($_SESSION["name"], " ");
                     ?>
-                    <div class="container px-3 py-2">
-                        <label class="px-2">Welcome, <a class="text-decoration-none" href="/<?php echo $url ?>/index.php"><?php echo $shortName ?></a>!</label>
-                        <button type="button" class="btn btn-danger" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                    <div class="containter px-3 py-2">
+                        <div class="row">
+                            <label class="col fw-black fs-5 px-2 my-auto">WELCOME, <a class="text-decoration-none" href="/<?php echo $url; ?>/index.php"><?php echo strtoupper($shortName); ?></a>!</label>
+                            <button type="button" class="col col-auto btn btn-danger ahvbutton" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                        </div>
                     </div>
                     <?php
                         }

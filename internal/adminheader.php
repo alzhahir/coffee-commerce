@@ -134,8 +134,21 @@
                             $shortName = strtok($_SESSION["name"], " ");
                     ?>
                     <div class="container px-3 py-2">
-                        <label class="px-2">Welcome, <a class="text-decoration-none" href="/<?php echo $url ?>/index.php"><?php echo $shortName ?></a>!</label>
-                        <button type="button" class="btn btn-danger ahvbutton float-end" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                        <div class="row">
+                            <label class="col px-2 fw-black fs-5 my-auto">WELCOME, <a class="text-decoration-none" href="/<?php echo $url; ?>/index.php"><?php echo strtoupper($shortName); ?></a>!</label>
+                            <button type="button" class="col col-auto btn btn-danger ahvbutton" onclick="location.href='/api/auth/signout.php';">Logout</button>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <span class="col col-lg-auto px-2">You are an administrator.</span>
+                        </div>
+                        <div class="row">
+                            <span class="col pe-auto px-2 my-auto">You can switch to Staff dashboard.</span>
+                            <button type="button" class="col col-auto border-0 btn" onclick="location.href='/staff/index.php';">
+                                <span class="align-middle material-symbols-outlined" style="font-size:24px;">switch_account</span>
+                                SWITCH
+                            </button>
+                        </div>
                     </div>
                     <?php
                         }
@@ -145,8 +158,19 @@
         </div>
         <div class="collapse navbar-collapse p-0" id="navbarmain">
             <ul class="nav navbar-nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 my-2">
-                <li><a href="/admin/" class="nav-link px-3">Home</a></li>
                 <?php
+                    if(isset($_SESSION["uid"])){
+                        $url = $_SESSION["utype"];
+                        $shortName = strtok($_SESSION["name"], " ");
+                        ?>
+                        <li><a href="/<?php echo $url ?>/index.php" class="nav-link px-3">Home</a></li>
+                        <?php
+                    } else {
+                        ?>
+                        <li><a href="/admin/" class="nav-link px-3">Home</a></li>
+                        <?php
+                    }
+
                     if(isset($_SESSION["uid"])){
                         echo '<li><a href="/api/auth/signout.php" class="nav-link px-3">Logout</a></li>';
                     } else {
