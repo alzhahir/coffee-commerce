@@ -18,7 +18,7 @@ $shortName = strtok($_SESSION["name"], " ");
             var order_send_method;
             try{
                 order_items = JSON.parse(sessionStorage.getItem('cartitems'))
-                console.log(order_items.data)
+                //console.log(order_items.data)
                 for(let i = 0; i < order_items.data.length; i++){
                     $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+order_items.data[i][2]+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>')
                 }
@@ -36,6 +36,8 @@ $shortName = strtok($_SESSION["name"], " ");
                 }
             }
             $('.btnPayNow').on('click', function(){
+                $('btn').prop('disabled', true);
+                $('#disableInputModal').modal('show');
                 order_send_method = $('input[name="paymentmethod"]:checked').val();
                 $.post("/api/user/post/orders.php", {
                     paymethod: order_send_method,
@@ -122,6 +124,25 @@ $shortName = strtok($_SESSION["name"], " ");
                 </span>    
                 Pay
             </button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="disableInputModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="disableInputLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3 fw-black" id="disableInputLabel">PROCESSING ORDER</h1>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <svg id="loadSpinner" class="spinnerCustom" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="pathCustom" fill="none" stroke-width="8" stroke-linecap="square" cx="50" cy="50" r="30"></circle>
+                    </svg>
+                </div>
+                <div class="row d-flex justify-content-center align-middle pt-2">
+                    <span class="fw-medium fs-5 align-middle text-center">Please wait while we process the order. Do not close, refresh, or press the back button.</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
