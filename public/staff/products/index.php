@@ -70,9 +70,6 @@ include($ROOTPATH . '/internal/staffheader.php');
                 var data = mainTable.row($(this).parents('tr')).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
                 $('#editProdForm').attr('action', updEndpoint+'?prod_id='+data[0]);
-                $('#edProdName').val(data[1]);
-                $('#edProdImgUrl').val(data[2]);
-                $('#edProdPrice').val(data[3]);
                 $('#edProdStock').val(data[4]);
                 $('#editProd').modal('show');
             })
