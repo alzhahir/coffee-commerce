@@ -14,7 +14,7 @@ if(isset($_SESSION['utype'])){
             shield_lock
         </span>
         <p class="h3 fw-medium user-select-none">Your account does not have the required privileges to access this page.</p>
-        <a href="/<?php echo($userType); ?>/index.php" class="btn btn-outline-danger">RETURN HOME</a>
+        <a href="/<?php echo($userType); ?>index.php" class="rounded-pill btn btn-outline-danger">RETURN HOME</a>
     </div>
 </div>
 <?php

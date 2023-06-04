@@ -9,7 +9,7 @@ include($ROOTPATH . '/internal/errorcontrol.php');
             unknown_document
         </span>
         <p class="h3 fw-medium user-select-none">The server is experiencing some issues. Please try again later.</p>
-        <a href="/<?php echo($userType); ?>index.php" class="btn btn-outline-danger">RETURN HOME</a>
+        <a href="/<?php echo($userType); ?>index.php" class="rounded-pill btn btn-outline-danger">RETURN HOME</a>
     </div>
 </div>
 <?php

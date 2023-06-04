@@ -14,7 +14,7 @@ if(isset($_SESSION['utype'])){
             block
         </span>
         <p class="h3 fw-medium user-select-none">You must be authenticated to access this service.</p>
-        <a href="/<?php echo($userType); ?>index.php" class="btn btn-outline-danger">RETURN HOME</a>
+        <a href="/<?php echo($userType); ?>index.php" class="rounded-pill btn btn-outline-danger">RETURN HOME</a>
     </div>
 </div>
 <?php
