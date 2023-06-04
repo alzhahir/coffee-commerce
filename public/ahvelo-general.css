@@ -1,4 +1,4 @@
-#form-floating,::before{
+input#form-floating,.form-floating:not(.form-control:disabled)::before{
     pointer-events:none;
     background-color:transparent!important;
 }
