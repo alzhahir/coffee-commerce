@@ -5,6 +5,12 @@ include('../../internal/htmlhead.php');
 include('../../internal/header.php');
 $shortName = strtok($_SESSION["name"], " ");
 
+if(isset($_SESSION['latestOrdID'])){
+    $orderText = $_SESSION['latestOrdID'];
+} else {
+    $orderText = "#ERROR";
+}
+
 if(isset($_GET['order'])){
     if($_GET['order'] == 'success'){
         ?>
@@ -17,8 +23,14 @@ if(isset($_GET['order'])){
             <div style="margin:auto; text-align:center; width:50%;" class="align-middle d-flex align-items-center justify-content-center">
                 <div class='d-flex justify-content-center align-items-center row ms-1'>
                     <h1 class="fw-black align-middle mb-0">ORDER RECEIVED!</h1>
-                    <span class="fs-3 fw-medium align-middle mb-0">Our baristas will prepare your order shortly.</span>
-                    <span class="fs-5 align-middle mb-0">Please wait while we prepare your order. You can track your order at your account page. If you have any problems with the order you can contact us.</span>
+                    <span class="fs-3 fw-medium align-middle mb-2">Our baristas will prepare your order shortly.</span>
+                    <hr>
+                    <span class="fs-3 fw-medium align-middle mb-0">Your order number is:</span>
+                    <div class="bg-warning rounded-pill mb-4 w-25">
+                        <span class="fs-1 fw-black align-middle"><?php echo $orderText ?></span>
+                    </div>
+                    <hr class="pt-2">
+                    <span class="fs-5 align-middle mb-0">Please wait while we prepare your order. You can track your orders at your account page. If you have any problems with the order you can contact us.</span>
                 </div>
             </div>
         </div>

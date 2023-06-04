@@ -130,6 +130,8 @@
             die();
         }
 
+        $_SESSION['latestOrdID'] = $ordId;
+
         $ordItmIndex = 0;
         foreach($items as $curritm){
             $addOrdItmSQL = "INSERT INTO order_lists (order_id, prod_id, ord_list_qty, ord_list_price, ord_list_amt) VALUES (?, ?, ?, ?, ?)";
@@ -164,6 +166,36 @@
                     }
                     http_response_code(500);
                     die();
+                }
+
+                $currStockSQL = "SELECT prod_stock FROM products WHERE prod_id = $curritm[0]";
+                $currStockRes = mysqli_query($conn, $currStockSQL);
+                if(!is_bool($currStockRes)){
+                    $currStockArr = mysqli_fetch_all($currStockRes);
+                    $currStockArr = array_values($currStockArr);
+                    foreach($currStockArr as $currStock){
+                        $prodStock = $currStock[0];
+                    }
+                }
+
+                if(!isset($prodStock)){
+                    http_response_code(500);
+                    die();
+                }
+
+                $updateStockSQL = "UPDATE products SET prod_stock = ? WHERE prod_id = ?";
+                if($stmt=mysqli_prepare($conn, $updateStockSQL)){
+                    mysqli_stmt_bind_param($stmt, 'ii', $prod_stock, $prod_id);
+
+                    $prod_id = $curritm[0];
+                    $prod_stock = $prodStock - $curritm[2];
+                    if(!mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_close($stmt);
+                        http_response_code(500);
+                        die();
+                    }
+
+                    mysqli_stmt_close($stmt);
                 }
             } else {
                 http_response_code(500);
