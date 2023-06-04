@@ -174,7 +174,7 @@ function custOrder(){
                         responsive: true,
                         columnDefs: [
                             {
-                                "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn">View Details</button>',
+                                "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
                                 "targets": -1
                             },
                             {
