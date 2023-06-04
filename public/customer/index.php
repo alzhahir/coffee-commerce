@@ -1,5 +1,6 @@
 <?php
 session_start();
+$pageTitle = "Ahvelo Coffee - Account Home";
 include('../../internal/custcontrol.php');
 include('../../internal/htmlhead.php');
 include('../../internal/header.php');
@@ -44,7 +45,7 @@ $shortName = strtok($_SESSION["name"], " ");
                                 <th>Order Time</th>
                                 <th>Order Status</th>
                                 <th>Order Total</th>
-                                <th>Customer ID</th>
+                                <th>Payment Method</th>
                                 <th>View Details</th>
                             </tr>
                         </thead>
