@@ -146,6 +146,68 @@ function createCartTable(){
     new $.fn.dataTable.FixedHeader( mainTable );
 }
 
+function renderOrdItemDT(apiEndpoint){
+    vdetTable = $('#ordDetTable').DataTable({
+                    autoWidth: false,
+                    responsive: true,
+                    ajax: {
+                        url: apiEndpoint,
+                        dataSrc: 'data',
+                    },
+                    responsive: true,
+                    columnDefs: [
+                        {
+                            "defaultContent": "-",
+                            "targets": "_all"
+                        },
+                    ],
+                });
+}
+function custOrder(){
+    var ordTable = $('#ordTable').DataTable({
+                        autoWidth: false,
+                        responsive: true,
+                        ajax: {
+                            url: '/api/user/get/orders.php',
+                            dataSrc: 'data',
+                        },
+                        responsive: true,
+                        columnDefs: [
+                            {
+                                "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn">View Details</button>',
+                                "targets": -1
+                            },
+                            {
+                                "defaultContent": "-",
+                                "targets": "_all"
+                            },
+                        ],
+                    });
+    
+    $("#ordTable tbody").on('click', '.viewDetBtn', function() {
+        var data = ordTable.row().data();
+        var getOrdEndpoint = '/api/user/get/orders.php?order_id='+data[0];
+        renderOrdItemDT(getOrdEndpoint);
+        $('#viewOrd').modal('show');
+        $.get(getOrdEndpoint, function(data){
+            ordDate.innerText = data['date'];
+            ordTime.innerText = data['time'];
+            ordStat.innerText = data['status'];
+            ordPMethod.innerText = data['paymentMethod'];
+            ordTot.innerText = data['total'];
+        })
+    })
+    $('#viewOrd').on('hidden.bs.modal', function(){
+        vdetTable.destroy();
+        ordDate.innerText = "";
+        ordTime.innerText = "";
+        ordStat.innerText = "";
+        ordPMethod.innerText = "";
+        ordTot.innerText = "";
+    })
+    new $.fn.dataTable.FixedHeader( ordTable );
+}
+
 $(document).ready(function(){
     $('.navbar-toggler').on('hidden.bs.dropdown', function() {
         $('#menuIconLabel').toggleClass('filled', $('#drpmenu').is(":visible"))
