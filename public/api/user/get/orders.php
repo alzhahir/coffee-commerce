@@ -16,11 +16,11 @@
 
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         $cid = $_SESSION["cust_id"];
-        if(!is_numeric($_GET['order_id'])){
-            http_response_code(400);
-            die();
-        }
         if(isset($_GET['order_id'])){
+            if(!is_numeric($_GET['order_id'])){
+                http_response_code(400);
+                die();
+            }
             $ordId = $_GET['order_id'];
             $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, payment_id FROM orders WHERE order_id = $ordId AND cust_id = $cid";
             $ordRes = mysqli_query($conn, $getOrdSQL);
