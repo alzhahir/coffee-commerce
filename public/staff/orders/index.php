@@ -55,10 +55,6 @@ include($ROOTPATH . '/internal/staffheader.php');
                                         "targets": "_all"
                                     },
                                 ],
-                                dom: 'Bfrtip',
-                                buttons: [
-                                    'print'
-                                ],
                             });
             }
             var mainTable = $('#ordTable').DataTable({
@@ -71,11 +67,11 @@ include($ROOTPATH . '/internal/staffheader.php');
                                 responsive: true,
                                 columnDefs: [
                                     {
-                                        "defaultContent": '<button class="btn btn-primary ahvbutton editStatBtn">Edit Status</button>',
+                                        "defaultContent": '<button class="btn btn-primary ahvbutton editStatBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">edit</span>Edit Status</button>',
                                         "targets": -1
                                     },
                                     {
-                                        "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn">View Details</button>',
+                                        "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
                                         "targets": -2
                                     },
                                     {
@@ -90,7 +86,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                             });
             $("#ordTable tbody").on('click', '.editStatBtn', function() {
                 var updEndpoint = '/api/staff/update/orders.php';
-                var data = mainTable.row($(this).parents('tr')).data();
+                var data = mainTable.row().data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
                 $('#editOrdForm').attr('action', updEndpoint+'?order_id='+data[0]);
                 currStat = data[3];
