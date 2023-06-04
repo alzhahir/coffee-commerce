@@ -18,5 +18,5 @@ if(isset($_SESSION['utype'])){
     </div>
 </div>
 <?php
-include('../../internal/footer.php');
+include($ROOTPATH . '/internal/footer.php');
 ?>
