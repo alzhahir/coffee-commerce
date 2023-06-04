@@ -123,3 +123,70 @@ body{
         'GRAD' 0,
         'opsz' 48
 }
+
+/*Spinner CSS code starts*/
+  
+.spinnerCustom {
+    vertical-align: baseline;
+    animation: rotator 1.4s linear infinite;
+}
+
+circle{
+    display: inline;
+}
+
+#loadSpinner{
+    padding: 0px;
+    width: 100px;
+    height: 100px;
+}
+  
+@keyframes rotator {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(270deg);
+    }
+}
+  
+.pathCustom {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+  
+@keyframes colors {
+    0% {
+      stroke: #4285F4;
+    }
+    25% {
+      stroke: #DE3E35;
+    }
+    50% {
+      stroke: #F7C223;
+    }
+    75% {
+      stroke: #1B9A59;
+    }
+    100% {
+      stroke: #4285F4;
+    }
+}
+  
+@keyframes dash {
+    0% {
+      stroke-dashoffset: 187;
+    }
+    50% {
+      stroke-dashoffset: 46.75;
+      transform: rotate(135deg);
+    }
+    100% {
+      stroke-dashoffset: 187;
+      transform: rotate(450deg);
+    }
+}
+  
+/*Spinner CSS code ends*/
