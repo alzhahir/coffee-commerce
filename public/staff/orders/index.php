@@ -86,7 +86,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                             });
             $("#ordTable tbody").on('click', '.editStatBtn', function() {
                 var updEndpoint = '/api/staff/update/orders.php';
-                var data = mainTable.row().data();
+                var data = mainTable.row(this).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
                 $('#editOrdForm').attr('action', updEndpoint+'?order_id='+data[0]);
                 currStat = data[3];
@@ -106,7 +106,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                 })
             })
             $("#ordTable tbody").on('click', '.viewDetBtn', function() {
-                var data = mainTable.row().data();
+                var data = mainTable.row(this).data();
                 var getOrdEndpoint = '/api/staff/get/orders.php?order_id='+data[0];
                 renderItemDT(getOrdEndpoint);
                 $('#viewOrd').modal('show');
