@@ -48,6 +48,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                                     url: '/api/get/products.php',
                                     dataSrc: 'data',
                                 },
+                                autoWidth: false,
                                 responsive: true,
                                 columnDefs: [
                                     {
@@ -70,7 +71,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                             });
             $("#prodTable tbody").on('click', 'button', function() {
                 var updEndpoint = '/api/admin/update/products.php';
-                var data = mainTable.row($(this).parents('tr')).data();
+                var data = mainTable.row(this).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
                 $('#editProdForm').attr('action', updEndpoint+'?prod_id='+data[0]);
                 $('#edProdName').val(data[1]);
