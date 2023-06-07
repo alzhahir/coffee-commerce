@@ -120,26 +120,26 @@ function showItemRequiredModal(){
 
 function createCartTable(){
     var mainTable = $('#cartTable').DataTable({
-                            autoWidth: false,
-                            ajax: {
-                                url: '/api/user/get/cart.php',
-                                dataSrc: 'data',
-                            },
-                            responsive: true,
-                            columnDefs: [
-                                {
-                                    targets: 0,
-                                    visible: false,
-                                },
-                            ],
-                            //dom: 'Bfrtip',
-                            buttons: [
-                                'print'
-                            ],
-                            language: {
-                                emptyTable: "Your Cart is empty"
-                            }
-                        });
+            autoWidth: false,
+            ajax: {
+                url: '/api/user/get/cart.php',
+                dataSrc: 'data',
+            },
+            responsive: true,
+            columnDefs: [
+                {
+                    targets: 0,
+                    visible: false,
+                },
+            ],
+            //dom: 'Bfrtip',
+            buttons: [
+                'print'
+            ],
+            language: {
+                emptyTable: "Your Cart is empty"
+            }
+        });
     $("#cartTable tbody").on('click', 'button', function() {
         var data = mainTable.row($(this).parents('tr')).data();
     })
@@ -148,44 +148,44 @@ function createCartTable(){
 
 function renderOrdItemDT(apiEndpoint){
     vdetTable = $('#ordDetTable').DataTable({
-                    autoWidth: false,
-                    responsive: true,
-                    ajax: {
-                        url: apiEndpoint,
-                        dataSrc: 'data',
-                    },
-                    responsive: true,
-                    columnDefs: [
-                        {
-                            "defaultContent": "-",
-                            "targets": "_all"
-                        },
-                    ],
-                });
+        autoWidth: false,
+        responsive: true,
+        ajax: {
+            url: apiEndpoint,
+            dataSrc: 'data',
+        },
+        responsive: true,
+        columnDefs: [
+            {
+                "defaultContent": "-",
+                "targets": "_all"
+            },
+        ],
+    });
 }
 function custOrder(){
     var ordTable = $('#ordTable').DataTable({
-                        autoWidth: false,
-                        responsive: true,
-                        ajax: {
-                            url: '/api/user/get/orders.php',
-                            dataSrc: 'data',
-                        },
-                        responsive: true,
-                        columnDefs: [
-                            {
-                                "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
-                                "targets": -1
-                            },
-                            {
-                                "defaultContent": "-",
-                                "targets": "_all"
-                            },
-                        ],
-                    });
+            autoWidth: false,
+            responsive: true,
+            ajax: {
+                url: '/api/user/get/orders.php',
+                dataSrc: 'data',
+            },
+            responsive: true,
+            columnDefs: [
+                {
+                    "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
+                    "targets": -1
+                },
+                {
+                    "defaultContent": "-",
+                    "targets": "_all"
+                },
+            ],
+        });
     
     $("#ordTable tbody").on('click', '.viewDetBtn', function() {
-        var data = ordTable.row().data();
+        var data = ordTable.row($(this).parents()[0]).data();
         var getOrdEndpoint = '/api/user/get/orders.php?order_id='+data[0];
         renderOrdItemDT(getOrdEndpoint);
         $('#viewOrd').modal('show');
