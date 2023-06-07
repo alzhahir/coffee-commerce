@@ -3,3 +3,4 @@
 **/*.json
 dbg/
 dbg*
+stripe-php*
