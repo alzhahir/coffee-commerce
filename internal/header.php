@@ -65,9 +65,36 @@
         </div>
         <div class="col d-flex flex-row text-end justify-content-end">
             <div class="dropdown flex-column d-flex text-end" id="cartdrp">
-                <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                <?php
+                $outputCartArr = null;
+                $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
+                $included = true;
+                include($PROJECTROOT . '/public/api/user/get/cart.php');
+                $included = false;
+                $itemNum = 0;
+                if(isset($outputCartArr)){
+                    if(isset($outputCartArr[0][2])){
+                        $itemNum = sizeof($outputCartArr[0][2]);
+                    }
+                }
+                if($itemNum > 0){
+                ?>
+                <button class="border-0 btn-lg align-middle navbar-toggler p-2 position-relative" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                    <span class="position-absolute translate-middle badge rounded-pill bg-light text-dark align-middle" style="top:25%;left:75%;">
+                        <span class="text-center align-middle my-auto"><?php echo $itemNum ?></span>
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
                     <span class="align-middle material-symbols-outlined" id="cartIconLabel" style="font-size:32px;">shopping_cart</span>
                 </button>
+                <?php
+                } else {
+                    ?>
+                    <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        <span class="align-middle material-symbols-outlined" id="cartIconLabel" style="font-size:32px;">shopping_cart</span>
+                    </button>
+                    <?php
+                }
+                ?>
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownCartButton" id="drpcart" style="width:50vw;">
                     <div class="container px-3 py-2">
                         <h4 class="fw-black">YOUR (MINI) CART</h4>

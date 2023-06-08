@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     $SERVERROOT = $_SERVER["DOCUMENT_ROOT"];
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     if(!isset($_SESSION["uid"])){

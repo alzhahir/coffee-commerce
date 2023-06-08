@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     if(str_contains($_SERVER["REQUEST_URI"], "payment.php")){
         ?>
