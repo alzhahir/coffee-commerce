@@ -1,0 +1,9 @@
+[database]
+server='your-server-address'
+username='your-database-username'
+password='your-database-password'
+database='your-database-name'
+
+[stripe]
+secret_key='your-stripe-secret-key'
+endpoint_secret='your-endpoint-secret'
