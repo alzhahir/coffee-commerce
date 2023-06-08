@@ -98,7 +98,7 @@ $shortName = strtok($_SESSION["name"], " ");
                 </label>
             </div>
             <div class="form-check py-2">
-                <input class="form-check-input" type="radio" name="paymentmethod" id="cardpayment" value="1" disabled>
+                <input class="form-check-input" type="radio" name="paymentmethod" id="cardpayment" value="1">
                 <label class="form-check-label" for="cardpayment">
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         credit_card
