@@ -142,7 +142,7 @@
             array_push($lineItm, [
                 'price_data' => [
                         'currency' => 'MYR',
-                        'unit_amount' => ($ord_list_qty*100),
+                        'unit_amount' => ($curritm[3]*100),
                         'product_data' => [
                             'name' => $curritm[1]
                         ]
@@ -295,7 +295,9 @@
             case "0": //cash
                 break;
             case "1": //stripe
-                $stripe->checkout->sessions->create($stripeArr);
+                $checkout_session = $stripe->checkout->sessions->create($stripeArr);
+                header("Location: " . $checkout_session->url);
+                die();
                 break;
             default:
                 break;
