@@ -47,7 +47,7 @@ if(isset($_GET['order'])){
                 <div class='d-flex justify-content-center align-items-center row ms-1'>
                     <h1 class="fw-black align-middle mb-0">ORDER FAILED!</h1>
                     <span class="fs-3 fw-medium align-middle mb-0">Don't worry, you can try ordering again.</span>
-                    <span class="fs-5 align-middle mb-0">For some reason, your payment failed. You can try again later, or pay by cash over the counter. If this issue persists, please contact us.</span>
+                    <span class="fs-5 align-middle mb-0">For some reason, your payment failed. Your order status is available at your account page. You can try again later, or pay by cash over the counter. If this issue persists even when paying by cash, please contact us.</span>
                 </div>
             </div>
         </div>
