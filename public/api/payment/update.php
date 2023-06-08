@@ -1,7 +1,7 @@
 <?php
+    $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     session_start();
-    $rootDir = dirname(__DIR__, 1);
-    $creds = parse_ini_file($rootDir."/.ini");
+    $creds = parse_ini_file($ROOTPATH."/.ini");
     $STRIPE_API_KEY = $creds['secret_key'];
     $STRIPE_ENDPOINT_SECRET = $creds['endpoint_secret'];
     // webhook.php
@@ -18,7 +18,6 @@
 
     //require 'vendor/autoload.php';
 
-    $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     require_once $ROOTPATH . '/internal/stripe-php/init.php';
     require_once $ROOTPATH . "/internal/db.php";
 

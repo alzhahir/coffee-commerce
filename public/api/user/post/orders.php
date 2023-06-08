@@ -1,9 +1,8 @@
 <?php
     session_start();
-    $rootDir = dirname(__DIR__, 1);
-    $creds = parse_ini_file($rootDir."/.ini");
-    $STRIPE_API_KEY = $creds['secret_key'];
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    $creds = parse_ini_file($ROOTPATH."/.ini");
+    $STRIPE_API_KEY = $creds['secret_key'];
     include($ROOTPATH . '/internal/custcontrol.php');
     require_once $ROOTPATH . '/internal/stripe-php/init.php';
     $stripe = new \Stripe\StripeClient($STRIPE_API_KEY);
