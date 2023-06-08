@@ -44,7 +44,12 @@ $shortName = strtok($_SESSION["name"], " ");
                     items: order_send_items,
                     total: order_send_total,
                 })
-                .done(function(){
+                .done(function(data){
+                    if(typeof data != undefined || data != null){
+                        //probably using stripe
+                        console.log(data.url)
+                        window.location.href = data.url
+                    }
                     window.location.href = '/customer/order.php?order=success'
                 })
                 .fail(function(){

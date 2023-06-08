@@ -296,8 +296,7 @@
                 break;
             case "1": //stripe
                 $checkout_session = $stripe->checkout->sessions->create($stripeArr);
-                header("Location: " . $checkout_session->url);
-                die();
+                echo json_encode($checkout_session);
                 break;
             default:
                 break;
