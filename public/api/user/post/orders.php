@@ -1,7 +1,12 @@
 <?php
     session_start();
+    $rootDir = dirname(__DIR__, 1);
+    $creds = parse_ini_file($rootDir."/.ini");
+    $STRIPE_API_KEY = $creds['secret_key'];
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     include($ROOTPATH . '/internal/custcontrol.php');
+    require_once $ROOTPATH . '/internal/stripe-php/init.php';
+    $stripe = new \Stripe\StripeClient($STRIPE_API_KEY);
     require_once $ROOTPATH . "/internal/db.php";
 
     if(!isset($_SESSION['name'])){
@@ -133,7 +138,18 @@
         $_SESSION['latestOrdID'] = $ordId;
 
         $ordItmIndex = 0;
+        $lineItm = [];
         foreach($items as $curritm){
+            array_push($lineItm, [
+                'price_data' => [
+                        'currency' => 'MYR',
+                        'unit_amount' => ($ord_list_qty*100),
+                        'product_data' => [
+                            'name' => $curritm[1]
+                        ]
+                    ],
+                'quantity' => $curritm[2],
+            ]);
             $addOrdItmSQL = "INSERT INTO order_lists (order_id, prod_id, ord_list_qty, ord_list_price, ord_list_amt) VALUES (?, ?, ?, ?, ?)";
             if($stmt=mysqli_prepare($conn, $addOrdItmSQL)){
                 mysqli_stmt_bind_param($stmt, 'iisss', $order_id, $prod_id, $ord_list_qty, $ord_list_price, $ord_list_amt);
@@ -248,6 +264,16 @@
             $ordItmIndex++;
         }
 
+        $stripeArr = [
+            'metadata' => [
+                'order_id' => $ordId,
+            ],
+            'success_url' => 'https://fyp.alzhahir.com/customer/order.php?order=success',
+            'line_items' => $lineItm,
+            'mode' => 'payment',
+            'expires_at' => strtotime('+30 minutes'),
+        ];
+
         $addTrackingSQL = "INSERT INTO trackings (track_desc, order_id) VALUES (?, ?)";
         if($stmt=mysqli_prepare($conn, $addTrackingSQL)){
             mysqli_stmt_bind_param($stmt, "si", $track_desc, $order_id);
@@ -264,6 +290,16 @@
         } else {
             http_response_code(500);
             die();
+        }
+
+        switch($paymethod){
+            case "0": //cash
+                break;
+            case "1": //stripe
+                $stripe->checkout->sessions->create($stripeArr);
+                break;
+            default:
+                break;
         }
         http_response_code(200);
     }
