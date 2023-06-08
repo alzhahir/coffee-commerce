@@ -1,6 +1,7 @@
 <?php
 $SERVERROOT = $_SERVER["DOCUMENT_ROOT"];
 $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
+$pageTitle = "Ahvelo Coffee - Shop";
 session_start();
 include($PROJECTROOT . '/internal/htmlhead.php');
 include($PROJECTROOT . '/internal/header.php');
