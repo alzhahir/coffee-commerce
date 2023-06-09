@@ -39,12 +39,18 @@
         );
     } catch(\UnexpectedValueException $e) {
         // Invalid payload
-        echo json_encode($e);
+        echo json_encode([
+            'error' => $e,
+            'description' => 'payload?'
+        ]);
         http_response_code(400);
         exit();
     } catch(\Stripe\Exception\SignatureVerificationException $e) {
         // Invalid signature
-        echo json_encode($e);
+        echo json_encode([
+            'error' => $e,
+            'description' => 'Signature?'
+        ]);
         http_response_code(400);
         exit();
     }
@@ -86,9 +92,17 @@
         echo 'Received unknown event type ' . $event->type;
     }
     if(!isset($statusText)){
+        echo json_encode([
+            'error' => 'STAT_TXT_NOT_SET',
+            'description' => 'Signature?'
+        ]);
         http_response_code(500);
     }
     if(!isset($orderId) || !is_numeric($orderId)){
+        echo json_encode([
+            'error' => 'ORDER_ID_FAIL',
+            'description' => 'Signature?'
+        ]);
         http_response_code(500);
     }
     $updateOrderSQL = "UPDATE orders SET order_status = ? WHERE order_id = ?";
@@ -99,6 +113,10 @@
         $order_id = $orderId;
         if(!mysqli_stmt_execute($stmt)){
             mysqli_stmt_close($stmt);
+            echo json_encode([
+                'error' => 'DB_ERROR',
+                'description' => 'Signature?'
+            ]);
             http_response_code(500);
             die();
         }
@@ -115,11 +133,19 @@
 
         if(!mysqli_stmt_execute($stmt)){
             mysqli_stmt_close($stmt);
+            echo json_encode([
+                'error' => 'DB_ERROR',
+                'description' => 'Signature?'
+            ]);
             http_response_code(500);
             die();
         }
         mysqli_stmt_close($stmt);
     } else {
+        echo json_encode([
+            'error' => 'DB_BIND_ERROR',
+            'description' => 'Signature?'
+        ]);
         http_response_code(500);
         die();
     }
