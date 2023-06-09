@@ -24,6 +24,10 @@ To configure the system, create a .ini file at the project root.
 An ini.example is provided in the repo.
 
 ```ini
+[process]
+protocol='http/https'
+host='your-host'
+
 [database]
 server='your-server-address'
 username='your-database-username'

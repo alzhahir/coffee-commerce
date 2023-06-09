@@ -1,5 +1,9 @@
+[process]
+protocol='http/https'
+host='your-host'
+
 [database]
-server='your-server-address'
+server='your-database-server-address'
 username='your-database-username'
 password='your-database-password'
 database='your-database-name'
