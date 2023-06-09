@@ -59,12 +59,12 @@
     switch ($event->type) {
         case 'charge.failed':
             $charge = $event->data->object;
-            $orderId = $session->data->metadata->order_id;
+            $orderId = $session->metadata->order_id;
             $statusText = 'Failed';
             break;
         case 'charge.succeeded':
             $charge = $event->data->object;
-            $orderId = $session->data->metadata->order_id;
+            $orderId = $session->metadata->order_id;
             $statusText = 'Paid';
             break;
         case 'checkout.session.async_payment_failed':
@@ -74,17 +74,17 @@
             break;
         case 'checkout.session.async_payment_succeeded':
             $session = $event->data->object;
-            $orderId = $session->data->metadata->order_id;
+            $orderId = $session->metadata->order_id;
             $statusText = 'Paid';
             break;
         case 'checkout.session.completed':
             $session = $event->data->object;
-            $orderId = $session->data->metadata->order_id;
+            $orderId = $session->metadata->order_id;
             $statusText = 'Paid';
             break;
         case 'checkout.session.expired':
             $session = $event->data->object;
-            $orderId = $session->data->metadata->order_id;
+            $orderId = $session->metadata->order_id;
             $statusText = 'Failed';
             break;
         // ... handle other event types
