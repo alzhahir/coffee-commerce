@@ -30,7 +30,7 @@ if(isset($_GET['order'])){
                         <span class="fs-1 fw-black align-middle"><?php echo $orderText ?></span>
                     </div>
                     <hr class="pt-2">
-                    <span class="fs-5 align-middle mb-0">Please wait while we prepare your order. You can track your orders at your account page. If you have any problems with the order you can contact us.</span>
+                    <span class="fs-5 align-middle mb-0">Please wait while we confirm your payment and prepare your order. You can track your orders at your account page. If you have any problems with the order you can contact us.</span>
                 </div>
             </div>
         </div>
