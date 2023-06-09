@@ -66,15 +66,17 @@
         <div class="col d-flex flex-row text-end justify-content-end">
             <div class="dropdown flex-column d-flex text-end" id="cartdrp">
                 <?php
-                $outputCartArr = null;
-                $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
-                $included = true;
-                include($PROJECTROOT . '/public/api/user/get/cart.php');
-                $included = false;
                 $itemNum = 0;
-                if(isset($outputCartArr)){
-                    if(isset($outputCartArr[0][2])){
-                        $itemNum = sizeof($outputCartArr[0][2]);
+                if(isset($_SESSION['cust_id'])){
+                    $outputCartArr = null;
+                    $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
+                    $included = true;
+                    include($PROJECTROOT . '/public/api/user/get/cart.php');
+                    $included = false;
+                    if(isset($outputCartArr)){
+                        if(isset($outputCartArr[0][2])){
+                            $itemNum = sizeof($outputCartArr[0][2]);
+                        }
                     }
                 }
                 if($itemNum > 0){
