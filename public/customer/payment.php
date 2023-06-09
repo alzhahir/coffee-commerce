@@ -45,12 +45,13 @@ $shortName = strtok($_SESSION["name"], " ");
                     total: order_send_total,
                 })
                 .done(function(data){
-                    if(typeof data != undefined || data != null){
-                        //probably using stripe
-                        console.log(data.url)
-                        window.location.href = data.url
+                    if(order_send_method == 0){
+                        window.location.href = '/customer/order.php?order=success'
                     }
-                    window.location.href = '/customer/order.php?order=success'
+                    if(typeof data != undefined || data != null){
+                        paymentData = JSON.parse(data)
+                        window.location.href = paymentData.url
+                    }
                 })
                 .fail(function(){
                     window.location.href = '/customer/order.php?order=fail'

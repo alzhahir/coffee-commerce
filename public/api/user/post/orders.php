@@ -2,6 +2,8 @@
     session_start();
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     $creds = parse_ini_file($ROOTPATH."/.ini");
+    $HOST_PROTOCOL = $creds['protocol'];
+    $HOST_NAME = $creds['host'];
     $STRIPE_API_KEY = $creds['secret_key'];
     include($ROOTPATH . '/internal/custcontrol.php');
     require_once $ROOTPATH . '/internal/stripe-php/init.php';
@@ -267,7 +269,7 @@
             'metadata' => [
                 'order_id' => $ordId,
             ],
-            'success_url' => 'https://fyp.alzhahir.com/customer/order.php?order=success',
+            'success_url' => $HOST_PROTOCOL.'://'.$HOST_NAME.'/customer/order.php?order=success',
             'line_items' => $lineItm,
             'mode' => 'payment',
             'expires_at' => strtotime('+30 minutes'),
