@@ -1,6 +1,7 @@
 <?php
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     session_start();
+    error_reporting(E_ALL);
     $creds = parse_ini_file($ROOTPATH."/.ini");
     $STRIPE_API_KEY = $creds['secret_key'];
     $STRIPE_ENDPOINT_SECRET = $creds['endpoint_secret'];
