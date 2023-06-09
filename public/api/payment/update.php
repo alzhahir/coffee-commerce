@@ -40,16 +40,16 @@
     } catch(\UnexpectedValueException $e) {
         // Invalid payload
         echo json_encode([
-            'error' => $e,
-            'description' => 'payload?'
+            'error' => 'INVALID_PAYLOAD',
+            'description' => 'Payload is invalid'
         ]);
         http_response_code(400);
         exit();
     } catch(\Stripe\Exception\SignatureVerificationException $e) {
         // Invalid signature
         echo json_encode([
-            'error' => $e,
-            'description' => 'Signature?'
+            'error' => 'INVALID_SIGNATURE',
+            'description' => 'Signature invalid. Stripe Signature header:'.$sig_header
         ]);
         http_response_code(400);
         exit();
@@ -94,14 +94,14 @@
     if(!isset($statusText)){
         echo json_encode([
             'error' => 'STAT_TXT_NOT_SET',
-            'description' => 'Signature?'
+            'description' => 'Status text not set'
         ]);
         http_response_code(500);
     }
     if(!isset($orderId) || !is_numeric($orderId)){
         echo json_encode([
             'error' => 'ORDER_ID_FAIL',
-            'description' => 'Signature?'
+            'description' => 'Order ID check failed'
         ]);
         http_response_code(500);
     }
@@ -115,7 +115,7 @@
             mysqli_stmt_close($stmt);
             echo json_encode([
                 'error' => 'DB_ERROR',
-                'description' => 'Signature?'
+                'description' => 'Database error'
             ]);
             http_response_code(500);
             die();
@@ -135,7 +135,7 @@
             mysqli_stmt_close($stmt);
             echo json_encode([
                 'error' => 'DB_ERROR',
-                'description' => 'Signature?'
+                'description' => 'Database error'
             ]);
             http_response_code(500);
             die();
@@ -144,7 +144,7 @@
     } else {
         echo json_encode([
             'error' => 'DB_BIND_ERROR',
-            'description' => 'Signature?'
+            'description' => 'Database error'
         ]);
         http_response_code(500);
         die();
