@@ -128,7 +128,7 @@
     if($stmt=mysqli_prepare($conn, $addTrackingSQL)){
         mysqli_stmt_bind_param($stmt, "si", $track_desc, $order_id);
 
-        $track_desc = "Order $ordId status changed to $statusText";
+        $track_desc = "Order $orderId status changed to $statusText";
         $order_id = $orderId;
 
         if(!mysqli_stmt_execute($stmt)){
