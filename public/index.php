@@ -12,7 +12,7 @@ include($PROJECTROOT . '/internal/header.php');
                 <div class="carousel-item active">
                     <!--img src="..." class="d-block w-100" alt="..."-->
                     <div class='d-block w-100' role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <img height="400" src="https://api.alzhahir.com/static/images/stulectro/gallery/01.png">
+                        <img class="img-fluid" height="400" src="https://api.alzhahir.com/static/images/stulectro/gallery/01.png">
                     </div>
                     <!--svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
@@ -23,7 +23,7 @@ include($PROJECTROOT . '/internal/header.php');
                 <div class="carousel-item">
                     <!--img src="..." class="d-block w-100" alt="..."-->
                     <div class='d-block w-100' role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <img height="400" src="https://api.alzhahir.com/static/images/stulectro/gallery/02.png">
+                        <img class="img-fluid" height="400" src="https://api.alzhahir.com/static/images/stulectro/gallery/02.png">
                     </div>
                     <!--svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
@@ -34,7 +34,7 @@ include($PROJECTROOT . '/internal/header.php');
                 <div class="carousel-item">
                     <!--img src="..." class="d-block w-100" alt="..."-->
                     <div class='d-block w-100' role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <img height="400" src="https://api.alzhahir.com/static/images/stulectro/gallery/03.png">
+                        <img class="img-fluid" height="400" src="https://api.alzhahir.com/static/images/stulectro/gallery/03.png">
                     </div>
                     <!--svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
