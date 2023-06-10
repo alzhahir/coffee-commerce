@@ -16,7 +16,7 @@ Full database SQL is available at db.sql. This file might not be up-to-date, so 
 
 ### Dependencies
 
-Please install these dependenices **manually** by putting it into the `internal` folder and renaming it to `stripe-php` instead.
+Please install these dependenices **manually** by putting it into the `internal` folder and renaming it to `stripe-php` instead.\
 [*stripe-php (>=10.14.0)*](https://github.com/stripe/stripe-php/releases/tag/v10.14.0)
 
 ## Configuration
@@ -29,9 +29,9 @@ You must obtain the following information to proceed.
 
 #### Stripe
 
-[Webhook endpoint](https://stripe.com/docs/webhooks/go-live)
-[Secret API key](https://stripe.com/docs/keys)
-[Endpoint signature](https://stripe.com/docs/webhooks/signatures)
+[Webhook endpoint](https://stripe.com/docs/webhooks/go-live)\
+[Secret API key](https://stripe.com/docs/keys)\
+[Endpoint signature](https://stripe.com/docs/webhooks/signatures)\
 
 ### Example Configuration
 
