@@ -25,6 +25,7 @@ An ini.example is provided in the repo.
 
 ```ini
 [process]
+timezone="your-timezone" ;Example: America/Chicago, Asia/Kuala_Lumpur
 protocol='http/https'
 host='your-host'
 

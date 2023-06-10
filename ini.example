@@ -1,4 +1,5 @@
 [process]
+timezone="your-timezone"
 protocol='http/https'
 host='your-host'
 
