@@ -107,8 +107,8 @@ $shortName = strtok($_SESSION["name"], " ");
                 <label class="form-check-label" for="cardpayment">
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         credit_card
-                    </span> 
-                    Stripe
+                    </span>
+                    Stripe (Credit/Debit Card, GrabPay, Alipay)
                 </label>
             </div>
         </div>
