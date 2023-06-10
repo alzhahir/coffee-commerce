@@ -307,8 +307,8 @@
                 if($stmt=mysqli_prepare($conn, $updPaymentSQL)){
                     mysqli_stmt_bind_param($stmt, "si", $payment_txn_url, $payment_id);
 
-                    $payment_txn_url = $payId;
-                    $payment_id = $total;
+                    $payment_txn_url = $checkout_url;
+                    $payment_id = $payId;
 
                     if(mysqli_stmt_execute($stmt)){
                         //
