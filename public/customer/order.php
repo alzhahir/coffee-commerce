@@ -52,6 +52,23 @@ if(isset($_GET['order'])){
             </div>
         </div>
         <?php
+    } else if($_GET['order'] == 'pending'){
+        ?>
+        <div class="px-3 my-auto">
+            <div style="margin:auto; text-align:center; width:50%;" class="pb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
+                <linearGradient id="Z3eIuf5QY2EetuA~FfDd6a_VQOfeAx5KWTK_gr1" x1="9.899" x2="38.183" y1="9.98" y2="38.264" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#33bef0"></stop><stop offset="1" stop-color="#0a85d9"></stop></linearGradient><path fill="url(#Z3eIuf5QY2EetuA~FfDd6a_VQOfeAx5KWTK_gr1)" d="M44.041,24.122c0,11.045-8.955,20-20,20s-20-8.955-20-20s8.955-20,20-20	S44.041,13.077,44.041,24.122z"></path><path d="M22,36h4c0.552,0,1-0.448,1-1V20c0-0.552-0.448-1-1-1h-4c-0.552,0-1,0.448-1,1v15	C21,35.552,21.448,36,22,36z" opacity=".05"></path><path d="M22.227,35.5h3.547c0.401,0,0.727-0.325,0.727-0.727V20.227c0-0.401-0.325-0.727-0.727-0.727h-3.547	c-0.401,0-0.727,0.325-0.727,0.727v14.547C21.5,35.175,21.825,35.5,22.227,35.5z" opacity=".07"></path><radialGradient id="Z3eIuf5QY2EetuA~FfDd6b" cx="24" cy="16" r="5.108" gradientTransform="matrix(.7808 0 0 .7066 5.26 4.096)" gradientUnits="userSpaceOnUse"><stop offset=".516"></stop><stop offset="1" stop-opacity="0"></stop></radialGradient><ellipse cx="24" cy="15.402" fill="url(#undefined)" opacity=".15" rx="3.988" ry="3.609"></ellipse><path fill="#fff" d="M24,17.732c1.7,0,2.65-1.068,2.65-2.388C26.65,14.024,25.647,13,24,13s-2.65,1.024-2.65,2.344	C21.35,16.664,22.3,17.732,24,17.732z"></path><rect width="4" height="15" x="22" y="20" fill="#fff"></rect>
+            </svg>
+            </div>
+            <div style="margin:auto; text-align:center; width:50%;" class="align-middle d-flex align-items-center justify-content-center">
+                <div class='d-flex justify-content-center align-items-center row ms-1'>
+                    <h1 class="fw-black align-middle mb-0">PAYMENT PENDING!</h1>
+                    <span class="fs-3 fw-medium align-middle mb-0">We are still waiting for your payment.</span>
+                    <span class="fs-5 align-middle mb-0">For some reason, we haven't received your payment. Your order status is available at your account page. You can try again later, or pay by cash over the counter. If this issue persists even when paying by cash, please contact us.</span>
+                </div>
+            </div>
+        </div>
+        <?php
     } else {
         ?>
         <div class="px-3 my-auto">
