@@ -270,6 +270,7 @@
                 'order_id' => $ordId,
             ],
             'success_url' => $HOST_PROTOCOL.'://'.$HOST_NAME.'/customer/order.php?order=success',
+            'cancel_url' => $HOST_PROTOCOL.'://'.$HOST_NAME.'/customer/order.php?order=pending',
             'line_items' => $lineItm,
             'mode' => 'payment',
             'expires_at' => strtotime('+30 minutes'),
