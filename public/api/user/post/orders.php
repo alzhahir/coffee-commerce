@@ -303,8 +303,8 @@
                 if(!isset($checkout_url)){
                     http_response_code(500);
                 }
-                $createPaymentSQL = "UPDATE payments SET payment_txn_url = ? WHERE payment_id = ?";
-                if($stmt=mysqli_prepare($conn, $createPaymentSQL)){
+                $updPaymentSQL = "UPDATE payments SET payment_txn_url = ? WHERE payment_id = ?";
+                if($stmt=mysqli_prepare($conn, $updPaymentSQL)){
                     mysqli_stmt_bind_param($stmt, "si", $payment_txn_url, $payment_id);
 
                     $payment_txn_url = $payId;

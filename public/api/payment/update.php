@@ -105,6 +105,54 @@
         ]);
         http_response_code(500);
     }
+
+    $getPaymentSQL = "SELECT payment_id FROM orders WHERE order_id = $orderId";
+    $getPaymentRes = mysqli_query($conn, $getPaymentSQL);
+    if(!is_bool($getPaymentRes)){
+        $currPaymentArr = mysqli_fetch_all($getPaymentRes);
+        $currPaymentArr = array_values($currPaymentArr);
+        foreach($currPaymentArr as $currPayment){
+            $payId = $currPayment[0];
+        }
+    }
+
+    if(!isset($payId)){
+        echo json_encode([
+            'error' => 'PAY_ID_ERR',
+            'description' => 'Failed to retrieve Payment ID'
+        ]);
+        http_response_code(500);
+    }
+
+    $updPaymentSQL = "UPDATE payments SET payment_txn_url = ? WHERE payment_id = ?";
+    if($stmt=mysqli_prepare($conn, $updPaymentSQL)){
+        mysqli_stmt_bind_param($stmt, "si", $payment_txn_url, $payment_id);
+
+        $payment_txn_url = "expired";
+        $payment_id = $payId;
+
+        if(mysqli_stmt_execute($stmt)){
+            //
+        } else {
+            mysqli_stmt_close($stmt);
+            echo json_encode([
+                'error' => 'DB_ERROR',
+                'description' => 'Database error'
+            ]);
+            http_response_code(500);
+            die();
+        }
+
+        mysqli_stmt_close($stmt);
+    } else {
+        echo json_encode([
+            'error' => 'DB_BIND_ERROR',
+            'description' => 'Database error'
+        ]);
+        http_response_code(500);
+        die();
+    }
+
     $updateOrderSQL = "UPDATE orders SET order_status = ? WHERE order_id = ?";
     if($stmt=mysqli_prepare($conn, $updateOrderSQL)){
         mysqli_stmt_bind_param($stmt, 'si', $order_status, $order_id);
