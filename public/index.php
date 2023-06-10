@@ -11,27 +11,36 @@ include($PROJECTROOT . '/internal/header.php');
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <!--img src="..." class="d-block w-100" alt="..."-->
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <div class='d-block w-100' role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <img src="https://api.alzhahir.com/static/images/stulectro/gallery/01.png">
+                    </div>
+                    <!--svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
                         <rect width="100%" height="100%" fill="#777"></rect>
                         <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
-                    </svg>
+                    </svg-->
                 </div>
                 <div class="carousel-item">
                     <!--img src="..." class="d-block w-100" alt="..."-->
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <div class='d-block w-100' role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <img src="https://api.alzhahir.com/static/images/stulectro/gallery/02.png">
+                    </div>
+                    <!--svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
                         <rect width="100%" height="100%" fill="#777"></rect>
                         <text x="50%" y="50%" fill="#555" dy=".3em">Second slide</text>
-                    </svg>
+                    </svg-->
                 </div>
                 <div class="carousel-item">
                     <!--img src="..." class="d-block w-100" alt="..."-->
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <div class='d-block w-100' role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <img src="https://api.alzhahir.com/static/images/stulectro/gallery/03.png">
+                    </div>
+                    <!--svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
                         <rect width="100%" height="100%" fill="#777"></rect>
                         <text x="50%" y="50%" fill="#555" dy=".3em">Third slide</text>
-                    </svg>
+                    </svg-->
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
