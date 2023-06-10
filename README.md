@@ -10,6 +10,10 @@ This project is created to fulfill the requirements for me to complete my bachel
 
 Currently, this is not a supported feature. Proceed at your own risk.
 
+### Database
+
+Full database SQL is available at db.sql. This file might not be up-to-date, so if there are any errors, please contact me.
+
 ### Dependencies
 
 Please install these dependenices **manually** by putting it into the `internal` folder and renaming it to `stripe-php` instead.
@@ -18,6 +22,16 @@ Please install these dependenices **manually** by putting it into the `internal`
 ## Configuration
 
 To configure the system, create a .ini file at the project root.
+
+### Prerequisites
+
+You must obtain the following information to proceed.
+
+#### Stripe
+
+[Webhook endpoint](https://stripe.com/docs/webhooks/go-live)
+[Secret API key](https://stripe.com/docs/keys)
+[Endpoint signature](https://stripe.com/docs/webhooks/signatures)
 
 ### Example Configuration
 
@@ -37,5 +51,5 @@ database='your-database-name'
 
 [stripe]
 secret_key='your-stripe-secret-key'
-endpoint_secret='your-endpoint-secret'
+endpoint_secret='your-endpoint-signature'
 ```

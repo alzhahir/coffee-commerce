@@ -11,4 +11,4 @@ database='your-database-name'
 
 [stripe]
 secret_key='your-stripe-secret-key'
-endpoint_secret='your-endpoint-secret'
+endpoint_secret='your-endpoint-signature'
