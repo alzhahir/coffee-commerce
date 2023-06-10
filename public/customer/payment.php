@@ -49,8 +49,7 @@ $shortName = strtok($_SESSION["name"], " ");
                         window.location.href = '/customer/order.php?order=success'
                     }
                     if(typeof data != undefined || data != null){
-                        paymentData = JSON.parse(data)
-                        window.location.href = paymentData.url
+                        window.location.href = data
                     }
                 })
                 .fail(function(){

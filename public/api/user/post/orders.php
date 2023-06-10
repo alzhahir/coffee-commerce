@@ -299,7 +299,31 @@
                 break;
             case "1": //stripe
                 $checkout_session = $stripe->checkout->sessions->create($stripeArr);
-                echo json_encode($checkout_session);
+                $checkout_url = $checkout_session->url;
+                if(!isset($checkout_url)){
+                    http_response_code(500);
+                }
+                $createPaymentSQL = "UPDATE payments SET payment_txn_url = ? WHERE payment_id = ?";
+                if($stmt=mysqli_prepare($conn, $createPaymentSQL)){
+                    mysqli_stmt_bind_param($stmt, "si", $payment_txn_url, $payment_id);
+
+                    $payment_txn_url = $payId;
+                    $payment_id = $total;
+
+                    if(mysqli_stmt_execute($stmt)){
+                        //
+                    } else {
+                        mysqli_stmt_close($stmt);
+                        http_response_code(500);
+                        die();
+                    }
+
+                    mysqli_stmt_close($stmt);
+                } else {
+                    http_response_code(500);
+                    die();
+                }
+                echo $checkout_url;
                 break;
             default:
                 break;
