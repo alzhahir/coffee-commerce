@@ -106,7 +106,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                 })
             })
             $("#ordTable tbody").on('click', '.viewDetBtn', function() {
-                var data = mainTable.row(this).data();
+                var data = mainTable.row($(this).parents()[0]).data();
                 var getOrdEndpoint = '/api/staff/get/orders.php?order_id='+data[0];
                 renderItemDT(getOrdEndpoint);
                 $('#viewOrd').modal('show');

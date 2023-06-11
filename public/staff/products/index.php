@@ -68,7 +68,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                             });
             $("#prodTable tbody").on('click', 'button', function() {
                 var updEndpoint = '/api/staff/update/products.php';
-                var data = mainTable.row(this).data();
+                var data = mainTable.row($(this).parents()[0]).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
                 $('#editProdForm').attr('action', updEndpoint+'?prod_id='+data[0]);
                 $('#edProdStock').val(data[4]);
