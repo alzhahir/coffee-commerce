@@ -128,7 +128,7 @@
     if($stmt=mysqli_prepare($conn, $updPaymentSQL)){
         mysqli_stmt_bind_param($stmt, "si", $payment_txn_url, $payment_id);
 
-        $payment_txn_url = "expired";
+        $payment_txn_url = NULL;
         $payment_id = $payId;
 
         if(mysqli_stmt_execute($stmt)){
