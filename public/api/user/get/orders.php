@@ -72,13 +72,14 @@
                     die();
                 }
                 foreach($ordArr as $currOrd){
-                    $getPaymSQL = "SELECT payment_method FROM payments WHERE payment_id = $currOrd[5]";
+                    $getPaymSQL = "SELECT payment_method, payment_txn_url FROM payments WHERE payment_id = $currOrd[5]";
                     $paymRes = mysqli_query($conn, $getPaymSQL);
                     if(!is_bool($paymRes)){
                         $paymArr = mysqli_fetch_all($paymRes);
                         $paymArr = array_values($paymArr);
                         foreach($paymArr as $currPaym){
                             $payMethod = $currPaym[0];
+                            $payURL = $currPaym[1];
                         }
                     }
                     $outputOrdArr = array(
@@ -88,6 +89,7 @@
                         "status" => $currOrd[3],
                         "total" => $currOrd[4],
                         "paymentMethod" => $payMethod,
+                        "paymentLink" => $payURL,
                         "data" => $outputItmArr,
                     );
                 }
@@ -105,13 +107,14 @@
                 $ordArr = mysqli_fetch_all($ordRes);
                 $ordArr = array_values($ordArr);
                 foreach($ordArr as $currOrd){
-                    $getPaymSQL = "SELECT payment_method FROM payments WHERE payment_id = $currOrd[5]";
+                    $getPaymSQL = "SELECT payment_method, payment_txn_url FROM payments WHERE payment_id = $currOrd[5]";
                     $paymRes = mysqli_query($conn, $getPaymSQL);
                     if(!is_bool($paymRes)){
                         $paymArr = mysqli_fetch_all($paymRes);
                         $paymArr = array_values($paymArr);
                         foreach($paymArr as $currPaym){
                             $payMethod = $currPaym[0];
+                            $payURL = $currPaym[1];
                         }
                     }
                     array_push($outputOrdArr, array_values(array(
@@ -121,6 +124,7 @@
                         "status" => $currOrd[3],
                         "total" => $currOrd[4],
                         "paymentMethod" => $payMethod,
+                        "paymentLink" => $payURL,
                     )));
                 }
                 $outputOrdArr = array(

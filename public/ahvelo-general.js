@@ -171,8 +171,11 @@ function custOrder(){
                 url: '/api/user/get/orders.php',
                 dataSrc: 'data',
             },
-            responsive: true,
             columnDefs: [
+                {
+                    targets: 6,
+                    visible: false,
+                },
                 {
                     "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
                     "targets": -1
@@ -182,6 +185,9 @@ function custOrder(){
                     "targets": "_all"
                 },
             ],
+            language: {
+                emptyTable: "You have no orders"
+            },
         });
     
     $("#ordTable tbody").on('click', '.viewDetBtn', function() {
@@ -190,20 +196,29 @@ function custOrder(){
         renderOrdItemDT(getOrdEndpoint);
         $('#viewOrd').modal('show');
         $.get(getOrdEndpoint, function(data){
+            if(!(data['paymentLink'] == null || data['paymentLink'] == 'expired')){
+                pstatout = '<a href='+data['paymentLink']+'>'+data['status']+'</a>';
+                pnbtn = '<a class="btn btn-outline-success border-0 rounded-pill" href='+data['paymentLink']+'>Pay Now</a>';
+            } else {
+                pstatout = data['status'];
+                pnbtn = '';
+            }
             ordDate.innerText = data['date'];
             ordTime.innerText = data['time'];
-            ordStat.innerText = data['status'];
-            ordPMethod.innerText = data['paymentMethod'];
+            ordStat.innerHTML = pstatout;
+            ordPMethod.innerText = data['paymentMethod']
             ordTot.innerText = data['total'];
+            ordPayNow.innerHTML = pnbtn;
         })
     })
     $('#viewOrd').on('hidden.bs.modal', function(){
         vdetTable.destroy();
         ordDate.innerText = "";
         ordTime.innerText = "";
-        ordStat.innerText = "";
+        ordStat.innerHTML = "";
         ordPMethod.innerText = "";
         ordTot.innerText = "";
+        ordPayNow.innerHTML = "";
     })
     new $.fn.dataTable.FixedHeader( ordTable );
 }

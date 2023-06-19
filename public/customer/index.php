@@ -9,11 +9,28 @@ $shortName = strtok($_SESSION["name"], " ");
 <script>
     $(document).ready(function(){
         custOrder();
+        var d = new Date(); // for now
+        hn = d.getHours(); // => 9
+        d.getMinutes(); // =>  30
+        d.getSeconds(); // => 51
+        txt = 'YOUR ACCOUNT'
+
+        if(hn < 12){
+            //morn
+            txt = "GOOD MORNING, <?php echo strtoupper($shortName)?>!"
+        } else if (hn >= 12 && hn < 15){
+            //
+            txt = "GOOD AFTERNOON, <?php echo strtoupper($shortName)?>!"
+        } else if (hn > 15){
+            txt = "GOOD EVENING, <?php echo strtoupper($shortName)?>!"
+        }
+
+        wlc.innerText=txt
     })
 </script>
 <div class="px-3">
     <div>
-        <h3 id="wlc" id="custPage" class="fw-black">WELCOME!</h3>
+        <h3 id="wlc" id="custPage" class="fw-black mb-2">YOUR ACCOUNT</h3>
     </div>
     <ul class="nav nav-pills" id="custTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -23,20 +40,21 @@ $shortName = strtok($_SESSION["name"], " ");
             <a class="rounded-pill nav-link" role="tab" id="ordertab" data-bs-toggle="pill" aria-controls="orderp" href="#orderp">Orders</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="rounded-pill nav-link" role="tab" id="prefstab" data-bs-toggle="pill" aria-controls="prefsp" href="#prefsp">Link</a>
+            <a class="rounded-pill nav-link" role="tab" id="prefstab" data-bs-toggle="pill" aria-controls="prefsp" href="#prefsp">Preferences</a>
         </li>
     </ul>
     <!-- Tabs content -->
     <div class="tab-content pt-2" id="custTabContent">
         <div class="tab-pane fade show active" id="mainp" role="tabpanel" aria-labelledby="maintab">
             <div>
-                <span class="fw-black fs-4">HOME</span>
+                <p class="fw-black fs-4 mt-2">HOME</p>
+                <span class="fs-5">Here, you can view your orders and purchase history. Start by selecting the tabs above.</span>
             </div>
         </div>
         <div class="tab-pane fade" id="orderp" role="tabpanel" aria-labelledby="ordertab">
             <div class='pb-4'>
                 <span class="fw-black fs-4">ORDERS</span>
-                <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
+                <div class="mx-3 px-4 py-4 bg-white rounded-4 shadow">
                     <table id="ordTable" class="table table-bordered table-hover dt-responsive">
                         <thead>
                             <tr>
@@ -46,6 +64,7 @@ $shortName = strtok($_SESSION["name"], " ");
                                 <th>Order Status</th>
                                 <th>Order Total</th>
                                 <th>Payment Method</th>
+                                <th>Pay Now</th>
                                 <th>View Details</th>
                             </tr>
                         </thead>
@@ -135,30 +154,13 @@ $shortName = strtok($_SESSION["name"], " ");
                 </div>
             </div>
             <div class="modal-footer">
+                <div id='ordPayNow'></div>
                 <button type="button" class="btn btn-outline-danger border-0 rounded-pill closeViewItm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript">
-    var d = new Date(); // for now
-    hn = d.getHours(); // => 9
-    d.getMinutes(); // =>  30
-    d.getSeconds(); // => 51
-
-    if(hn < 12){
-        //morn
-        txt = "GOOD MORNING, <?php echo strtoupper($shortName)?>!"
-    } else if (hn >= 12 && hn < 15){
-        //
-        txt = "GOOD AFTERNOON, <?php echo strtoupper($shortName)?>!"
-    } else if (hn > 15){
-        txt = "GOOD EVENING, <?php echo strtoupper($shortName)?>!"
-    }
-
-    wlc.innerText=txt
-</script>
 <?php
 include('../../internal/footer.php');
 ?>

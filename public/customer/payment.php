@@ -44,12 +44,14 @@ $shortName = strtok($_SESSION["name"], " ");
                     items: order_send_items,
                     total: order_send_total,
                 })
-                .done(function(data){
+                .done(function(res){
                     if(order_send_method == 0){
                         window.location.href = '/customer/order.php?order=success'
                     }
-                    if(typeof data != undefined || data != null){
-                        window.location.href = data
+                    if(!(typeof res.data == undefined || res.data == null)){
+                        window.location.href = res.data
+                    } else {
+                        window.location.href = '/customer/order.php?order=fail&error='+res.status
                     }
                 })
                 .fail(function(){

@@ -10,7 +10,41 @@
     $stripe = new \Stripe\StripeClient($STRIPE_API_KEY);
     require_once $ROOTPATH . "/internal/db.php";
 
+    function genResData(?string $errorMsg, string $status = "NO_STATUS_GIVEN", string $data = null){
+        return json_encode([
+            'data' => $data,
+            'status' => $status,
+            'error' => $errorMsg
+        ]);
+    }
+
+    $errResData = json_encode([
+        'data' => null
+    ]);
+
+    if(isset($_POST['testMode'])){
+        switch($_POST['testMode']){
+            case 'success':
+                header("Content-Type: application/json;");
+                echo genResData('Test mode success', 'TEST_MODE_SUCCESS', 'testData');
+                http_response_code(200);
+                die();
+            case 'fail':
+                header("Content-Type: application/json;");
+                echo genResData('Test mode fail', 'TEST_MODE_FAIL');
+                http_response_code(200);
+                die();
+            default:
+                header("Content-Type: application/json;");
+                echo genResData('Test mode error', 'TEST_MODE_ERROR');
+                http_response_code(500);
+                die();
+        }
+    }
+
     if(!isset($_SESSION['name'])){
+        header("Content-Type: application/json;");
+        echo genResData('Session error', 'SESSION_ERROR');
         http_response_code(500);
         die();
     }
@@ -24,7 +58,7 @@
         $backPage = "/index.php";
     }
 
-    error_reporting(E_ALL);
+    //error_reporting(E_ALL);
     //ini_set('display_errors', 1);
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -34,6 +68,8 @@
             $items = $_POST["items"];
             $total = $_POST["total"];
         } else {
+            header("Content-Type: application/json;");
+            echo genResData('POST data invalid', 'INVALID_POST_DATA');
             http_response_code(400);
             die();
         }
@@ -46,6 +82,8 @@
                 $paymethodstr = "Stripe";
                 break;
             default:
+                header("Content-Type: application/json;");
+                echo genResData('Invalid Payment Method', "INVALID_PAYMENT_METHOD");
                 http_response_code(500);
                 die();
         }
@@ -67,11 +105,15 @@
 
             mysqli_stmt_close($stmt);
         } else {
+            header("Content-Type: application/json;");
+            echo genResData('Database failed', "DB_FAIL_PAYMENT");
             http_response_code(500);
             die();
         }
 
         if(!isset($payId)){
+            header("Content-Type: application/json;");
+            echo genResData('Payment ID not found', "DB_PAYMENT_ID_FAIL");
             http_response_code(500);
             die();
         }
@@ -112,6 +154,8 @@
             }
             mysqli_stmt_close($stmt);
         } else {
+            header("Content-Type: application/json;");
+            echo genResData('Database failed', "DB_FAIL_ORD");
             http_response_code(500);
             die();
         }
@@ -127,11 +171,15 @@
                 }
             }
         } else {
+            header("Content-Type: application/json;");
+            echo genResData('Database failed', "DB_FAIL_CART_ID");
             http_response_code(500);
             die();
         }
 
         if(!isset($ordId) || !isset($caid)){
+            header("Content-Type: application/json;");
+            echo genResData('Failed to get order ID or cart ID', "ORD_ID_CA_ID_FAIL");
             http_response_code(500);
             die();
         }
@@ -181,6 +229,8 @@
                             die();
                         }
                     }
+                    header("Content-Type: application/json;");
+                    echo genResData('Database failed', "DB_FAIL_ORD");
                     http_response_code(500);
                     die();
                 }
@@ -253,6 +303,8 @@
                             //
                         }
                     } else {
+                        header("Content-Type: application/json;");
+                        echo genResData('Database failed', "DB_FAIL_DEL_CART");
                         http_response_code(500);
                         die();
                     }
@@ -290,6 +342,8 @@
             }
             mysqli_stmt_close($stmt);
         } else {
+            header("Content-Type: application/json;");
+            echo genResData('Database failed', "DB_FAIL_TRACK");
             http_response_code(500);
             die();
         }
@@ -301,7 +355,10 @@
                 $checkout_session = $stripe->checkout->sessions->create($stripeArr);
                 $checkout_url = $checkout_session->url;
                 if(!isset($checkout_url)){
+                    header("Content-Type: application/json;");
+                    echo genResData('Stripe error', "STRIPE_ERROR");
                     http_response_code(500);
+                    die();
                 }
                 $updPaymentSQL = "UPDATE payments SET payment_txn_url = ? WHERE payment_id = ?";
                 if($stmt=mysqli_prepare($conn, $updPaymentSQL)){
@@ -320,14 +377,27 @@
 
                     mysqli_stmt_close($stmt);
                 } else {
+                    header("Content-Type: application/json;");
+                    echo genResData('Database failed', "DB_FAIL_UPD_PAYMENT_URL");
                     http_response_code(500);
                     die();
                 }
-                echo $checkout_url;
+
+                header("Content-Type: application/json;");
+                echo genResData(null, 'CHECKOUT_SUCCESS', $checkout_url);
+                http_response_code(200);
+                die();
                 break;
             default:
+                echo genResData('Invalid payment method', "INVALID_PAYMENT_METHOD");
+                http_response_code(500);
+                die();
                 break;
         }
-        http_response_code(200);
+    } else {
+        header("Content-Type: application/json;");
+        echo genResData('Invalid method', "INVALID_METHOD");
+        http_response_code(500);
+        die();
     }
 ?>
