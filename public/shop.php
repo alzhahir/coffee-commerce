@@ -9,7 +9,7 @@ include($PROJECTROOT . '/internal/header.php');
 <div class="px-3 pb-3">
     <div class="px-2">
         <div class="fw-black row px-2 h2">PRODUCTS</div>
-        <div>Order now!</div>
+        <div class="mb-3 mx-0 px-0">Order now!</div>
         <div id="prodcat" class="d-flex justify-content-center row row-cols-auto w-100 align-items-start">
             <?php
                 include($PROJECTROOT . "/internal/productgalleryobject.php");

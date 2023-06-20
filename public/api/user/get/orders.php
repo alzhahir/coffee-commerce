@@ -61,8 +61,8 @@
                             "id" => $currItm[0],
                             "name" => $prodName,
                             "quantity" => $currItm[1],
-                            "price" => $currItm[2],
-                            "subtotal" => $currItm[3],
+                            "price" => number_format($currItm[2],2),
+                            "subtotal" => number_format($currItm[3],2),
                             "img" => $prodImg,
                         )));
                     }
@@ -87,7 +87,7 @@
                         "date" => $currOrd[1],
                         "time" => $currOrd[2],
                         "status" => $currOrd[3],
-                        "total" => $currOrd[4],
+                        "total" => number_format($currOrd[4],2),
                         "paymentMethod" => $payMethod,
                         "paymentLink" => $payURL,
                         "data" => $outputItmArr,
@@ -122,7 +122,7 @@
                         "date" => $currOrd[1],
                         "time" => $currOrd[2],
                         "status" => $currOrd[3],
-                        "total" => $currOrd[4],
+                        "total" => number_format($currOrd[4],2),
                         "paymentMethod" => $payMethod,
                         "paymentLink" => $payURL,
                     )));

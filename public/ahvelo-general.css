@@ -48,6 +48,16 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
     }
 }
 
+.ahvpill{
+    color: #FA3F3F!important;
+    background-color: transparent!important;
+}
+
+.ahvpill.active{
+    color: white!important;
+    background-color: #FA3F3F!important;
+}
+
 .ahvbutton{
     color:white;
     background-color: #FA3F3F!important;

@@ -207,7 +207,7 @@ function custOrder(){
             ordTime.innerText = data['time'];
             ordStat.innerHTML = pstatout;
             ordPMethod.innerText = data['paymentMethod']
-            ordTot.innerText = data['total'];
+            ordTot.innerText = "RM " + data['total'];
             ordPayNow.innerHTML = pnbtn;
         })
     })

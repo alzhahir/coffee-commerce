@@ -11,21 +11,18 @@ $shortName = strtok($_SESSION["name"], " ");
         custOrder();
         var d = new Date(); // for now
         hn = d.getHours(); // => 9
-        d.getMinutes(); // =>  30
+        d.getMinutes(); // => 30
         d.getSeconds(); // => 51
-        txt = 'YOUR ACCOUNT'
 
         if(hn < 12){
             //morn
-            txt = "GOOD MORNING, <?php echo strtoupper($shortName)?>!"
+            wlc.innerText = "GOOD MORNING, <?php echo strtoupper($shortName)?>!"
         } else if (hn >= 12 && hn < 15){
             //
-            txt = "GOOD AFTERNOON, <?php echo strtoupper($shortName)?>!"
+            wlc.innerText = "GOOD AFTERNOON, <?php echo strtoupper($shortName)?>!"
         } else if (hn > 15){
-            txt = "GOOD EVENING, <?php echo strtoupper($shortName)?>!"
+            wlc.innerText = "GOOD EVENING, <?php echo strtoupper($shortName)?>!"
         }
-
-        wlc.innerText=txt
     })
 </script>
 <div class="px-3">
@@ -34,13 +31,13 @@ $shortName = strtok($_SESSION["name"], " ");
     </div>
     <ul class="nav nav-pills" id="custTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="rounded-pill nav-link active" role="tab" id="maintab" data-bs-toggle="pill" aria-controls="mainp" aria-current="page" href="#mainp">Home</a>
+            <a class="rounded-pill nav-link ahvpill active" role="tab" id="maintab" data-bs-toggle="pill" aria-controls="mainp" aria-current="page" href="#mainp">Home</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="rounded-pill nav-link" role="tab" id="ordertab" data-bs-toggle="pill" aria-controls="orderp" href="#orderp">Orders</a>
+            <a class="rounded-pill nav-link ahvpill" role="tab" id="ordertab" data-bs-toggle="pill" aria-controls="orderp" href="#orderp">Orders</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="rounded-pill nav-link" role="tab" id="prefstab" data-bs-toggle="pill" aria-controls="prefsp" href="#prefsp">Preferences</a>
+            <a class="rounded-pill nav-link ahvpill" role="tab" id="prefstab" data-bs-toggle="pill" aria-controls="prefsp" href="#prefsp">Preferences</a>
         </li>
     </ul>
     <!-- Tabs content -->
@@ -154,8 +151,8 @@ $shortName = strtok($_SESSION["name"], " ");
                 </div>
             </div>
             <div class="modal-footer">
-                <div id='ordPayNow'></div>
                 <button type="button" class="btn btn-outline-danger border-0 rounded-pill closeViewItm" data-bs-dismiss="modal">Close</button>
+                <div id='ordPayNow'></div>
             </div>
         </div>
     </div>
