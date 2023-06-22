@@ -198,7 +198,6 @@ include($ROOTPATH . '/internal/staffheader.php');
                             <select class="form-select" name="ordStatus" id="ordStatus" aria-label="ordStatus">
                                 <option value="Pending">Pending</option>
                                 <option value="Paid">Paid</option>
-                                <option value="Received">Received</option>
                                 <option value="Preparing">Preparing</option>
                                 <option value="Ready">Ready</option>
                                 <option value="Complete">Complete</option>
