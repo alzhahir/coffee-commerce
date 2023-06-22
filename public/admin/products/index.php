@@ -146,8 +146,8 @@ include($ROOTPATH . '/internal/adminheader.php');
                             <label for="prodName">Product Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input id="edProdImg" class="form-control" name="prodImg" type="text" placeholder="Product Image URL"/>
-                            <label for="prodImg">Product Image URL</label>
+                            <input id="edProdImgUrl" class="form-control" name="prodImgUrl" type="text" placeholder="Product Image URL"/>
+                            <label for="prodImgUrl">Product Image URL</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input id="edProdPrice" class="form-control" name="prodPrice" type="text" placeholder="Product Price" required/>
@@ -215,8 +215,8 @@ include($ROOTPATH . '/internal/adminheader.php');
                             <label for="prodName">Product Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" name="prodImg" type="text" placeholder="Product Image URL"/>
-                            <label for="prodImg">Product Image URL</label>
+                            <input class="form-control" name="prodImgUrl" type="text" placeholder="Product Image URL"/>
+                            <label for="prodImgUrl">Product Image URL</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input class="form-control" name="prodPrice" type="text" placeholder="Product Price" required/>
