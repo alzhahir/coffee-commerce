@@ -280,12 +280,18 @@
                         <div class="mb-3">
                             <label class="form-label d-block">Temperature</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="temperature" value='1' checked required/>
+                                <input id="tempProd" class="form-check-input" type="radio" name="temperature" value='1' required/>
                                 <label class="form-check-label" for="temperature">Hot</label>
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div class="form-check form-check-inline align-middle">
                                 <input class="form-check-input" type="radio" name="temperature" value='2'/>
-                                <label class="form-check-label" for="temperature">Cold</label>
+                                <label class="form-check-label align-middle" for="temperature">
+                                    <span class="mb-0 pb-0">Cold</span>
+                                    <span class="badge rounded-pill bg-danger align-middle">
+                                        +RM 1.00
+                                        <span class="visually-hidden">Admin Mode</span>
+                                    </span>
+                                </label>
                             </div>
                         </div>
                     </form>
