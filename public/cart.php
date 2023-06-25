@@ -19,6 +19,7 @@ include('../internal/header.php');
                 <tr>
                     <th>Product ID</th>
                     <th>Product Name</th>
+                    <th>Temperature</th>
                     <th>Quantity</th>
                     <th>Unit Price (RM)</th>
                     <th>Subtotal (RM)</th>

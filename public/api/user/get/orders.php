@@ -37,7 +37,7 @@
                 $outputOrdArr = array();
                 $ordArr = mysqli_fetch_all($ordRes);
                 $ordArr = array_values($ordArr);
-                $getOrdItmSQL = "SELECT prod_id, ord_list_qty, ord_list_price, ord_list_amt FROM order_lists WHERE order_id = $ordId";
+                $getOrdItmSQL = "SELECT prod_id, ord_list_temp, ord_list_qty, ord_list_price, ord_list_amt FROM order_lists WHERE order_id = $ordId";
                 $ordItmRes = mysqli_query($conn, $getOrdItmSQL);
                 if(!is_bool($ordItmRes)){
                     $ordItmArr = mysqli_fetch_all($ordItmRes);
@@ -57,12 +57,25 @@
                             $prodName = "null";
                             $prodImg = "null";
                         }
+                        $displayTemp = null;
+                        switch($currItm[1]){
+                            case 1:
+                                $displayTemp = "Hot";
+                                break;
+                            case 2:
+                                $displayTemp = "Cold";
+                                break;
+                            default:
+                                $displayTemp = null;
+                                break;
+                        }
                         array_push($outputItmArr, array_values(array(
                             "id" => $currItm[0],
                             "name" => $prodName,
-                            "quantity" => $currItm[1],
-                            "price" => number_format($currItm[2],2),
-                            "subtotal" => number_format($currItm[3],2),
+                            "temperature" => $displayTemp,
+                            "quantity" => $currItm[2],
+                            "price" => number_format($currItm[3],2),
+                            "subtotal" => number_format($currItm[4],2),
                             "img" => $prodImg,
                         )));
                     }

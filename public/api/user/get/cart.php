@@ -41,7 +41,7 @@
                 $cartArr = array_values($cartArr);
                 foreach($cartArr as $currCart){
                     $caid = $currCart[0];
-                    $getCartItmSQL = "SELECT prod_id, cart_item_qty FROM cart_items WHERE cart_id = $caid";
+                    $getCartItmSQL = "SELECT prod_id, cart_item_qty, cart_itm_temp FROM cart_items WHERE cart_id = $caid";
                     $cartItmRes = mysqli_query($conn, $getCartItmSQL);
                     if(!is_bool($cartItmRes)){
                         $outputItmArr = array();
@@ -55,6 +55,7 @@
                             array_push($outputItmArr, array_values(array(
                                 "id" => $currItm[0],
                                 "qty" => $currItm[1],
+                                "tmp" => $currItm[2],
                             )));
                         }
                     } else {
@@ -83,12 +84,27 @@
                 foreach($outputItmArr as $currItm){
                     foreach($outputProdArr as $currProd){
                         if($currItm[0] == $currProd[0]){
+                            switch($currItm[2]){
+                                case 1:
+                                    $currItmTemp = "Hot";
+                                    $currTempPrice = 0;
+                                    break;
+                                case 2:
+                                    $currItmTemp = "Cold";
+                                    $currTempPrice = 1;
+                                    break;
+                                default:
+                                    $currItmTemp = "null";
+                                    $currTempPrice = 0;
+                                    break;
+                            }
                             array_push($newItmArr, array_values(array(
                                 "id" => $currItm[0],
                                 "name" => $currProd[1],
+                                "temperature" => $currItmTemp,
                                 "quantity" => $currItm[1],
-                                "price" => $currProd[3],
-                                "subtotal" => number_format(($currProd[3] * $currItm[1]), 2)
+                                "price" => number_format($currProd[3] + $currTempPrice, 2),
+                                "subtotal" => number_format((($currProd[3] + $currTempPrice) * $currItm[1]), 2)
                             )));
                         }
                     }

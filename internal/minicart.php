@@ -39,9 +39,24 @@
     <?php
         foreach($outputProdArr as $currProd){
             if($currProd[0] == $currCart[0]){
+                switch($currCart[2]){
+                    case 1:
+                        $currItmTemp = "Hot";
+                        break;
+                    case 2:
+                        $currItmTemp = "Cold";
+                        break;
+                    default:
+                        $currItmTemp = "null";
+                        break;
+                }
                 ?>
                 <div class="col fw-medium">
                     <?php echo($currProd[1]); ?>
+                    <span class="badge rounded-pill bg-secondary">
+                        <?php echo($currItmTemp); ?>
+                        <span class="visually-hidden">Temperature</span>
+                    </span>
                 </div>
                 <div class="col fw-medium text-end qtycol" style="float:right;">
                     <div style="display:inline-block;">

@@ -48,6 +48,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                                     url: '/api/get/products.php',
                                     dataSrc: 'data',
                                 },
+                                pagingType: 'full_numbers',
                                 autoWidth: false,
                                 responsive: true,
                                 columnDefs: [
@@ -66,8 +67,24 @@ include($ROOTPATH . '/internal/adminheader.php');
                                 ],
                                 dom: 'Bfrtip',
                                 buttons: [
-                                    'print'
-                                ],
+                                    {
+                                        extend: 'print',
+                                        title: '',
+                                        footer: true,
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '12pt' )
+                                                .prepend(
+                                                    '<div><span class="h1 fw-black">AHVELO COFFEE PRODUCTS<span></div>'
+                                                )
+                                                .append('<footer class="">Ahvelo Coffee Products</div>');
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
+                                ]
                             });
             $("#prodTable tbody").on('click', 'button', function() {
                 var updEndpoint = '/api/admin/update/products.php';
@@ -78,6 +95,16 @@ include($ROOTPATH . '/internal/adminheader.php');
                 $('#edProdImgUrl').val(data[2]);
                 $('#edProdPrice').val(data[3]);
                 $('#edProdStock').val(data[4]);
+                if(data[5] == "Hot"){
+                    $("#edProdHot").prop('checked', true);
+                    $("#edProdCold").prop('checked', false);
+                } else if (data[5] == "Cold"){
+                    $("#edProdHot").prop('checked', false);
+                    $("#edProdCold").prop('checked', true);
+                } else if (data[5] == "Hot, Cold"){
+                    $("#edProdHot").prop('checked', true);
+                    $("#edProdCold").prop('checked', true);
+                }
                 $('#editProd').modal('show');
             })
             new $.fn.dataTable.FixedHeader( mainTable );
@@ -92,6 +119,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                     <th>Product Image URL</th>
                     <th>Product Price</th>
                     <th>Product Stock</th>
+                    <th>Temperature</th>
                     <th>Edit Product</th>
                 </tr>
             </thead>
@@ -156,6 +184,17 @@ include($ROOTPATH . '/internal/adminheader.php');
                         <div class="form-floating mb-3">
                             <input id="edProdStock" class="form-control" name="prodStock" type="text" placeholder="Stock Amount" required/>
                             <label for="prodStock">Stock Amount</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-block">Temperature</label>
+                            <div class="form-check form-check-inline">
+                                <input id="edProdHot" class="form-check-input" type="checkbox" name="isHot" value='1'/>
+                                <label class="form-check-label" for="isHot">Hot</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="edProdCold" class="form-check-input" type="checkbox" name="isCold" value='2'/>
+                                <label class="form-check-label" for="isCold">Cold</label>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -225,6 +264,17 @@ include($ROOTPATH . '/internal/adminheader.php');
                         <div class="form-floating mb-3">
                             <input class="form-control" name="prodStock" type="text" placeholder="Stock Amount" required/>
                             <label for="prodStock">Stock Amount</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-block">Temperature</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="isHot" value="true" checked='true' required/>
+                                <label class="form-check-label" for="isHot">Hot</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="isCold" value="true" checked='true' required/>
+                                <label class="form-check-label" for="isCold">Cold</label>
+                            </div>
                         </div>
                     </form>
                 </div>

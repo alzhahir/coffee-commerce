@@ -20,7 +20,19 @@ $shortName = strtok($_SESSION["name"], " ");
                 order_items = JSON.parse(sessionStorage.getItem('cartitems'))
                 //console.log(order_items.data)
                 for(let i = 0; i < order_items.data.length; i++){
-                    $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+order_items.data[i][2]+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>')
+                    displayTemp = "-"
+                    switch(order_items.data[i][2]){
+                        case 1:
+                            displayTemp = "Hot"
+                            break;
+                        case 2:
+                            displayTemp = "Cold"
+                            break;
+                        default:
+                            displayTemp = "-"
+                            break;
+                    }
+                    $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+displayTemp+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>'+'</td><td class="py-2 px-2">'+order_items.data[i][5]+'</td>')
                 }
                 order_send_items = order_items.data
                 order_send_total = order_items.total
@@ -69,6 +81,7 @@ $shortName = strtok($_SESSION["name"], " ");
                     <th scope="col">#</th>
                     <th scope="col" hidden>Product ID</th>
                     <th scope="col">Product Name</th>
+                    <th scope="col">Temperature</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Unit Price (RM)</th>
                     <th scope="col">Subtotal (RM)</th>

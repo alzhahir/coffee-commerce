@@ -189,25 +189,38 @@
         $ordItmIndex = 0;
         $lineItm = [];
         foreach($items as $curritm){
+            $currentTemp = 'Null';
+            switch($curritm[2]){
+                case 1:
+                    $currentTemp = 'Hot';
+                    break;
+                case 2:
+                    $currentTemp = 'Cold';
+                    break;
+                default:
+                    $currentTemp = 'Null';
+                    break;
+            }
             array_push($lineItm, [
                 'price_data' => [
                         'currency' => 'MYR',
-                        'unit_amount' => ($curritm[3]*100),
+                        'unit_amount' => ($curritm[4]*100),
                         'product_data' => [
-                            'name' => $curritm[1]
+                            'name' => $curritm[1].' - '.$currentTemp
                         ]
                     ],
-                'quantity' => $curritm[2],
+                'quantity' => $curritm[3],
             ]);
-            $addOrdItmSQL = "INSERT INTO order_lists (order_id, prod_id, ord_list_qty, ord_list_price, ord_list_amt) VALUES (?, ?, ?, ?, ?)";
+            $addOrdItmSQL = "INSERT INTO order_lists (order_id, prod_id, ord_list_temp, ord_list_qty, ord_list_price, ord_list_amt) VALUES (?, ?, ?, ?, ?, ?)";
             if($stmt=mysqli_prepare($conn, $addOrdItmSQL)){
-                mysqli_stmt_bind_param($stmt, 'iisss', $order_id, $prod_id, $ord_list_qty, $ord_list_price, $ord_list_amt);
+                mysqli_stmt_bind_param($stmt, 'iiisss', $order_id, $prod_id, $ord_list_temp, $ord_list_qty, $ord_list_price, $ord_list_amt);
 
                 $order_id = $ordId;
                 $prod_id = $curritm[0];
-                $ord_list_qty = $curritm[2];
-                $ord_list_price = $curritm[3];
-                $ord_list_amt = $curritm[4];
+                $ord_list_temp = $curritm[2];
+                $ord_list_qty = $curritm[3];
+                $ord_list_price = $curritm[4];
+                $ord_list_amt = $curritm[5];
 
                 if(!mysqli_stmt_execute($stmt)){
                     mysqli_stmt_close($stmt);
@@ -255,7 +268,7 @@
                     mysqli_stmt_bind_param($stmt, 'ii', $prod_stock, $prod_id);
 
                     $prod_id = $curritm[0];
-                    $prod_stock = $prodStock - $curritm[2];
+                    $prod_stock = $prodStock - $curritm[3];
                     if(!mysqli_stmt_execute($stmt)){
                         mysqli_stmt_close($stmt);
                         http_response_code(500);
@@ -269,12 +282,13 @@
                 die();
             }
 
-            $delCartItm = "DELETE FROM cart_items WHERE cart_id = ? AND prod_id = ?";
+            $delCartItm = "DELETE FROM cart_items WHERE cart_id = ? AND prod_id = ? AND cart_itm_temp = ?";
             if ($stmt=mysqli_prepare($conn, $delCartItm)){
-                mysqli_stmt_bind_param($stmt, "ii", $cart_id, $prod_id);
+                mysqli_stmt_bind_param($stmt, "iii", $cart_id, $prod_id, $cart_itm_temp);
 
                 $cart_id = $caid;
                 $prod_id = $curritm[0];
+                $cart_itm_temp = $curritm[2];;
 
                 if(mysqli_stmt_execute($stmt)){
                     mysqli_stmt_close($stmt);
@@ -350,6 +364,10 @@
 
         switch($paymethod){
             case "0": //cash
+                header("Content-Type: application/json;");
+                echo genResData(null, 'CHECKOUT_SUCCESS', '/customer/order.php?order=success');
+                http_response_code(200);
+                die();
                 break;
             case "1": //stripe
                 $checkout_session = $stripe->checkout->sessions->create($stripeArr);

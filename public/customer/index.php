@@ -130,6 +130,7 @@ $shortName = strtok($_SESSION["name"], " ");
                             <tr>
                                 <th>Item ID</th>
                                 <th>Item Name</th>
+                                <th>Item Temperature</th>
                                 <th>Item Quantity</th>
                                 <th>Item Unit Price</th>
                                 <th>Subtotal</th>

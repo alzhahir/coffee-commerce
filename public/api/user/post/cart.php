@@ -19,9 +19,14 @@
             $productId = $_POST["value"];
             $custId = $_SESSION["cust_id"];
             $prodQty = 1;
+            $prodTemp = 1;
         } else {
             http_response_code(400);
             die();
+        }
+
+        if(isset($_POST["temperature"])){
+            $prodTemp = $_POST["temperature"];
         }
 
         if(isset($_POST["quantity"])){
@@ -76,16 +81,17 @@
             }
         }
 
-        $testItmSQL = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid";
+        $testItmSQL = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
         $itmRes = mysqli_query($conn, $testItmSQL);
         if(!is_bool($itmRes)){
             if(mysqli_num_rows($itmRes) < 1){
-                $addCartItmSQL = "INSERT INTO cart_items (cart_id, prod_id, cart_item_qty) VALUES (?, ?, ?)";
+                $addCartItmSQL = "INSERT INTO cart_items (cart_id, prod_id, cart_itm_temp, cart_item_qty) VALUES (?, ?, ?, ?)";
                 if ($stmt=mysqli_prepare($conn, $addCartItmSQL)){
-                    mysqli_stmt_bind_param($stmt, "iii", $cart_id, $prod_id, $cart_item_qty);
+                    mysqli_stmt_bind_param($stmt, "iiii", $cart_id, $prod_id, $cart_itm_temp, $cart_item_qty);
 
                     $cart_id = $caid;
                     $prod_id = $productId;
+                    $cart_itm_temp = $prodTemp;
                     $cart_item_qty = $prodQty;
 
                     if(mysqli_stmt_execute($stmt)){
@@ -99,7 +105,7 @@
                     mysqli_stmt_close($stmt);
                 }
             } else {
-                $getQtySQL = "SELECT cart_item_qty FROM cart_items WHERE prod_id = $productId AND cart_id = $caid";
+                $getQtySQL = "SELECT cart_item_qty FROM cart_items WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
                 $qtyRes = mysqli_query($conn, $getQtySQL);
                 if(!is_bool($qtyRes)){
                     $qtyArr = mysqli_fetch_all($qtyRes);
@@ -113,15 +119,16 @@
                 }
 
                 if(isset($_POST['quantity']) && $_POST['quantity'] < 1){
-                    $delCartItm = "DELETE FROM cart_items WHERE cart_id = ? AND prod_id = ?";
+                    $delCartItm = "DELETE FROM cart_items WHERE cart_id = ? AND prod_id = ? AND cart_itm_temp = ?";
                     if ($stmt=mysqli_prepare($conn, $delCartItm)){
-                        mysqli_stmt_bind_param($stmt, "ii", $cart_id, $prod_id);
+                        mysqli_stmt_bind_param($stmt, "iii", $cart_id, $prod_id, $cart_itm_temp);
     
                         $cart_id = $caid;
                         $prod_id = $productId;
+                        $cart_itm_temp = $prodTemp;
     
                         if(mysqli_stmt_execute($stmt)){
-                            $getCartItm = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid";
+                            $getCartItm = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
                             $getCartItmRes = mysqli_query($conn, $getCartItm);
                             if(!is_bool($getCartItmRes)){
                                 $cartItmNum = mysqli_num_rows($getCartItmRes);
@@ -155,12 +162,12 @@
                             die();
                         }
     
-                        mysqli_stmt_close($stmt);
+                        //mysqli_stmt_close($stmt);
                     }
                 }
 
                 if(isset($currQty)){
-                    $addCartItmSQL = "UPDATE cart_items SET cart_item_qty = ? WHERE prod_id = $productId AND cart_id = $caid";
+                    $addCartItmSQL = "UPDATE cart_items SET cart_item_qty = ? WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
                     if ($stmt=mysqli_prepare($conn, $addCartItmSQL)){
                         mysqli_stmt_bind_param($stmt, "s", $cart_item_qty);
 
