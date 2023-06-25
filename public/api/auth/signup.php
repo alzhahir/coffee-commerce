@@ -125,8 +125,15 @@
             die();
         }
 
-        //MYSQL STATEMENTS BELOW
+        // check for invalid names
+        if(preg_match('~[0-9]+~', $name)){
+            $_SESSION["userErrCode"] = "INVALID_NAME";
+            $_SESSION["userErrMsg"] = "User name is invalid. Numbers are not allowed on names.";
+            header("refresh:0;url=$backPage?error=true");
+            die();
+        }
 
+        //MYSQL STATEMENTS BELOW
         //check for duplicate email
         $emailsql = "SELECT count(user_email) FROM users WHERE user_email = (?)" ;
         if ($stmt=mysqli_prepare($conn, $emailsql)){
