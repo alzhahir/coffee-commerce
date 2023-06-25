@@ -257,6 +257,48 @@
     </div>
 </div>
 
+<!-- MODAL FOR PRODUCT CUSTOMIZATIONS -->
+<div class="modal fade" id="productCartModal" tabindex="-1" aria-labelledby="editProduct" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fw-black">CUSTOMIZE</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col pb-3">
+                    <p>Customize your order.</p>
+                    <form id="prodCartForm" method="post">
+                        <div class="form-floating mb-3" hidden>
+                            <input id="prodId" class="form-control" name="value" type="text" placeholder="Product ID" required/>
+                            <label for="value">Product ID</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="cartQty" class="form-control" name="quantity" type="text" placeholder="Quantity" required/>
+                            <label for="quantity">Quantity</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-block">Temperature</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="temperature" value='1' checked required/>
+                                <label class="form-check-label" for="temperature">Hot</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="temperature" value='2'/>
+                                <label class="form-check-label" for="temperature">Cold</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary ahvbutton" form="prodCartForm" id="postCart" type="submit">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     //onload window jquery
     $(window).on('load', function(){
