@@ -29,6 +29,6 @@ jobs:
           user: ${{secrets.REMOTE_USER}}
           key: ${{secrets.SSH_REMOTE_KEY}}
           pre_upload: "sudo chown -R ${{secrets.REMOTE_USER}}:${{secrets.REMOTE_GROUP}} /home/${{secrets.REMOTE_USER}}/fyp"
-          post_upload: "composer install && sudo chown -R root:root /home/${{secrets.REMOTE_USER}}/fyp && sudo systemctl reload apache2.service"
+          post_upload: "cd /home/${{secrets.REMOTE_USER}}/fyp && composer install && sudo chown -R root:root /home/${{secrets.REMOTE_USER}}/fyp && sudo systemctl reload apache2.service"
           ssh_options: "-o StrictHostKeyChecking=no"
           scp_options: "-v"
