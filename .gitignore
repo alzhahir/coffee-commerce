@@ -5,5 +5,5 @@ dbg/
 dbg*
 stripe-php*
 testdir*
-composer*
+!composer.json
 vendor/
