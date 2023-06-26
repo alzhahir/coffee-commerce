@@ -60,7 +60,7 @@
                 </div>
                 <div class="col fw-medium text-end qtycol" style="float:right;">
                     <div style="display:inline-block;">
-                        <button data-value="<?php echo($currProd[0]); ?>" class="btn btn-danger rounded-circle align-middle text-center border-0 px-0 qtybtnminus" style="width:36px;height:36px;" disabled>
+                        <button data-temp="<?php echo($currCart[2]) ?>" data-value="<?php echo($currProd[0]); ?>" class="btn btn-danger rounded-circle align-middle text-center border-0 px-0 qtybtnminus" style="width:36px;height:36px;" disabled>
                             <span class="material-symbols-outlined align-middle text-center px-0">
                                 remove
                             </span>
@@ -68,7 +68,7 @@
                     </div>
                     <input id="itmMcart" data-id="<?php echo($currProd[0]); ?>" type="text" value="<?php echo($currCart[1]); ?>" min="0" max="99" class="form-control ms-auto qtynum" style="width:50px;display:inline-block;" disabled>
                     <div style="display:inline-block;">
-                        <button data-value="<?php echo($currProd[0]); ?>" class="btn btn-success rounded-circle align-middle text-center border-0 px-0 qtybtnplus" style="width:36px;height:36px;">
+                        <button data-temp="<?php echo($currCart[2]) ?>" data-value="<?php echo($currProd[0]); ?>" class="btn btn-success rounded-circle align-middle text-center border-0 px-0 qtybtnplus" style="width:36px;height:36px;">
                             <span class="material-symbols-outlined align-middle text-center px-0">
                                 add
                             </span>

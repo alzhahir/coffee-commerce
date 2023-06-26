@@ -410,6 +410,7 @@ $(document).ready(function(){
                 {
                     value: $(this).data('value'),
                     quantity: parseInt($(this).closest('.qtycol').children('.qtynum').attr('value')),
+                    temperature: $(this).data('temp'),
                 })
                 .done(function(){
                     //success
@@ -445,6 +446,7 @@ $(document).ready(function(){
                 {
                     value: $(this).data('value'),
                     quantity: parseInt($(this).closest('.qtycol').children('.qtynum').attr('value')),
+                    temperature: $(this).data('temp'),
                 })
                 .done(function(){
                     //success
