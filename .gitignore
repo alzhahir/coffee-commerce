@@ -5,3 +5,5 @@ dbg/
 dbg*
 stripe-php*
 testdir*
+composer*
+vendor/
