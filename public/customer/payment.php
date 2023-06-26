@@ -18,6 +18,7 @@ $shortName = strtok($_SESSION["name"], " ");
             var order_send_method;
             try{
                 order_items = JSON.parse(sessionStorage.getItem('cartitems'))
+                console.log(order_items)
                 //console.log(order_items.data)
                 for(let i = 0; i < order_items.data.length; i++){
                     displayTemp = "-"
@@ -32,6 +33,7 @@ $shortName = strtok($_SESSION["name"], " ");
                             displayTemp = "-"
                             break;
                     }
+                    console.log(order_items.data[i])
                     $('#finalOrderTable').append('<tr class="py-2"><th scope="row" class="py-2 px-2">'+(i+1)+'</th><td hidden class="py-2 px-2">'+order_items.data[i][0]+'</td><td class="py-2 px-2">'+order_items.data[i][1]+'</td><td class="py-2 px-2">'+displayTemp+'</td><td class="py-2 px-2">'+order_items.data[i][3]+'</td><td class="py-2 px-2">'+order_items.data[i][4]+'</td>'+'</td><td class="py-2 px-2">'+order_items.data[i][5]+'</td>')
                 }
                 order_send_items = order_items.data

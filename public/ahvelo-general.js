@@ -115,18 +115,24 @@ function createCheckoutTable(){
         })
         total = 0.00
         for(let i = 0; i < items.length; i++){
-            switch(itemTemp[i]){
+            itemTempVal = null;
+            if(itemTemp[i].includes('Cold')){
+                itemTempVal = 'Cold';
+            } else {
+                itemTempVal = 'Hot';
+            }
+            switch(itemTempVal){
                 case 'Hot':
-                    itemTemp[i] = 1;
+                    itemTempVal = 1;
                     break;
                 case 'Cold':
-                    itemTemp[i] = 2;
+                    itemTempVal = 2;
                     break;
                 default:
-                    itemTemp[i] = null;
+                    itemTempVal = null;
                     break;
             }
-            t_items.push([items[i], itemNames[i], itemTemp[i], itemQty[i], itemPrices[i], curRow[0][i]])
+            t_items.push([items[i], itemNames[i], itemTempVal, itemQty[i], itemPrices[i], curRow[0][i]])
         }
         if(typeof curRow === 'undefined'){
             showItemRequiredModal()
