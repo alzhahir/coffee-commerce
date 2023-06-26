@@ -6,7 +6,8 @@
     $HOST_NAME = $creds['host'];
     $STRIPE_API_KEY = $creds['secret_key'];
     include($ROOTPATH . '/internal/custcontrol.php');
-    require_once $ROOTPATH . '/internal/stripe-php/init.php';
+    require_once $ROOTPATH . '/vendor/autoload.php';
+    //require_once $ROOTPATH . '/internal/stripe-php/init.php';
     $stripe = new \Stripe\StripeClient($STRIPE_API_KEY);
     require_once $ROOTPATH . "/internal/db.php";
 

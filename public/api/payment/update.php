@@ -17,9 +17,9 @@
     // 3) Run the server on http://localhost:4242
     //   php -S localhost:4242
 
-    //require 'vendor/autoload.php';
+    require $ROOTPATH . '/vendor/autoload.php';
 
-    require_once $ROOTPATH . '/internal/stripe-php/init.php';
+    //require_once $ROOTPATH . '/internal/stripe-php/init.php';
     require_once $ROOTPATH . "/internal/db.php";
 
     // The library needs to be configured with your account's secret key.
