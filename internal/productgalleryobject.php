@@ -11,6 +11,37 @@
 
 <?php
     foreach($prodData as $currProd){
+        $outputPills = "";
+        switch($currProd[5]){
+            case 1:
+                $outputPills = '
+                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                    HOT
+                    <span class="visually-hidden">Temperature Hot</span>
+                </span>';
+                break;
+            case 2:
+                $outputPills = '
+                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                    COLD
+                    <span class="visually-hidden">Temperature Cold</span>
+                </span>';
+                break;
+            case 3:
+                $outputPills = '
+                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                    HOT
+                    <span class="visually-hidden">Temperature Hot</span>
+                </span>
+                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                    COLD
+                    <span class="visually-hidden">Temperature Cold</span>
+                </span>';
+                break;
+            default:
+                $outputPills = "";
+                break;
+        }
         switch($currProd[2]){
             case null:
                 $prodImgUrl = "https://openclipart.org/image/800px/194077";
@@ -33,11 +64,12 @@
                 <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
             </svg-->
             <div id="prodNameLabel" title="<?php echo($currProd[1])?>" class="user-select-none flex-row fw-bold fs-4 pt-2" style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;"><?php echo($currProd[1])?></div>
+            <?php echo($outputPills) ?>
             <div id="prodPriceLabel" class="user-select-none flex-row fw-normal fs-4 pb-2"><?php echo("RM " . $currProd[3])?></div>
         <?php
             if($currProd[4] > 0){
         ?>
-            <button id="prodShoppingBtn" data-value="<?php echo($currProd[0]); ?>" onclick="openProductModal(this.dataset.value)" class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2 prodShoppingBtn">
+            <button id="prodShoppingBtn" data-temp="<?php echo($currProd[5]) ?>" data-value="<?php echo($currProd[0]); ?>" onclick="openProductModal(this.dataset.value, this.dataset.temp)" class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2 prodShoppingBtn">
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     add_shopping_cart
                 </span>
