@@ -209,6 +209,7 @@ function renderOrdItemDT(apiEndpoint){
 }
 function custOrder(){
     var ordTable = $('#ordTable').DataTable({
+            order: [[0, 'desc']],
             autoWidth: false,
             responsive: true,
             ajax: {
