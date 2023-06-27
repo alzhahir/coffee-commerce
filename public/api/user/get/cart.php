@@ -106,7 +106,7 @@
                                 "name" => $currProd[1],
                                 "temperature" => $currItmTemp,
                                 "quantity" => $currItm[1],
-                                "price" => number_format($currProd[3], 2),
+                                "price" => number_format(($currProd[3] + $currTempPrice), 2),
                                 "subtotal" => number_format((($currProd[3] + $currTempPrice) * $currItm[1]), 2)
                             )));
                         }
