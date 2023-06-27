@@ -39,7 +39,6 @@ $shortName = strtok($_SESSION["name"], " ");
                 order_send_items = order_items.data
                 order_send_total = order_items.total
                 subTotal.innerText = order_items.subtotal
-                taxTotal.innerText = order_items.tax
                 totalSum.innerText = order_items.total
             }catch(err){
                 if(err instanceof SyntaxError /*typeof order_items === 'undefined'*/){
@@ -97,11 +96,6 @@ $shortName = strtok($_SESSION["name"], " ");
                 <span class="col col-md-1 text-end fw-bold fs-5 ps-1" id="subTotal">0.00</span>
             </div>
             <div class="row d-flex justify-content-end">
-                <h5 class="col fw-bold">TAX (6%): </h5>
-                <span class="col text-end fw-bold fs-5 pe-1">RM</span>
-                <span class="col col-md-1 text-end fw-bold fs-5 ps-1" id="taxTotal">0.00</span>
-            </div>
-            <div class="row d-flex justify-content-end">
                 <h3 class="col fw-black">TOTAL: </h3>
                 <span class="col text-end fw-bold fs-3 pe-1">RM</span>
                 <span class="col col-md-1 text-end fw-bold fs-3 ps-1" id="totalSum">0.00</span>
@@ -125,7 +119,7 @@ $shortName = strtok($_SESSION["name"], " ");
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         credit_card
                     </span>
-                    Stripe (Credit/Debit Card, GrabPay, Alipay)
+                    Stripe (Credit/Debit Card)
                 </label>
             </div>
         </div>
