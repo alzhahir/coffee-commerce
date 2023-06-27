@@ -48,7 +48,7 @@ $(document).on('click', '.prodShoppingBtn2', function(){
             }
         }
     });
-});
+});    
 
 function openProductModal(product, temp){
     $('#productCartModal').modal('show');
@@ -207,6 +207,7 @@ function renderOrdItemDT(apiEndpoint){
         ],
     });
 }
+
 function custOrder(){
     var ordTable = $('#ordTable').DataTable({
             order: [[0, 'desc']],
