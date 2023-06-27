@@ -52,6 +52,36 @@ $shortName = strtok($_SESSION["name"], " ");
             <div class='pb-4'>
                 <span class="fw-black fs-4">ORDERS</span>
                 <div class="mx-3 px-4 py-4 bg-white rounded-4 shadow">
+                    <div class="row justify-content-start mb-3">
+                        <div class="col-sm-4 col-md-3 form-floating">
+                            <input id="minDate" class="form-control" name="minDate" type="text" placeholder="Start Date" required/>
+                            <label class="ps-4" for="mindate">
+                                <span class="material-symbols-outlined align-middle text-center pb-1">
+                                    date_range
+                                </span>
+                                Start Date
+                            </label>
+                        </div>
+                        <div class="col-sm-auto my-3 px-0 position-relative">
+                            <span class="d-none d-sm-block material-symbols-outlined align-middle text-center position-absolute top-50 start-50 translate-middle">
+                            navigate_next
+                            </span>
+                            <span class="d-block d-sm-none material-symbols-outlined align-middle text-center position-absolute top-50 start-50 translate-middle">
+                            expand_more
+                            </span>
+                        </div>
+                        <div class="col-sm-4 col-md-3 form-floating">
+                            <input id="maxDate" class="form-control" name="maxDate" type="text" placeholder="End Date" required/>
+                            <label class="ps-4" for="maxDate">
+                                <span class='align-middle text-center px-0'>
+                                    <span class="material-symbols-outlined align-middle text-center pb-1">
+                                        calendar_month
+                                    </span>
+                                    End Date
+                                </span>
+                            </label>
+                        </div>
+                    </div>
                     <table id="ordTable" class="table table-bordered table-hover dt-responsive">
                         <thead>
                             <tr>
@@ -81,7 +111,7 @@ $shortName = strtok($_SESSION["name"], " ");
     <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-md-down modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title fw-black" id="viewOrder">VIEW DETAILS</h3>
+                <h3 class="modal-title fw-black" id="viewOrder">VIEW ORDER</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
