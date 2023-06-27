@@ -6,7 +6,7 @@ include($ROOTPATH . '/internal/staffcontrol.php');
 include($ROOTPATH . '/internal/htmlhead.php');
 include($ROOTPATH . '/internal/staffheader.php');
 ?>
-<div class="px-3">
+<div class="px-3 mb-4">
     <?php 
         $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
         //check if $_GET isset
@@ -141,7 +141,7 @@ include($ROOTPATH . '/internal/staffheader.php');
             });
             $("#ordTable tbody").on('click', '.editStatBtn', function() {
                 var updEndpoint = '/api/staff/update/orders.php';
-                var data = mainTable.row(this).data();
+                var data = mainTable.row($(this).parents()[0]).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
                 $('#editOrdForm').attr('action', updEndpoint+'?order_id='+data[0]);
                 currStat = data[3];

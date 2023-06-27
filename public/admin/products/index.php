@@ -65,10 +65,22 @@ include($ROOTPATH . '/internal/adminheader.php');
                                         "targets": "_all"
                                     },
                                 ],
-                                dom: 'Bfrtip',
+                                dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+                                    "<'row'<'col-sm-12'tr>>" +
+                                    "<'row'<'col-sm-5 col-md-5'i><'col-sm-12 col-md-2'l><'col-sm-12 col-md-5'p>>",
                                 buttons: [
                                     {
                                         extend: 'print',
+                                        exportOptions: {
+                                            columns: [
+                                                0,
+                                                1,
+                                                2,
+                                                3,
+                                                4,
+                                                5
+                                            ],
+                                        },
                                         title: '',
                                         footer: true,
                                         customize: function ( win ) {
@@ -110,7 +122,7 @@ include($ROOTPATH . '/internal/adminheader.php');
             new $.fn.dataTable.FixedHeader( mainTable );
         } );
     </script>
-    <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
+    <div class="px-4 py-4 bg-white rounded-4 shadow">
         <table id="prodTable" class="table table-bordered table-hover dt-responsive">
             <thead>
                 <tr>

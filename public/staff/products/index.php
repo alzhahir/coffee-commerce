@@ -6,7 +6,7 @@ include($ROOTPATH . '/internal/staffcontrol.php');
 include($ROOTPATH . '/internal/htmlhead.php');
 include($ROOTPATH . '/internal/staffheader.php');
 ?>
-<div class="px-3">
+<div class="px-3 mb-4">
     <?php 
         $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
         //check if $_GET isset
@@ -61,9 +61,36 @@ include($ROOTPATH . '/internal/staffheader.php');
                                         "targets": "_all"
                                     },
                                 ],
-                                dom: 'Bfrtip',
-                                buttons: [
-                                    'print'
+                                dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+                                    "<'row'<'col-sm-12'tr>>" +
+                                    "<'row'<'col-sm-5 col-md-5'i><'col-sm-12 col-md-2'l><'col-sm-12 col-md-5'p>>",
+                                    buttons: [
+                                    {
+                                        extend: 'print',
+                                        exportOptions: {
+                                            columns: [
+                                                0,
+                                                1,
+                                                3,
+                                                4,
+                                                5
+                                            ],
+                                        },
+                                        title: '',
+                                        footer: true,
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '12pt' )
+                                                .prepend(
+                                                    '<div><span class="h1 fw-black">AHVELO COFFEE PRODUCTS<span></div>'
+                                                )
+                                                .append('<footer class="">Ahvelo Coffee Products</div>');
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
                                 ],
                             });
             $("#prodTable tbody").on('click', 'button', function() {
@@ -77,7 +104,7 @@ include($ROOTPATH . '/internal/staffheader.php');
             new $.fn.dataTable.FixedHeader( mainTable );
         } );
     </script>
-    <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
+    <div class="px-4 py-4 bg-white rounded-4 shadow">
         <table id="prodTable" class="table table-bordered table-hover dt-responsive">
             <thead>
                 <tr>
@@ -86,6 +113,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                     <th>Product Image URL</th>
                     <th>Product Price</th>
                     <th>Product Stock</th>
+                    <th>Product Temperature</th>
                     <th>Edit Stock</th>
                 </tr>
             </thead>
