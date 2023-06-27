@@ -37,9 +37,34 @@ include($ROOTPATH . '/internal/staffheader.php');
         ORDERS
     </p>
     <script type="text/javascript">
+        var minDate, maxDate;
+        
+        // Custom filtering function which will search data in column four between two values
+        DataTable.ext.search.push(function (settings, data, dataIndex) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[1]);
+        
+            if (
+                (min === null && max === null) ||
+                (min === null && date <= max) ||
+                (min <= date && max === null) ||
+                (min <= date && date <= max)
+            ) {
+                return true;
+            }
+            return false;
+        });
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         $(document).ready( function () {
+            // Create date inputs
+            minDate = new DateTime('#minDate', {
+                format: 'YYYY-MM-DD'
+            });
+            maxDate = new DateTime('#maxDate', {
+                format: 'YYYY-MM-DD'
+            });
             function renderItemDT(apiEndpoint){
                 vdetTable = $('#ordDetTable').DataTable({
                                 autoWidth: false,
@@ -58,13 +83,13 @@ include($ROOTPATH . '/internal/staffheader.php');
                             });
             }
             var mainTable = $('#ordTable').DataTable({
+                                order: [[0, 'desc']],
                                 autoWidth: false,
                                 responsive: true,
                                 ajax: {
                                     url: '/api/staff/get/orders.php',
                                     dataSrc: 'data',
                                 },
-                                responsive: true,
                                 columnDefs: [
                                     {
                                         "defaultContent": '<button class="btn btn-primary ahvbutton editStatBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">edit</span>Edit Status</button>',
@@ -79,11 +104,41 @@ include($ROOTPATH . '/internal/staffheader.php');
                                         "targets": "_all"
                                     },
                                 ],
-                                dom: 'Bfrtip',
+                                dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+                                    "<'row'<'col-sm-12'tr>>" +
+                                    "<'row'<'col-sm-5 col-md-5'i><'col-sm-12 col-md-2'l><'col-sm-12 col-md-5'p>>",
                                 buttons: [
-                                    'print'
-                                ],
+                                    {
+                                        extend: 'print',
+                                        exportOptions: {
+                                            columns: [
+                                                0,
+                                                1,
+                                                2,
+                                                3,
+                                                4
+                                            ],
+                                        },
+                                        title: '',
+                                        footer: true,
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '12pt' )
+                                                .prepend(
+                                                    '<div><span class="h1 fw-black">AHVELO COFFEE ORDERS<span></div>'
+                                                )
+                                                .append('<footer class="">Ahvelo Coffee Orders</div>');
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
+                                ]
                             });
+            $('#minDate, #maxDate').on('change', function () {
+                mainTable.draw();
+            });
             $("#ordTable tbody").on('click', '.editStatBtn', function() {
                 var updEndpoint = '/api/staff/update/orders.php';
                 var data = mainTable.row(this).data();
@@ -111,6 +166,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                 renderItemDT(getOrdEndpoint);
                 $('#viewOrd').modal('show');
                 $.get(getOrdEndpoint, function(data){
+                    ordCust.innerText = data['name'];
                     ordDate.innerText = data['date'];
                     ordTime.innerText = data['time'];
                     ordStat.innerText = data['status'];
@@ -123,6 +179,7 @@ include($ROOTPATH . '/internal/staffheader.php');
             })
             $('#viewOrd').on('hidden.bs.modal', function(){
                 vdetTable.destroy();
+                ordCust.innerText = "";
                 ordDate.innerText = "";
                 ordTime.innerText = "";
                 ordStat.innerText = "";
@@ -132,7 +189,37 @@ include($ROOTPATH . '/internal/staffheader.php');
             new $.fn.dataTable.FixedHeader( mainTable );
         });
     </script>
-    <div class="mx-5 px-4 py-4 bg-white rounded-4 shadow">
+    <div class="px-3 py-4 bg-white rounded-4 shadow">
+        <div class="row justify-content-start mb-3">
+            <div class="col-sm-4 col-md-3 form-floating">
+                <input id="minDate" class="form-control" name="minDate" type="text" placeholder="Start Date" required/>
+                <label class="ps-4" for="mindate">
+                    <span class="material-symbols-outlined align-middle text-center pb-1">
+                        date_range
+                    </span>
+                    Start Date
+                </label>
+            </div>
+            <div class="col-sm-auto my-3 px-0 position-relative">
+                <span class="d-none d-sm-block material-symbols-outlined align-middle text-center position-absolute top-50 start-50 translate-middle">
+                navigate_next
+                </span>
+                <span class="d-block d-sm-none material-symbols-outlined align-middle text-center position-absolute top-50 start-50 translate-middle">
+                expand_more
+                </span>
+            </div>
+            <div class="col-sm-4 col-md-3 form-floating">
+                <input id="maxDate" class="form-control" name="maxDate" type="text" placeholder="End Date" required/>
+                <label class="ps-4" for="maxDate">
+                    <span class='align-middle text-center px-0'>
+                        <span class="material-symbols-outlined align-middle text-center pb-1">
+                            calendar_month
+                        </span>
+                        End Date
+                    </span>
+                </label>
+            </div>
+        </div>
         <table id="ordTable" class="table table-bordered table-hover dt-responsive">
             <thead>
                 <tr>
@@ -258,6 +345,10 @@ include($ROOTPATH . '/internal/staffheader.php');
                         }
                     ?>
                     <div class="row d-flex justify-content-end">
+                        <h5 class="col fw-bold">Customer Name: </h5>
+                        <span class="col text-end fw-bold fs-5 ps-1" id="ordCust"></span>
+                    </div>
+                    <div class="row d-flex justify-content-end">
                         <h5 class="col fw-bold">Order Date: </h5>
                         <span class="col text-end fw-bold fs-5 ps-1" id="ordDate"></span>
                     </div>
@@ -270,6 +361,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                             <tr>
                                 <th>Item ID</th>
                                 <th>Item Name</th>
+                                <th>Item Temperature</th>
                                 <th>Item Quantity</th>
                                 <th>Item Unit Price</th>
                                 <th>Subtotal</th>
