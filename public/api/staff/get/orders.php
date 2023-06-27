@@ -107,7 +107,7 @@
             }
         } else if(isset($_GET['order_id'])){
             $ordId = $_GET['order_id'];
-            $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, payment_id FROM orders WHERE order_id = $ordId";
+            $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, payment_id, cust_id FROM orders WHERE order_id = $ordId";
             $ordRes = mysqli_query($conn, $getOrdSQL);
             if(!is_bool($ordRes)){
                 if(mysqli_num_rows($ordRes) == 0){
@@ -122,7 +122,7 @@
                 $outputOrdArr = array();
                 $ordArr = mysqli_fetch_all($ordRes);
                 $ordArr = array_values($ordArr);
-                $getOrdItmSQL = "SELECT prod_id, ord_list_qty, ord_list_price, ord_list_amt FROM order_lists WHERE order_id = $ordId";
+                $getOrdItmSQL = "SELECT prod_id, ord_list_temp, ord_list_qty, ord_list_price, ord_list_amt FROM order_lists WHERE order_id = $ordId";
                 $ordItmRes = mysqli_query($conn, $getOrdItmSQL);
                 if(!is_bool($ordItmRes)){
                     $ordItmArr = mysqli_fetch_all($ordItmRes);
@@ -142,12 +142,25 @@
                             $prodName = "null";
                             $prodImg = "null";
                         }
+                        $itmTemp = null;
+                        switch($currItm[1]){
+                            case 1:
+                                $itmTemp = "Hot";
+                                break;
+                            case 2:
+                                $itmTemp = "Cold";
+                                break;
+                            case 0:
+                            default:
+                                break;
+                        }
                         array_push($outputItmArr, array_values(array(
                             "id" => $currItm[0],
                             "name" => $prodName,
-                            "quantity" => $currItm[1],
-                            "price" => $currItm[2],
-                            "subtotal" => $currItm[3],
+                            "temperature" => $itmTemp,
+                            "quantity" => $currItm[2],
+                            "price" => $currItm[3],
+                            "subtotal" => $currItm[4],
                             "img" => $prodImg,
                         )));
                     }
@@ -157,6 +170,15 @@
                     die();
                 }
                 foreach($ordArr as $currOrd){
+                    $getCustSQL = "SELECT cust_name FROM customers WHERE cust_id = $currOrd[6]";
+                    $custRes = mysqli_query($conn, $getCustSQL);
+                    if(!is_bool($custRes)){
+                        $custArr = mysqli_fetch_all($custRes);
+                        $custArr = array_values($custArr);
+                        foreach($custArr as $thisCust){
+                            $custName = $thisCust[0];
+                        }
+                    }
                     $getPaymSQL = "SELECT payment_method FROM payments WHERE payment_id = $currOrd[5]";
                     $paymRes = mysqli_query($conn, $getPaymSQL);
                     if(!is_bool($paymRes)){
@@ -168,6 +190,7 @@
                     }
                     $outputOrdArr = array(
                         "id" => $currOrd[0],
+                        "name" => $custName,
                         "date" => $currOrd[1],
                         "time" => $currOrd[2],
                         "status" => $currOrd[3],
