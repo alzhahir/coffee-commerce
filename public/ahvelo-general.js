@@ -144,12 +144,9 @@ function createCheckoutTable(){
         })
         subTotal.innerText = total.toFixed(2);
         subTotalVal = total.toFixed(2);
-        tax = total*0.06
-        taxTotal.innerText = tax.toFixed(2);
-        taxVal = tax.toFixed(2);
-        finalTotal = total + tax
+        finalTotal = total
         gl_total = finalTotal.toFixed(2);
-        gl_items.push({data: t_items, subtotal: subTotalVal, tax: taxVal, total: gl_total})
+        gl_items.push({data: t_items, subtotal: subTotalVal, total: gl_total})
         totalSum.innerText = finalTotal.toFixed(2);
     })
 }
@@ -209,6 +206,31 @@ function renderOrdItemDT(apiEndpoint){
 }
 
 function custOrder(){
+    var minDate, maxDate;
+    // Create date inputs
+    minDate = new DateTime('#minDate', {
+        format: 'YYYY-MM-DD'
+    });
+    maxDate = new DateTime('#maxDate', {
+        format: 'YYYY-MM-DD'
+    });
+        
+    // Custom filtering function which will search data in column four between two values
+    DataTable.ext.search.push(function (settings, data, dataIndex) {
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date(data[1]);
+    
+        if (
+            (min === null && max === null) ||
+            (min === null && date <= max) ||
+            (min <= date && max === null) ||
+            (min <= date && date <= max)
+        ) {
+            return true;
+        }
+        return false;
+    });
     var ordTable = $('#ordTable').DataTable({
             order: [[0, 'desc']],
             autoWidth: false,
@@ -223,7 +245,7 @@ function custOrder(){
                     visible: false,
                 },
                 {
-                    "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
+                    "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Order</button>',
                     "targets": -1
                 },
                 {
@@ -235,7 +257,9 @@ function custOrder(){
                 emptyTable: "You have no orders"
             },
         });
-    
+    $('#minDate, #maxDate').on('change', function () {
+        ordTable.draw();
+    });
     $("#ordTable tbody").on('click', '.viewDetBtn', function() {
         var data = ordTable.row($(this).parents()[0]).data();
         var getOrdEndpoint = '/api/user/get/orders.php?order_id='+data[0];
