@@ -186,6 +186,63 @@
 </div>
 
 <script type="text/javascript">
+        function getRegToken(){
+        console.log('Requesting permission...');
+        Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+            console.log('Notification permission granted.');
+            }
+        })
+    }
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBYu-HeucZacAKoAJHgwAzNYYjSKhhxZYw",
+        authDomain: "mdvpnzone.firebaseapp.com",
+        projectId: "mdvpnzone",
+        storageBucket: "mdvpnzone.appspot.com",
+        messagingSenderId: "429146314022",
+        appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
+        measurementId: "G-ZQSPFKPBLL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+    messaging.getToken({vapidKey: 'BDNYjgph3oScPyWzOmYVug-x3Nkon-9OKp4bd9Us6cc6SW0uAdDn-U2CSWxiniSlMvBiAexRPXOzKc5mlfew2cU'})
+    .then((currentToken) => {
+    if (currentToken) {
+        // Send the token to your server and update the UI if necessary
+        // ...
+        console.log('tes')
+        $.ajax('/api/notification/post/token.php', {
+            type: 'POST',
+            data: {
+                registrationToken: currentToken,
+                topic: '<?php echo $_SESSION['utype'] ?>'
+            },
+            success: function(res){
+                console.log('success: ' + res)
+            },
+            error: function(){
+                console.log('error: ' + res)
+            }
+        })
+        console.log('tes2')
+    } else {
+        // Show permission request UI
+        console.log('No registration token available. Request permission to generate one.');
+        getRegToken();
+    }
+    }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+    // ...
+    });
+
+    messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+        // ...
+    });
+
     //onload window jquery
     $(window).on('load', function(){
         const queryString = window.location.search;
