@@ -37,7 +37,7 @@
         if(isset($_POST['title']) && isset($_POST['body']) && $_POST['topic']){
             $title = $_POST['title'];
             $body = $_POST['body'];
-            $imageUrl = 'http://lorempixel.com/400/200/';
+            $imageUrl = 'https://img.icons8.com/fluency/96/services.png';
             $topicVal = $_POST['topic'];
         }
 
