@@ -19,6 +19,7 @@
         if(isset($_POST['registrationToken']) && isset($_POST['topic'])){
             $topicVal = $_POST['topic'];
             $registrationToken = $_POST['registrationToken'];
+            $res = $messaging->unsubscribeFromAllTopics($registrationToken);
             $res = $messaging->subscribeToTopic($topicVal, $registrationToken);
             header("Content-Type: application/json");
             echo json_encode([
