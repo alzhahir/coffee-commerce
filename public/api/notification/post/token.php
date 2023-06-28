@@ -17,6 +17,7 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['registrationToken']) && isset($_POST['topic'])){
+            $topicVal = $_POST['topic'];
             $registrationToken = $_POST['registrationToken'];
             print_r($registrationToken);
             $res = $messaging->subscribeToTopic($topicVal, $registrationToken);
