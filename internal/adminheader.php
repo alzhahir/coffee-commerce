@@ -244,6 +244,9 @@
     messaging.onMessage((payload) => {
         console.log('Message received. ', payload);
         // ...
+        if($('#notifBadge').is(':hidden')){
+            $('#notifBadge').show();
+        }
         notifContent.innerHTML = "<div class='border border-1 row px-2 py-3 rounded-4'><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div>"
 
     });
