@@ -7,3 +7,4 @@ stripe-php*
 testdir*
 !composer.json
 vendor/
+logs/
