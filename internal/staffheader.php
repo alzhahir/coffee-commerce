@@ -233,7 +233,6 @@
     if (currentToken) {
         // Send the token to your server and update the UI if necessary
         // ...
-        console.log('tes')
         $.ajax('/api/notification/post/token.php', {
             type: 'POST',
             data: {
@@ -241,13 +240,12 @@
                 topic: '<?php echo $_SESSION['utype'] ?>'
             },
             success: function(res){
-                console.log('success: ' + res)
+                console.log('success', res)
             },
             error: function(){
-                console.log('error: ' + res)
+                console.log('error', res)
             }
         })
-        console.log('tes2')
     } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
