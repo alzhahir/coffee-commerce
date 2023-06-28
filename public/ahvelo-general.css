@@ -52,6 +52,18 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
     }
 }
 
+.bg-ahvelo-light{
+    background-color: #FF6E6E!important;
+}
+
+.bg-ahvelo{
+    background-color: #FA3F3F!important;
+}
+
+.bg-notif{
+    background-color: #f0f0f0!important;
+}
+
 .ahvpill{
     color: #FA3F3F!important;
     background-color: transparent!important;
@@ -124,7 +136,8 @@ body{
         'FILL' 1,
         'wght' 400,
         'GRAD' 0,
-        'opsz' 48
+        'opsz' 48;
+    transition: font-variation-settings 0.1s;
 }
 
 .material-symbols-outlined {
@@ -135,7 +148,8 @@ body{
         'FILL' 0,
         'wght' 400,
         'GRAD' 0,
-        'opsz' 48
+        'opsz' 48;
+    transition: font-variation-settings 0.1s;
 }
 
 /*Spinner CSS code starts*/
