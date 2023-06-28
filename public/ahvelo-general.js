@@ -325,6 +325,9 @@ $(document).ready(function(){
     $('.navbar-toggler').on('hidden.bs.dropdown', function() {
         $('#menuIconLabel').toggleClass('filled', $('#drpmenu').is(":visible"))
         $('#cartIconLabel').toggleClass('filled', $('#drpcart').is(":visible"))
+        $('#notifIconLabel').toggleClass('filled', $('#drpnotif').is(":visible"))
+        $('#notifBadge').hide();
+        notifContent.innerHTML = "No unread notifications."
         if ($('.avdrpd').is(":hidden")){
             $('body').css('overflow', 'auto');
         } else {
@@ -351,6 +354,15 @@ $(document).ready(function(){
 
     $('#dropdownMenuButton').click(function() {
         $('#menuIconLabel').toggleClass('filled', $('#drpmenu').is(":visible"))
+        if ($('.avdrpd').is(":visible") && screen.width < 580){
+            $('body').css('overflow', 'hidden');
+        } else {
+            $('body').css('overflow', 'auto');
+        }
+    });
+
+    $('#dropdownNotifButton').click(function() {
+        $('#notifIconLabel').toggleClass('filled', $('#drpnotif').is(":visible"))
         if ($('.avdrpd').is(":visible") && screen.width < 580){
             $('body').css('overflow', 'hidden');
         } else {
