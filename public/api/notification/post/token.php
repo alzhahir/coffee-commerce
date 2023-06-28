@@ -19,9 +19,13 @@
         if(isset($_POST['registrationToken']) && isset($_POST['topic'])){
             $topicVal = $_POST['topic'];
             $registrationToken = $_POST['registrationToken'];
-            print_r($registrationToken);
             $res = $messaging->subscribeToTopic($topicVal, $registrationToken);
-            print_r($res);
+            header("Content-Type: application/json");
+            echo json_encode([
+                'topic'=> $topicVal,
+                'registrationToken' => $registrationToken,
+                'topicConfirmation' => $res
+            ]);
         } else {
             http_response_code(500);
             die();
