@@ -7,4 +7,3 @@ stripe-php*
 testdir*
 !composer.json
 vendor/
-firebase-messaging-sw.js
