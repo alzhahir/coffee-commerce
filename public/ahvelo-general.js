@@ -324,9 +324,9 @@ $(document).ready(function(){
 
     $('.navbar-toggler').on('hidden.bs.dropdown', function() {
         $('#menuIconLabel').toggleClass('filled', $('#drpmenu').is(":visible"))
-        $('#cartIconLabel').toggleClass('filled', $('#drpcart').is(":visible"))
         $('#notifIconLabel').toggleClass('filled', $('#drpnotif').is(":visible"))
         $('#notifBadge').hide();
+        $('#cartIconLabel').toggleClass('filled', $('#drpcart').is(":visible"))
         notifContent.innerHTML = "No unread notifications."
         if ($('.avdrpd').is(":hidden")){
             $('body').css('overflow', 'auto');

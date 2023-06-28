@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="col d-flex flex-row text-end justify-content-end">
-        <div class="dropdown flex-column d-flex text-end" id="notifdrp">
+            <div class="dropdown flex-column d-flex text-end" id="notifdrp">
                 <button class="border-0 btn-lg align-middle navbar-toggler p-2 position-relative" type="button" id="dropdownNotifButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <span class="position-absolute translate-middle rounded-circle bg-warning text-dark align-middle" id="notifBadge" style="top:35%;left:65%;padding:0.35rem!important;display:none;">
                         <span class="visually-hidden">unread messages</span>
