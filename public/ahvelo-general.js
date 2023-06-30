@@ -50,6 +50,27 @@ $(document).on('click', '.prodShoppingBtn2', function(){
     });
 });    
 
+function closeNotif(nid){
+    $('#notif'+nid).remove();
+    $.ajax('/api/notification/update/read.php', {
+        type: 'POST',
+        data: {
+            id: nid
+        },
+        success: function(){
+            const toastElList = document.querySelectorAll('#toastNotifDel')
+            const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
+            toastList.forEach(toast => toast.show());
+        },
+        fail: function(){
+            //console.log("FAIL!")
+        }
+    })
+    if($('#notifContent').is(':empty')){
+        $('#notifContent').prepend('All notifications dismissed.')
+    }
+}
+
 function openProductModal(product, temp){
     $('#productCartModal').modal('show');
     $('#prodId').val(product);
@@ -325,9 +346,9 @@ $(document).ready(function(){
     $('.navbar-toggler').on('hidden.bs.dropdown', function() {
         $('#menuIconLabel').toggleClass('filled', $('#drpmenu').is(":visible"))
         $('#notifIconLabel').toggleClass('filled', $('#drpnotif').is(":visible"))
-        $('#notifBadge').hide();
         $('#cartIconLabel').toggleClass('filled', $('#drpcart').is(":visible"))
-        notifContent.innerHTML = "No unread notifications."
+        //$('#notifContent').empty();
+        //$('#notifContent').append("No unread notifications.");
         if ($('.avdrpd').is(":hidden")){
             $('body').css('overflow', 'auto');
         } else {
@@ -370,6 +391,7 @@ $(document).ready(function(){
 
     $('#dropdownNotifButton').click(function() {
         $('#notifIconLabel').toggleClass('filled', $('#drpnotif').is(":visible"))
+        $('#notifBadge').hide();
         if ($('.avdrpd').is(":visible") && screen.width < 580){
             $('body').css('overflow', 'hidden');
         } else {
