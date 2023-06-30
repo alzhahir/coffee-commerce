@@ -75,7 +75,7 @@
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownNotifButton" id="drpnotif" style="width:50vw;">
                     <div class="container px-3 py-2">
                         <h4 class="fw-black">NOTIFICATIONS</h4>
-                        <div id="notifContent">
+                        <div id="notifContent" class='overflow-y-auto' style="max-height:512px!important;">
                             No unread notifications.
                         </div>
                     </div>
@@ -264,15 +264,42 @@
     messaging.onMessage((payload) => {
         console.log('Message received. ', payload);
         // ...
+        const toastElList = document.querySelectorAll('#toastNewNotif')
+        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:5000}))
+        toastList.forEach(toast => toast.show());
         if($('#notifBadge').is(':hidden')){
             $('#notifBadge').show();
         }
-        notifContent.innerHTML = "<div class='border border-1 row px-2 py-3 rounded-4'><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div>"
+        $('#notifContent').append("<div id='notif"+payload.data.id+"' onclick='window.location=\""+payload.data.redirect+"\";' class='my-2 border border-1 row mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+payload.data.id+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div>");
 
     });
 
     //onload window jquery
     $(window).on('load', function(){
+        if($('#notifContent').is(':empty')){
+            $('#notifContent').prepend('All notifications dismissed.')
+        }
+
+        $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo $_SESSION['utype'] ?>', {
+            type: 'GET',
+            success: function(res){
+                if(res.data.length > 0){
+                    if($('#notifBadge').is(':hidden')){
+                        $('#notifBadge').show();
+                    }
+                    $('#notifContent').empty();
+                    console.log('success', res)
+                    for (let i = 0; i < res.data.length; i++) {
+                        element = res.data[i];
+                        $('#notifContent').append("<div id='notif"+element[0]+"' onclick='window.location=\""+element[4]+"\";' class='my-2 border border-1 row mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+element[0]+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><img width='64px' height='64px' src="+element[3]+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+element[1]+"</span><span class='row'>"+element[2]+"</span></div></div>");
+                    }
+                }
+            },
+            error: function(){
+                console.log('error', res)
+            }
+        })
+
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.has('autherror')){
