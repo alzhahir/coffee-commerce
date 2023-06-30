@@ -350,7 +350,14 @@ $(document).ready(function(){
         url.searchParams.delete('autherror');
         window.history.pushState({}, document.title, url);
     });
-    
+
+    $('.collapsible-icn-btn').click(function(){
+        if($(this).hasClass('collapsed')){
+            $(this).children('.collapsible-icn').text("chevron_right");
+        } else {
+            $(this).children('.collapsible-icn').text("expand_more");
+        }
+    })
 
     $('#dropdownMenuButton').click(function() {
         $('#menuIconLabel').toggleClass('filled', $('#drpmenu').is(":visible"))
