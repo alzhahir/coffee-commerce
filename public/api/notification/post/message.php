@@ -9,6 +9,7 @@
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     $FIREBASE_CREDS_PATH = $ROOTPATH . '/firebase-creds.json';
     require $ROOTPATH . '/vendor/autoload.php';
+    require $ROOTPATH . '/internal/db.php';
 
     use Kreait\Firebase\Factory;
     use Kreait\Firebase\Messaging\CloudMessage;
@@ -31,15 +32,48 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $title = 'Error!';
         $body = 'This is the default message';
-        $imageUrl = 'http://lorempixel.com/400/200/';
+        $imageUrl = 'https://img.icons8.com/fluency/96/services.png';
         $topicVal = "employees";
+        $redir = "#";
 
         if(isset($_POST['title']) && isset($_POST['body']) && $_POST['topic']){
             $title = $_POST['title'];
             $body = $_POST['body'];
-            $imageUrl = 'https://img.icons8.com/fluency/96/services.png';
             $topicVal = $_POST['topic'];
         }
+
+        if(isset($_POST['imgurl'])){
+            $imageUrl = $_POST['imgurl'];
+        }
+
+        if(isset($_POST['redirurl'])){
+            $redir = $_POST['redirurl'];
+        }
+
+        $addNotifSQL = "INSERT INTO notifications (notif_title, notif_message, notif_imgurl, notif_redirurl, notif_topic) VALUES (?, ?, ? ,? ,?)";
+        if($stmt=mysqli_prepare($conn, $addNotifSQL)){
+            mysqli_stmt_bind_param($stmt, "sssss", $notif_title, $notif_message, $notif_imgurl, $notif_redirurl, $notif_topic);
+
+            $notif_title = $title;
+            $notif_message = $body;
+            $notif_imgurl = $imageUrl;
+            $notif_redirurl = $redir;
+            $notif_topic = $topicVal;
+
+            if(!mysqli_stmt_execute($stmt)){
+                mysqli_stmt_close($stmt);
+                http_response_code(500);
+                die();
+            }
+            mysqli_stmt_close($stmt);
+        } else {
+            header("Content-Type: application/json;");
+            echo genResData('Database failed', "DB_FAIL_TRACK");
+            http_response_code(500);
+            die();
+        }
+
+        $notifId = mysqli_insert_id($conn);
 
         $notification = Notification::fromArray([
             'title' => $title,
@@ -49,7 +83,11 @@
 
         $message = CloudMessage::withTarget('topic', $topicVal)
             ->withNotification($notification)
-            ->withData(['key' => 'value']);
+            ->withData([
+                'redirect' => $redir,
+                'id' => $notifId,
+                'click_action' => '/'
+        ]);
 
         try {
             $messaging->send($message, $validateOnly = true);
