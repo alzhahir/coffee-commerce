@@ -1,6 +1,10 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    $DOMAIN = $_SERVER['HTTP_HOST'];
+    $PROTOCOL = $_SERVER['HTTPS'] ? 'https://' : 'http://';
     include($ROOTPATH . '/internal/staffcontrol.php');
     require_once $ROOTPATH . "/internal/db.php";
 
@@ -74,6 +78,57 @@
                 header("refresh:0;url=$backPage?error=true");
                 die();
             }
+
+            $getCustId = "SELECT cust_id FROM orders WHERE order_id = $oid";
+            $custIdRes = mysqli_query($conn, $getCustId);
+            if(!is_bool($custIdRes)){
+                $custIdArr = mysqli_fetch_all($custIdRes);
+                $custIdArr = array_values($custIdArr);
+                foreach($custIdArr as $thisCust){
+                    $custId = $thisCust[0];
+                }
+            } else {
+                $_SESSION["userErrCode"] = "MYSQL_ERROR";
+                $_SESSION["userErrMsg"] = "MySQL error encountered: ".mysqli_error($conn)." Please contact the administrator if you believe that this should not happen.";
+                header("refresh:0;url=$backPage?error=true");
+                die();
+            }
+
+            if(str_contains($DOMAIN, 'localhost')){
+                $DOMAIN = "fyp.alzhahir.com";
+                $PROTOCOL = "https://";
+            }
+
+            $notifApiUrl = $PROTOCOL.$DOMAIN."/api/notification/post/message.php";
+
+            $title = "Order $orderStatus";
+            $body = "Your order, order $oid had changed status to $orderStatus";
+            $imageUrl = 'https://img.icons8.com/fluency/96/cup.png';
+            $topicVal = "cust".$custId; //get customer topic
+            $redir = "/customer/index.php";
+
+            $postfields = [
+                "title" => $title,
+                "body" => $body,
+                "topic" => $topicVal,
+                "imgurl" => $imageUrl,
+                "redirurl" => $redir
+            ];
+
+            $req = curl_init();
+            curl_setopt($req, CURLOPT_URL, $notifApiUrl);
+            curl_setopt($req, CURLOPT_POST, true);
+            curl_setopt($req, CURLOPT_POSTFIELDS, $postfields);
+            curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($req, CURLOPT_SSL_VERIFYPEER, FALSE);
+            $response = curl_exec($req);
+            $reserr = curl_error($req);
+            $rescode = curl_getinfo($req, CURLINFO_HTTP_CODE);
+            if(!$response){
+                //
+            }
+            curl_close ($req);
+
         }
         $_SESSION["userErrCode"] = "UPDATE_ORDER_SUCCESS";
         $_SESSION["userErrMsg"] = "Order status successfully updated. You can view the latest order listing via the Orders page.";
