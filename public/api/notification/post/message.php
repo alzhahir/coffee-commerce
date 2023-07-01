@@ -67,8 +67,6 @@
             }
             mysqli_stmt_close($stmt);
         } else {
-            header("Content-Type: application/json;");
-            echo genResData('Database failed', "DB_FAIL_TRACK");
             http_response_code(500);
             die();
         }
