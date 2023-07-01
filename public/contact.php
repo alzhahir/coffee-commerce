@@ -3,7 +3,7 @@ session_start();
 include('../internal/htmlhead.php');
 include('../internal/header.php');
 ?>
-<div class="px-3">
+<div class="px-3 pb-5">
     <h3 class="fw-black">CONTACT US</h3>
     <div class="row" style="height: 60vh!important;">
         <div class="col mb-2">
@@ -13,9 +13,12 @@ include('../internal/header.php');
             <h4 class="fw-black">AHVELO COFFEE SHOP</h4>
             <p>
                 Laman Rafa,<br>
-                Kuala Terengganu,<br>
+                Cendering,<br>
+                21080 Kuala Terengganu,<br>
                 Terengganu<br>
             </p>
+            <h5 class="fw-bold">OPERATING HOURS</h5>
+            <span>Every day, 7.30AM - 2.00AM</span>
         </div>
     </div>
 </div>
