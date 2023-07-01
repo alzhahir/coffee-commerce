@@ -74,9 +74,21 @@
                 <div class="overflow-hidden rounded-5 p-3 dropdown-menu shadow avdrpd" aria-labelledby="dropdownNotifButton" id="drpnotif" style="width:50vw;">
                     <div class="container px-3 py-2">
                         <h4 class="fw-black">NOTIFICATIONS</h4>
-                        <div id="notifContent" class='overflow-y-auto' style="max-height:512px!important;">
-                            No unread notifications.
-                        </div>
+                        <?php
+                        if(isset($_SESSION['uid'])){
+                            ?>
+                            <div id="notifContent" class='overflow-y-auto' style="max-height:512px!important;">
+                                No unread notifications.
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div id="notifContent" class='overflow-y-auto' style="max-height:512px!important;">
+                                You must be logged in to receive notifications.
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -356,7 +368,7 @@
                 topic: '<?php echo 'cust'.$_SESSION['cust_id'] ?>'
             },
             success: function(res){
-                console.log('success', res)
+                //console.log('success', res)
             },
             error: function(){
                 console.log('error', res)
@@ -398,7 +410,7 @@
                         $('#notifBadge').show();
                     }
                     $('#notifContent').empty();
-                    console.log('success', res)
+                    //console.log('success', res)
                     for (let i = 0; i < res.data.length; i++) {
                         element = res.data[i];
                         $('#notifContent').append("<div id='notif"+element[0]+"' class='my-2 border border-1 mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+element[0]+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><div class='row me-2 my-2 ms-1' onclick='window.location=\""+element[4]+"\";'><img width='64px' height='64px' src="+element[3]+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+element[1]+"</span><span class='row'>"+element[2]+"</span></div></div></div>");
