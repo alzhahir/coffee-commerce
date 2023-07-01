@@ -75,6 +75,9 @@ messaging.onBackgroundMessage((payload) => {
 		body: payload.data.body,
 		icon: payload.data.image,
         tag: payload.data.id,
+        data: {
+            redirect: payload.data.redirect,
+        }
     };
   
     self.registration.showNotification(notificationTitle, notificationOptions);
@@ -93,9 +96,9 @@ self.onnotificationclick = (event) => {
         })
         .then((clientList) => {
             for (const client of clientList) {
-            if (client.url === "/" && "focus" in client) return client.focus();
+            if (client.url === event.notification.data.redirect && "focus" in client) return client.focus();
             }
-            if (clients.openWindow) return clients.openWindow("/");
+            if (clients.openWindow) return clients.openWindow(event.notification.data.redirect);
         })
 	);
 };
