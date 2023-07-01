@@ -110,7 +110,7 @@ $shortName = strtok($_SESSION["name"], " ");
                     <span class="material-symbols-outlined align-middle text-center px-0">
                         payments
                     </span> 
-                    Cash in Store
+                    In-store payment (Cash, DuitNow QR)
                 </label>
             </div>
             <div class="form-check py-2">
