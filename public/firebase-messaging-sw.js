@@ -71,10 +71,10 @@ messaging.onBackgroundMessage((payload) => {
 		payload
     );
     // Customize notification here
-    const notificationTitle = payload.notification.title;
+    const notificationTitle = payload.data.title;
     const notificationOptions = {
-		body: payload.notification.body,
-		icon: payload.notification.image,
+		body: payload.data.body,
+		icon: payload.data.image,
         tag: payload.data.id,
     };
   
