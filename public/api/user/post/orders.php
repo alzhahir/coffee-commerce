@@ -1,6 +1,10 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    $DOMAIN = $_SERVER['HTTP_HOST'];
+    $PROTOCOL = $_SERVER['HTTPS'] ? 'https://' : 'http://';
     $creds = parse_ini_file($ROOTPATH."/.ini");
     $HOST_PROTOCOL = $creds['protocol'];
     $HOST_NAME = $creds['host'];
@@ -362,6 +366,57 @@
             http_response_code(500);
             die();
         }
+
+        if(str_contains($DOMAIN, 'localhost')){
+            $DOMAIN = "fyp.alzhahir.com";
+            $PROTOCOL = "https://";
+        }
+
+        $notifApiUrl = $PROTOCOL.$DOMAIN."/api/notification/post/message.php";
+
+        $title = 'Order Received';
+        $body = 'Our barista had just received your order.';
+        $imageUrl = 'https://img.icons8.com/fluency/96/cup.png';
+        $topicVal = $_SESSION['notiftopic'];
+        $redir = "#";
+
+        $postfields = [
+            "title" => $title,
+            "body" => $body,
+            "topic" => $topicVal,
+            "imgurl" => $imageUrl,
+            "redirurl" => $redir
+        ];
+
+        $req = curl_init();
+        curl_setopt($req, CURLOPT_URL, $notifApiUrl);
+        curl_setopt($req, CURLOPT_POST, true);
+        curl_setopt($req, CURLOPT_POSTFIELDS, $postfields);
+        curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
+        $res1 = curl_exec($req);
+        curl_close ($req);
+
+        $title = 'New Order';
+        $body = "Order $ordId received! Please check the order.";
+        $imageUrl = 'https://img.icons8.com/fluency/96/cup.png';
+        $topicVal = 'staff';
+        $redir = "/staff/orders/";
+
+        $postfields = [
+            "title" => $title,
+            "body" => $body,
+            "topic" => $topicVal,
+            "imgurl" => $imageUrl,
+            "redirurl" => $redir
+        ];
+
+        $req = curl_init();
+        curl_setopt($req, CURLOPT_URL, $notifApiUrl);
+        curl_setopt($req, CURLOPT_POST, 1);
+        curl_setopt($req, CURLOPT_POSTFIELDS, $postfields);
+        curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
+        $res2 = curl_exec($req);
+        curl_close ($req);
 
         switch($paymethod){
             case "0": //cash
