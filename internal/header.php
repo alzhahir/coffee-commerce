@@ -289,10 +289,10 @@
                             <input id="prodId" class="form-control" name="value" type="text" placeholder="Product ID" required/>
                             <label for="value">Product ID</label>
                         </div>
-                        <div class="form-floating mb-3">
+                        <!--div class="form-floating mb-3">
                             <input id="cartQty" class="form-control" name="quantity" type="text" placeholder="Quantity" required/>
                             <label for="quantity">Quantity</label>
-                        </div>
+                        </div-->
                         <div class="mb-3">
                             <label class="form-label d-block">Temperature</label>
                             <div class="form-check form-check-inline">
