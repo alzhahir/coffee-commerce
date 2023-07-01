@@ -15,6 +15,7 @@ firebaseConfig = {
     measurementId: "G-ZQSPFKPBLL"
 };
 
+firebase.initializeApp(firebaseConfig);
 
 class CustomPushEvent extends Event {
     constructor(data) {
@@ -59,8 +60,6 @@ self.addEventListener('push', (e) => {
     // Dispatch the new wrapped event
     dispatchEvent(newEvent)
 })
-
-firebase.initializeApp(firebaseConfig);
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
