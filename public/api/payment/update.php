@@ -3,6 +3,8 @@
     session_start();
     error_reporting(E_ALL);
     $creds = parse_ini_file($ROOTPATH."/.ini");
+    $DOMAIN = $_SERVER['HTTP_HOST'];
+    $PROTOCOL = $_SERVER['HTTPS'] ? 'https://' : 'http://';
     $STRIPE_API_KEY = $creds['secret_key'];
     $STRIPE_ENDPOINT_SECRET = $creds['endpoint_secret'];
     // webhook.php
@@ -106,13 +108,14 @@
         http_response_code(500);
     }
 
-    $getPaymentSQL = "SELECT payment_id FROM orders WHERE order_id = $orderId";
+    $getPaymentSQL = "SELECT payment_id, cust_id FROM orders WHERE order_id = $orderId";
     $getPaymentRes = mysqli_query($conn, $getPaymentSQL);
     if(!is_bool($getPaymentRes)){
         $currPaymentArr = mysqli_fetch_all($getPaymentRes);
         $currPaymentArr = array_values($currPaymentArr);
         foreach($currPaymentArr as $currPayment){
             $payId = $currPayment[0];
+            $custId = $currPayment[1];
         }
     }
 
@@ -197,5 +200,64 @@
         http_response_code(500);
         die();
     }
+
+    $notifApiUrl = $PROTOCOL.$DOMAIN."/api/notification/post/message.php";
+
+    $title = "Order $statusText";
+    $body = "Your order, order $orderId had changed status to $statusText";
+    $imageUrl = 'https://img.icons8.com/fluency/96/cup.png';
+    $topicVal = "cust".$custId; //get customer topic
+    $redir = "/customer/index.php";
+
+    $postfields = [
+        "title" => $title,
+        "body" => $body,
+        "topic" => $topicVal,
+        "imgurl" => $imageUrl,
+        "redirurl" => $redir
+    ];
+
+    $req = curl_init();
+    curl_setopt($req, CURLOPT_URL, $notifApiUrl);
+    curl_setopt($req, CURLOPT_POST, true);
+    curl_setopt($req, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($req, CURLOPT_SSL_VERIFYPEER, FALSE);
+    $response = curl_exec($req);
+    $reserr = curl_error($req);
+    $rescode = curl_getinfo($req, CURLINFO_HTTP_CODE);
+    if(!$response){
+        //
+    }
+    curl_close ($req);
+
+    $title = "Order $orderId";
+    $body = "Order $orderId had changed status to $statusText";
+    $imageUrl = 'https://img.icons8.com/fluency/96/cup.png';
+    $topicVal = "staff";
+    $redir = "/staff/orders/index.php";
+
+    $postfields = [
+        "title" => $title,
+        "body" => $body,
+        "topic" => $topicVal,
+        "imgurl" => $imageUrl,
+        "redirurl" => $redir
+    ];
+
+    $req = curl_init();
+    curl_setopt($req, CURLOPT_URL, $notifApiUrl);
+    curl_setopt($req, CURLOPT_POST, true);
+    curl_setopt($req, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($req, CURLOPT_SSL_VERIFYPEER, FALSE);
+    $response = curl_exec($req);
+    $reserr = curl_error($req);
+    $rescode = curl_getinfo($req, CURLINFO_HTTP_CODE);
+    if(!$response){
+        //
+    }
+    curl_close ($req);
+
     http_response_code(200);
 ?>
