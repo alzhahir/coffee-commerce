@@ -56,12 +56,12 @@
                         <?php
                     } else {
                         ?>
-                        <a class="col btn ahvnavbut" href="/staff/">Home</a>
+                        <a class="col btn ahvnavbut" href="/staff/index.php">Home</a>
                         <?php
                     }
                 ?>
-                <a class="col btn ahvnavbut" href="/staff/products/">Products</a>
-                <a class="col btn ahvnavbut" href="/staff/orders/">Orders</a>
+                <a class="col btn ahvnavbut" href="/staff/products/index.php">Products</a>
+                <a class="col btn ahvnavbut" href="/staff/orders/index.php">Orders</a>
             </div>
         </div>
         <div class="col d-flex flex-row text-end justify-content-end">
@@ -193,7 +193,7 @@
                         <?php
                     } else {
                         ?>
-                        <li><a href="/staff/" class="nav-link px-3">Home</a></li>
+                        <li><a href="/staff/index.php" class="nav-link px-3">Home</a></li>
                         <?php
                     }
 
@@ -203,8 +203,8 @@
                         echo '<li><a href="/signup.php" class="nav-link px-3">Sign Up</a></li>';
                     }
                 ?>
-                <li><a href="/staff/products/" class="nav-link px-3">Products</a></li>
-                <li><a href="/staff/orders/" class="nav-link px-3">Orders</a></li>
+                <li><a href="/staff/products/index.php" class="nav-link px-3">Products</a></li>
+                <li><a href="/staff/orders/index.php" class="nav-link px-3">Orders</a></li>
             </ul>
         </div>
     </header>
