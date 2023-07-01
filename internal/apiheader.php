@@ -53,16 +53,16 @@
                         <?php
                     } else {
                         ?>
-                        <a class="col btn ahvnavbut" href="/api/">Home</a>
+                        <a class="col btn ahvnavbut" href="/api/index.php">Home</a>
                         <?php
                     }
                 ?>
-                <a class="col btn ahvnavbut" href="endpoints.php">Endpoints</a>
-                <a class="col btn ahvnavbut" href="about.php">About</a>
+                <a class="col btn ahvnavbut" href="/api/endpoints.php">Endpoints</a>
+                <a class="col btn ahvnavbut" href="/api/about.php">About</a>
             </div>
         </div>
         <div class="col d-flex flex-row text-end justify-content-end">
-            <div class="dropdown flex-column d-flex text-end" id="cartdrp">
+            <!--div class="dropdown flex-column d-flex text-end" id="cartdrp">
                 <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownCartButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <span class="align-middle material-symbols-outlined" style="font-size:32px;">shopping_cart</span>
                 </button>
@@ -72,7 +72,7 @@
                         <?php include "notimp.php" ?>
                     </div>
                 </div>
-            </div>
+            </div-->
             <div class="dropdown flex-column d-flex text-end" id="logindrp">
                 <button class="border-0 btn-lg align-middle navbar-toggler p-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <span class="align-middle material-symbols-outlined" style="font-size:32px;">account_circle</span>
@@ -158,8 +158,8 @@
                         echo '<li><a href="/signup.php" class="nav-link px-3">Sign Up</a></li>';
                     }
                 ?>
-                <li><a href="endpoints.php" class="nav-link px-3">Endpoints</a></li>
-                <li><a href="about.php" class="nav-link px-3">About</a></li>
+                <li><a href="/api/endpoints.php" class="nav-link px-3">Endpoints</a></li>
+                <li><a href="/api/about.php" class="nav-link px-3">About</a></li>
             </ul>
         </div>
     </header>

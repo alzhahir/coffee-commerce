@@ -222,9 +222,9 @@
                         echo '<li><a href="/signup.php" class="nav-link px-3">Sign Up</a></li>';
                     }
                 ?>
-                <li><a href="/contact.php" class="nav-link px-3">Contact</a></li>
-                <li><a href="/faq.php" class="nav-link px-3">FAQs</a></li>
                 <li><a href="/about.php" class="nav-link px-3">About</a></li>
+                <li><a href="/faq.php" class="nav-link px-3">FAQs</a></li>
+                <li><a href="/contact.php" class="nav-link px-3">Contact</a></li>
             </ul>
         </div>
     </header>
