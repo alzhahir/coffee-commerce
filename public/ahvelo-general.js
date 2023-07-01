@@ -322,25 +322,30 @@ $(document).ready(function(){
         $.post("/api/user/post/cart.php",
         {
             value: $('#prodId').val(),
-            quantity: $('#cartQty').val(),
+            //quantity: $('#cartQty').val(),
             temperature: $('input[name="temperature"]:checked').val()
         })
         .done(function(){
             //success
-            $('#confirmCartDel').modal('hide');
-            const toastElList = document.querySelectorAll('#toastUpdSucc')
+            const toastElList = document.querySelectorAll('#toastSucc')
             const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
             toastList.forEach(toast => toast.show());
             $('#cartTable').DataTable().ajax.reload();
             window.location.reload();
         })
-        .fail(function(){
-            //fail
-            $('#confirmCartDel').modal('hide');
-            const toastElList = document.querySelectorAll('#toastUpdErr')
-            const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
-            toastList.forEach(toast => toast.show());
+        .fail(function (jqXHR){
+            if(jqXHR.status == "401"){
+                const toastElList = document.querySelectorAll('#toastAuthErr')
+                const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
+                toastList.forEach(toast => toast.show());
+                $('#loginRequiredModal').modal('show');
+            } else {
+                const toastElList = document.querySelectorAll('#toastErr')
+                const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
+                toastList.forEach(toast => toast.show());
+            }
         });
+        $('#productCartModal').modal('hide');
     })
 
     $('.navbar-toggler').on('hidden.bs.dropdown', function() {
