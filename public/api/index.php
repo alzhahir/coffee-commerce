@@ -10,7 +10,10 @@ include($PROJECTROOT . "/internal/apiheader.php");
 ?>
 <div class="px-3">
     <div class="h3 fw-black">
-        AHVELO COFFEE API ENDPOINT
+        AHVELO COFFEE API
+    </div>
+    <div>
+        Welcome to Ahvelo Coffee API landing page.
     </div>
 </div>
 <?php
