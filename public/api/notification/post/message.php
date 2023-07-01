@@ -96,6 +96,8 @@
         }
 
         $messaging->send($message);
+        http_response_code(200);
+        die();
     } else {
         http_response_code(405);
         die();
