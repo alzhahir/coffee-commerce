@@ -132,6 +132,6 @@
         }
         $_SESSION["userErrCode"] = "UPDATE_ORDER_SUCCESS";
         $_SESSION["userErrMsg"] = "Order status successfully updated. You can view the latest order listing via the Orders page.";
-        header("refresh:0;url=$backPage?signup=success");
+        header("refresh:0;url=$backPage?update=success");
     }
 ?>

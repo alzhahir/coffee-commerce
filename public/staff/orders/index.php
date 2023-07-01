@@ -22,7 +22,7 @@ include($ROOTPATH . '/internal/staffheader.php');
             }
             echo "</div>";
         }
-        if(isset($_GET["signup"])){
+        if(isset($_GET["update"])){
             echo "<div class=\"alert alert-success\">";
             if(isset($_SESSION["userErrMsg"])){
                 //get err msg
