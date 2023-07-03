@@ -274,12 +274,8 @@
 
     });
 
-    //onload window jquery
-    $(window).on('load', function(){
-        if($('#notifContent').is(':empty')){
-            $('#notifContent').prepend('All notifications dismissed.')
-        }
-
+    function getNotifications(){
+        //
         $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo $_SESSION['utype'] ?>', {
             type: 'GET',
             success: function(res){
@@ -299,6 +295,17 @@
                 console.log('error', res)
             }
         })
+    }
+
+    //onload window jquery
+    $(window).on('load', function(){
+        if($('#notifContent').is(':empty')){
+            $('#notifContent').prepend('All notifications dismissed.')
+        }
+
+        getNotifications();
+
+        setInterval(getNotifications(), 10000);
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);

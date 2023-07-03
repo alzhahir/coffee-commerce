@@ -396,12 +396,7 @@
         $('#notifContent').append("<div id='notif"+payload.data.id+"' class='my-2 border border-1 mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+payload.data.id+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><div class='row me-2 my-2 ms-1' onclick='window.location=\""+payload.data.redirect+"\";'><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div></div>");
     });
 
-    //onload window jquery
-    $(window).on('load', function(){
-        if($('#notifContent').is(':empty')){
-            $('#notifContent').prepend('All notifications dismissed.')
-        }
-
+    function getNotifications(){
         $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo 'cust'.$_SESSION['cust_id'] ?>', {
             type: 'GET',
             success: function(res){
@@ -421,6 +416,17 @@
                 console.log('error', res)
             }
         })
+    }
+
+    //onload window jquery
+    $(window).on('load', function(){
+        if($('#notifContent').is(':empty')){
+            $('#notifContent').prepend('All notifications dismissed.')
+        }
+
+        getNotifications();
+
+        setInterval(getNotifications(), 10000);
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
