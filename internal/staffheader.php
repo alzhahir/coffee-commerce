@@ -211,11 +211,17 @@
 </div>
 
 <script type="text/javascript">
-    function getRegToken(){
+    function getRegToken(userAction){
         console.log('Requesting permission...');
         Notification.requestPermission().then((permission) => {
             if (permission === 'granted') {
-            console.log('Notification permission granted.');
+                console.log('Notification permission granted.');
+                if(userAction){
+                    notifContent.innerHTML = ""
+                    location.reload();
+                }
+            } else {
+                notifContent.innerHTML = "Notification permission is not granted. Please grant the permission to receive notification. <button type='button' class='btn btn-primary ahvbutton' id='getNotifPerm'>Ask for permission</>"
             }
         })
     }
@@ -254,10 +260,11 @@
     } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
-        getRegToken();
+        getRegToken(false);
     }
     }).catch((err) => {
         console.log('An error occurred while retrieving token. ', err);
+        notifContent.innerHTML = "Notification permission is not granted. Please grant the permission to receive notification. <button type='button' class='btn btn-primary ahvbutton' id='getNotifPerm'>Ask for permission</>"
     // ...
     });
 
@@ -306,6 +313,10 @@
         getNotifications();
 
         setInterval(getNotifications(), 10000);
+
+        $('#getNotifPerm').on('click', function(){
+            getRegToken(true);
+        })
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
