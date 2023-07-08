@@ -6,22 +6,23 @@
         if(isset($_GET['type'])){
             switch($_GET['type']){
                 case 'employees':
-                    $getEmpSQL = "SELECT u.user_id, e.emp_name, u.user_email, e.emp_gender FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id";
+                    $getEmpSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id";
                     $empRes = mysqli_query($conn, $getEmpSQL);
                     if(!is_bool($empRes)){
                         $outputEmpArr = array();
                         $empArr = mysqli_fetch_all($empRes);
                         $empArr = array_values($empArr);
                         foreach($empArr as $currEmp){
-                            if($currEmp[3] == 0){
+                            if($currEmp[4] == 0){
                                 $empGender = "Male";
                             } else {
                                 $empGender = "Female";
                             }
                             array_push($outputEmpArr, array_values([
-                                "empId" => $currEmp[0],
-                                "empName" => $currEmp[1],
-                                "empEmail" => $currEmp[2],
+                                "userId" => $currEmp[0],
+                                "empId" => $currEmp[1],
+                                "empName" => $currEmp[2],
+                                "empEmail" => $currEmp[3],
                                 "empGender" => $empGender,
                             ]));
                         }
@@ -38,7 +39,7 @@
                         $admArr = mysqli_fetch_all($admRes);
                         $admArr = array_values($admArr);
                         foreach($admArr as $currAdm){
-                            if($currAdm[3] == 0){
+                            if($currAdm[4] == 0){
                                 $admGender = "Male";
                             } else {
                                 $admGender = "Female";
@@ -64,7 +65,7 @@
                         $staArr = mysqli_fetch_all($staRes);
                         $staArr = array_values($staArr);
                         foreach($staArr as $currSta){
-                            if($currSta[3] == 0){
+                            if($currSta[4] == 0){
                                 $staGender = "Male";
                             } else {
                                 $staGender = "Female";
@@ -91,7 +92,7 @@
                         $custArr = array_values($custArr);
                         foreach($custArr as $currCust){
                             $custGender = null;
-                            if($currCust[3] == 0){
+                            if($currCust[4] == 0){
                                 $custGender = "Male";
                             } else {
                                 $custGender = "Female";
