@@ -20,14 +20,20 @@
             $topicVal = $_POST['topic'];
             $registrationToken = $_POST['registrationToken'];
             $res = $messaging->unsubscribeFromAllTopics($registrationToken);
-            $res = $messaging->subscribeToTopic($topicVal, $registrationToken);
+            if($_SESSION['utype'] == 'admin'){
+                $topicVals = [$_POST['topic'], 'staff'];
+                $res = $messaging->subscribeToTopics($topicVals, $registrationToken);
+                $_SESSION['notiftopic'] = $topicVals;
+            } else {
+                $res = $messaging->subscribeToTopic($topicVal, $registrationToken);
+                $_SESSION['notiftopic'] = $topicVal;
+            }
             header("Content-Type: application/json");
             echo json_encode([
                 'topic'=> $topicVal,
                 'registrationToken' => $registrationToken,
                 'topicConfirmation' => $res
             ]);
-            $_SESSION['notiftopic'] = $topicVal;
         } else {
             http_response_code(500);
             die();
