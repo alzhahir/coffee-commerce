@@ -60,7 +60,7 @@ include($PROJECTROOT . '/internal/header.php');
                 include($PROJECTROOT . "/internal/productgalleryobject.php");
             ?>
         </div>
-        <div class="catgradb overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
+        <div class="h-100 catgradb overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
             <button id="leftbutton" class="btn btn-primary rounded-circle align-items-center justify-content-center p-0 ahvbutton border-0 shadow" style="height:48px;width:48px;">
                 <span class="material-symbols-outlined text-center align-middle mb-0" style="color:white; font-size:32px;">
                     navigate_before
@@ -72,7 +72,7 @@ include($PROJECTROOT . '/internal/header.php');
                 <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
             </svg>
         </div>
-        <div class="catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
+        <div class="h-100 catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
             <svg class="bd-placeholder-img bd-placeholder-img-lg" width="25" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <!--title>Placeholder</title-->
                 <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
