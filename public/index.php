@@ -88,6 +88,13 @@ include($PROJECTROOT . '/internal/header.php');
 </div>
 
 <script>
+    $(window).on('resize', function(){
+        if($('#prodcat')[0].clientWidth < $('#prodcat')[0].scrollWidth){
+            $('.catgrad').fadeIn(100);
+        } else {
+            $('.catgrad').fadeOut(100);
+        }
+    });
     $(window).on("load", function(){
         if($('#prodcat')[0].clientWidth < $('#prodcat')[0].scrollWidth){
             $('.catgrad').fadeIn(100);

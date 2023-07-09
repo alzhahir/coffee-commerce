@@ -50,6 +50,9 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
         height:1px;
         margin: 10px 0px 10px 0px;
     }
+    .img-fluid-mobile{
+        max-width:180px!important;
+    }
 }
 
 .bg-ahvelo-light{
@@ -111,12 +114,12 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
 }
 
 .catgrad {
-    background: rgb(255,255,255);
-    background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    background: rgb(240,240,240);
+    background: linear-gradient(270deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
 }
 .catgradb {
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    background: rgb(240,240,240);
+    background: linear-gradient(90deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:&display=swap');
