@@ -43,9 +43,44 @@ $shortName = strtok($_SESSION["name"], " ");
     <!-- Tabs content -->
     <div class="tab-content pt-2" id="custTabContent">
         <div class="tab-pane fade show active" id="mainp" role="tabpanel" aria-labelledby="maintab">
-            <div>
+            <div class='pb-5'>
                 <p class="fw-black fs-4 mt-2">HOME</p>
-                <span class="fs-5">Here, you can view your orders and purchase history. Start by selecting the tabs above.</span>
+                <span class="fs-5">Here, you can view your orders and purchase history. Start by selecting the tabs above, or choose the options below.</span>
+                <div class="mt-3">
+                    <span class="fw-black fs-5">QUICK ACTIONS</span>
+                    <div class="row ps-3">
+                        <div class="d-flex col col-sm-2 col-xs-2 ps-0">
+                            <a class="d-flex w-100 text-reset text-decoration-none" href="/shop.php">
+                                <div class="p-2 w-100 border rounded-4" style="background-color:#FA3F3F50;border-color:#FA3F3FA0!important;">
+                                    <p class="fw-bold text-center">BROWSE PRODUCTS</p>
+                                    <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
+                                        storefront
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="d-flex col col-sm-2 col-xs-2 ps-0">
+                            <a class="d-flex w-100 text-reset text-decoration-none" href="/cart.php">
+                                <div class="p-2 w-100 border rounded-4" style="background-color:#FA3F3F50;border-color:#FA3F3FA0!important;">
+                                    <p class="fw-bold text-center">VIEW YOUR CART</p>
+                                    <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
+                                        shopping_cart
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="d-flex col col-sm-2 col-xs-2 ps-0">
+                            <a class="d-flex w-100 text-reset text-decoration-none" onclick='function a (){$("[href=\"#orderp\"]").tab("show");} a()' href="#">
+                                <div class="p-2 w-100 border rounded-4" style="background-color:#FA3F3F50;border-color:#FA3F3FA0!important;">
+                                    <p class="fw-bold text-center">VIEW YOUR ORDERS</p>
+                                    <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
+                                        order_play
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="tab-pane fade" id="orderp" role="tabpanel" aria-labelledby="ordertab">
