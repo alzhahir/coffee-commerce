@@ -36,7 +36,7 @@ include($PROJECTROOT . '/internal/header.php');
         </div>
     </div>
     <div id="prodlist" class="container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between" style="position:relative; overflow:overflow;">
-        <div class="w-100 fw-black row p-2">BESTSELLERS</div>
+        <div class="w-100 fw-black row p-2" style="z-index:1;">BESTSELLERS</div>
         <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:pan-x;">
             <?php
                 include($PROJECTROOT . "/internal/productgalleryobject.php");
