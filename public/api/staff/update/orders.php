@@ -99,6 +99,36 @@
                 $PROTOCOL = "https://";
             }
 
+            $getCustUserId = "SELECT user_id FROM customers WHERE cust_id = $custId";
+            $custUIdRes = mysqli_query($conn, $getCustUserId);
+            if(!is_bool($custIdRes)){
+                $custUIdArr = mysqli_fetch_all($custUIdRes);
+                $custUIdArr = array_values($custUIdArr);
+                foreach($custUIdArr as $thisCust){
+                    $custUID = $thisCust[0];
+                }
+            } else {
+                $_SESSION["userErrCode"] = "MYSQL_ERROR";
+                $_SESSION["userErrMsg"] = "MySQL error encountered: ".mysqli_error($conn)." Please contact the administrator if you believe that this should not happen.";
+                header("refresh:0;url=$backPage?error=true");
+                die();
+            }
+
+            $getCustEmail = "SELECT user_email FROM users WHERE user_id = $custUID";
+            $custEmailRes = mysqli_query($conn, $getCustEmail);
+            if(!is_bool($custEmailRes)){
+                $custEmailArr = mysqli_fetch_all($custEmailRes);
+                $custEmailArr = array_values($custEmailArr);
+                foreach($custEmailArr as $thisCust){
+                    $custEmail = $thisCust[0];
+                }
+            } else {
+                $_SESSION["userErrCode"] = "MYSQL_ERROR";
+                $_SESSION["userErrMsg"] = "MySQL error encountered: ".mysqli_error($conn)." Please contact the administrator if you believe that this should not happen.";
+                header("refresh:0;url=$backPage?error=true");
+                die();
+            }
+
             $notifApiUrl = $PROTOCOL.$DOMAIN."/api/notification/post/message.php";
 
             $title = "Order $orderStatus";
@@ -125,9 +155,38 @@
             $reserr = curl_error($req);
             $rescode = curl_getinfo($req, CURLINFO_HTTP_CODE);
             if(!$response){
-                //
+                error_log('Notification Error '.$rescode . $reserr);
             }
-            curl_close ($req);
+            curl_close($req);
+
+            $emailApiUrl = $PROTOCOL.$DOMAIN."/api/create/mail.php";
+            error_log($emailApiUrl);
+
+            $subject = "[ORDER] Your order, order $oid had changed status to $orderStatus";
+
+            $mailpostfields = [
+                "recipient_address" => $custEmail,
+                "subject" => $subject,
+                "context" => 1,
+                "context_object" => [
+                    "order_id" => $oid,
+                    "status" => $orderStatus
+                ]
+            ];
+
+            $req2 = curl_init();
+            curl_setopt($req2, CURLOPT_URL, $emailApiUrl);
+            curl_setopt($req2, CURLOPT_POST, true);
+            curl_setopt($req2, CURLOPT_POSTFIELDS, $mailpostfields);
+            curl_setopt($req2, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($req2, CURLOPT_SSL_VERIFYPEER, FALSE);
+            $response2 = curl_exec($req2);
+            $reserr2 = curl_error($req2);
+            $rescode2 = curl_getinfo($req2, CURLINFO_HTTP_CODE);
+            if(!$response2){
+                error_log('Email Error '.$rescode2 . $reserr2);
+            }
+            curl_close($req2);
 
         }
         $_SESSION["userErrCode"] = "UPDATE_ORDER_SUCCESS";
