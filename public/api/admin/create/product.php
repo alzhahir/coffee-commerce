@@ -15,11 +15,12 @@
     ini_set('display_errors', 1);
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if(isset($_POST["prodName"]) && isset($_POST["prodPrice"]) && isset($_POST["prodStock"])){
+        if(isset($_POST["prodName"]) && isset($_POST["prodPrice"]) && isset($_POST["prodStock"]) && isset($_POST["catId"])){
             $productName = $_POST["prodName"];
             $productPrice = $_POST["prodPrice"];
             $productStock = $_POST["prodStock"];
             $productImg = $_POST["prodImgUrl"];
+            $categoryId = $_POST["catId"];
         } else {
             $_SESSION["userErrCode"] = "FORM_FAILED";
             $_SESSION["userErrMsg"] = "Cannot get POST data from form. Please contact the administrator if you believe that this should not happen.";
@@ -32,14 +33,15 @@
         }
 
 
-        $addTrackingSQL = "INSERT INTO products (prod_name, prod_img_url, prod_price, prod_stock) VALUES (?, ?, ?, ?)";
+        $addTrackingSQL = "INSERT INTO products (prod_name, prod_img_url, prod_price, prod_stock, cat_id) VALUES (?, ?, ?, ?, ?)";
         if ($stmt=mysqli_prepare($conn, $addTrackingSQL)){
-            mysqli_stmt_bind_param($stmt, "ssss", $product_name, $product_imgurl, $product_price, $product_stock);
+            mysqli_stmt_bind_param($stmt, "ssssi", $product_name, $product_imgurl, $product_price, $product_stock, $cat_id);
 
             $product_name = $productName;
             $product_imgurl = $productImg;
             $product_price = $productPrice;
             $product_stock = $productStock;
+            $cat_id = $categoryId;
 
             if(mysqli_stmt_execute($stmt)){
                 //echo "SUCCESS ADD TO tracking TABLE!<br>";

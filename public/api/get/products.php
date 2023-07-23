@@ -3,6 +3,42 @@
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     require_once $PROJECTROOT . "/internal/db.php";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
+        function getCategories(int $catId, mysqli $conn){
+            $getCatSQL = "SELECT cat_name FROM categories WHERE cat_id = $catId";
+            $catRes = mysqli_query($conn, $getCatSQL);
+            if(!is_bool($catRes)){
+                $catArr = mysqli_fetch_all($catRes);
+                $catArr = array_values($catArr);
+                foreach($catArr as $currCat){
+                    return $currCat[0];
+                }
+            } else {
+                return null;
+            }
+        }
+
+        function getCategoryID($catName, mysqli $conn){
+            $getCatSQL = "SELECT cat_id FROM categories WHERE cat_name = ?";
+            if ($stmt=mysqli_prepare($conn, $getCatSQL)){
+                mysqli_stmt_bind_param($stmt, "s", $cat_name);
+    
+                $cat_name = $catName;
+    
+                if(mysqli_stmt_execute($stmt)){
+                    $usersArray = mysqli_fetch_array(mysqli_stmt_get_result($stmt));
+                    if(empty($usersArray["cat_id"]) || !isset($usersArray["cat_id"])){
+                        return 0;
+                    }
+                    return $usersArray["cat_id"];
+                    //echo "SUCCESS QUERY USERS TABLE!\n";
+                } else {
+                    return null;
+                }
+    
+                mysqli_stmt_close($stmt);
+            }
+        }
+
         if(!isset($included)){
             $included = false;
             function getStatus(int $var, $included = null){
@@ -37,10 +73,19 @@
                 }
             };
         }
-
-        $getProdSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, prod_temp FROM products WHERE is_listed = 1";
+        $baseSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, cat_id, prod_temp FROM products";
+        $getProdSQL = $baseSQL . " WHERE is_listed = 1";
         if(isset($_GET['showall']) && $_GET['showall'] == 'true'){
-            $getProdSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, prod_temp FROM products";
+            $getProdSQL = $baseSQL;
+        }
+        if(isset($_GET["category"])){
+            if(ctype_digit($_GET["category"])){
+                $catId = $_GET["category"];
+                $getProdSQL = $getProdSQL . " AND cat_id = $catId";
+            } else {
+                $catId = getCategoryID($_GET["category"], $conn);
+                $getProdSQL = $getProdSQL . " AND cat_id = $catId";
+            }
         }
         $prodRes = mysqli_query($conn, $getProdSQL);
         if(!is_bool($prodRes)){
@@ -59,7 +104,9 @@
                         "imageURL" => $imgUrl,
                         "price" => $currProd[3],
                         "stock" => $currProd[4],
-                        "temp" => getStatus($currProd[5], $included),
+                        "categoryID" => $currProd[5],
+                        "category" => getCategories($currProd[5], $conn),
+                        "temp" => getStatus($currProd[6], $included),
                     )));
                 } else {
                     array_push($outputProdArr, array_values(array(
@@ -68,7 +115,8 @@
                         "imageURL" => $imgUrl,
                         "price" => $currProd[3],
                         "stock" => $currProd[4],
-                        "temp" => $currProd[5],
+                        "temp" => $currProd[6],
+                        "category" => $currProd[5],
                     )));
                 }
             }
