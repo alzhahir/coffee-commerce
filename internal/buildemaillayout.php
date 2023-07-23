@@ -13,7 +13,7 @@ function getEmailObject($mailContext, $mailAddress, array $mailBody = null){
     global $DOMAIN, $PROTOCOL;
     switch($mailContext){
         case 0:
-            $heading = "Welcome!";
+            $heading = "Welcome to Ahvelo!";
             $bodyText = "Thank you for creating an account with us. We hope to serve you well!";
             $btnText = "VIEW ACCOUNT";
             $btnHref = $PROTOCOL.$DOMAIN."/customer/index.php";
