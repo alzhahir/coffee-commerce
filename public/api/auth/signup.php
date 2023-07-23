@@ -1,6 +1,8 @@
 <?php
     session_start();
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+    $DOMAIN = $_SERVER['HTTP_HOST'];
+    $PROTOCOL = $_SERVER['HTTPS'] ? 'https://' : 'http://';
     //echo "<p>Processing your sign up request...</p>";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
@@ -263,6 +265,38 @@
         die("<p>Invalid method.</p>");
     }
     mysqli_close($conn);
+
+    if(str_contains($DOMAIN, 'localhost')){
+        $DOMAIN = "fyp.alzhahir.com";
+        $PROTOCOL = "https://";
+    }
+
+    $emailApiUrl = $PROTOCOL.$DOMAIN."/api/create/mail.php";
+
+    $subject = "[ACCOUNT] You have successfully created Ahvelo Coffee account!";
+
+    $mailpostfields = [
+        "recipient_address" => $custEmail,
+        "subject" => $subject,
+        "alternative_body" => 'You have created an Ahvelo Coffee account. You may login now.',
+        "context" => 0
+    ];
+
+    $finalpost = http_build_query($mailpostfields);
+
+    $req2 = curl_init();
+    curl_setopt($req2, CURLOPT_URL, $emailApiUrl);
+    curl_setopt($req2, CURLOPT_POST, true);
+    curl_setopt($req2, CURLOPT_POSTFIELDS, $finalpost);
+    curl_setopt($req2, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($req2, CURLOPT_SSL_VERIFYPEER, FALSE);
+    $response2 = curl_exec($req2);
+    $reserr2 = curl_error($req2);
+    $rescode2 = curl_getinfo($req2, CURLINFO_HTTP_CODE);
+    if(!$response2){
+        error_log('Email Error '.$rescode2 . $reserr2);
+    }
+    curl_close($req2);
     $_SESSION["userErrCode"] = "SIGNUP_SUCCESS";
     $_SESSION["userErrMsg"] = "Sign up success. You may login now.";
     header("refresh:0;url=$backPage?signup=success");
