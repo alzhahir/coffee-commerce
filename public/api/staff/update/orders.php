@@ -160,7 +160,6 @@
             curl_close($req);
 
             $emailApiUrl = $PROTOCOL.$DOMAIN."/api/create/mail.php";
-            error_log($emailApiUrl);
 
             $subject = "[ORDER] Your order, order $oid had changed status to $orderStatus";
 
@@ -175,10 +174,12 @@
                 ]
             ];
 
+            $finalpost = http_build_query($mailpostfields);
+
             $req2 = curl_init();
             curl_setopt($req2, CURLOPT_URL, $emailApiUrl);
             curl_setopt($req2, CURLOPT_POST, true);
-            curl_setopt($req2, CURLOPT_POSTFIELDS, $mailpostfields);
+            curl_setopt($req2, CURLOPT_POSTFIELDS, $finalpost);
             curl_setopt($req2, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($req2, CURLOPT_SSL_VERIFYPEER, FALSE);
             $response2 = curl_exec($req2);

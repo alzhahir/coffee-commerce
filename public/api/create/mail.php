@@ -50,7 +50,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mailSubject = $_POST["subject"];
         $mailAlt = $_POST["alternative_body"];
         $mailContext = $_POST["context"];
-        error_log(print_r($_POST["mail_object"], true));
         $mailContextBody = $_POST["mail_object"];
         switch($mailContext){
             case 1:
@@ -78,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     try {
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = $smtpAddr;                     //Set the SMTP server to send through
         $mail->SMTPAuth   = $smtpAuth;                                   //Enable SMTP authentication
