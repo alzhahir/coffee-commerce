@@ -25,7 +25,7 @@ function getEmailObject($mailContext, $mailAddress, array $mailBody = null){
             switch($mailStatus){
                 case 'Pending':
                     $heading = "Your order is pending!";
-                    $bodyText = "We are waiting for your payment! You can complete your payment by going to Your Orders.";
+                    $bodyText = "We have received your order, order $mailOrderId, and we are waiting for your payment! You can complete your payment by going to Your Orders.";
                     break;
                 case 'Paid':
                     $heading = "You have paid for your order!";

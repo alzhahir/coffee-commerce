@@ -372,6 +372,36 @@
             $PROTOCOL = "https://";
         }
 
+        $getCustUserId = "SELECT user_id FROM customers WHERE cust_id = $custId";
+        $custUIdRes = mysqli_query($conn, $getCustUserId);
+        if(!is_bool($custIdRes)){
+            $custUIdArr = mysqli_fetch_all($custUIdRes);
+            $custUIdArr = array_values($custUIdArr);
+            foreach($custUIdArr as $thisCust){
+                $custUID = $thisCust[0];
+            }
+        } else {
+            $_SESSION["userErrCode"] = "MYSQL_ERROR";
+            $_SESSION["userErrMsg"] = "MySQL error encountered: ".mysqli_error($conn)." Please contact the administrator if you believe that this should not happen.";
+            header("refresh:0;url=$backPage?error=true");
+            die();
+        }
+
+        $getCustEmail = "SELECT user_email FROM users WHERE user_id = $custUID";
+        $custEmailRes = mysqli_query($conn, $getCustEmail);
+        if(!is_bool($custEmailRes)){
+            $custEmailArr = mysqli_fetch_all($custEmailRes);
+            $custEmailArr = array_values($custEmailArr);
+            foreach($custEmailArr as $thisCust){
+                $custEmail = $thisCust[0];
+            }
+        } else {
+            $_SESSION["userErrCode"] = "MYSQL_ERROR";
+            $_SESSION["userErrMsg"] = "MySQL error encountered: ".mysqli_error($conn)." Please contact the administrator if you believe that this should not happen.";
+            header("refresh:0;url=$backPage?error=true");
+            die();
+        }
+
         $notifApiUrl = $PROTOCOL.$DOMAIN."/api/notification/post/message.php";
 
         $title = 'Order Received';
@@ -417,6 +447,37 @@
         curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
         $res2 = curl_exec($req);
         curl_close ($req);
+
+        $emailApiUrl = $PROTOCOL.$DOMAIN."/api/create/mail.php";
+
+        $subject = "[ORDER] Your order, order $ordId, was received!";
+
+        $mailpostfields = [
+            "recipient_address" => $custEmail,
+            "subject" => $subject,
+            "alternative_body" => 'We have received your order. More details available on the website.',
+            "context" => 1,
+            "mail_object" => [
+                "order_id" => $ordId,
+                "status" => 'Pending'
+            ]
+        ];
+
+        $finalpost = http_build_query($mailpostfields);
+
+        $req2 = curl_init();
+        curl_setopt($req2, CURLOPT_URL, $emailApiUrl);
+        curl_setopt($req2, CURLOPT_POST, true);
+        curl_setopt($req2, CURLOPT_POSTFIELDS, $finalpost);
+        curl_setopt($req2, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($req2, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $response2 = curl_exec($req2);
+        $reserr2 = curl_error($req2);
+        $rescode2 = curl_getinfo($req2, CURLINFO_HTTP_CODE);
+        if(!$response2){
+            error_log('Email Error '.$rescode2 . $reserr2);
+        }
+        curl_close($req2);
 
         switch($paymethod){
             case "0": //cash
