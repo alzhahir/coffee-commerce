@@ -3,10 +3,18 @@
     include($ROOTPATH . '/internal/admincontrol.php');
     require_once $ROOTPATH . "/internal/db.php";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
+        $filter = "AND u.user_enabled = 1";
+        $filter2 = "WHERE u.user_enabled = 1";
+        $filter3 = "WHERE user_enabled = 1";
+        if(isset($_GET['showall']) && $_GET['showall'] == true){
+            $filter = "";
+            $filter2 = "";
+            $filter3 = "";
+        }
         if(isset($_GET['type'])){
             switch($_GET['type']){
                 case 'employees':
-                    $getEmpSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id";
+                    $getEmpSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender, e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id $filter";
                     $empRes = mysqli_query($conn, $getEmpSQL);
                     if(!is_bool($empRes)){
                         $outputEmpArr = array();
@@ -24,6 +32,7 @@
                                 "empName" => $currEmp[2],
                                 "empEmail" => $currEmp[3],
                                 "empGender" => $empGender,
+                                "empPhone" => $currSta[5],
                             ]));
                         }
                         $outputArr = [
@@ -32,7 +41,7 @@
                     }
                     break;
                 case 'admin':
-                    $getAdmSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 2";
+                    $getAdmSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 2 $filter2";
                     $admRes = mysqli_query($conn, $getAdmSQL);
                     if(!is_bool($admRes)){
                         $outputAdmArr = array();
@@ -50,6 +59,7 @@
                                 "empName" => $currAdm[2],
                                 "empEmail" => $currAdm[3],
                                 "empGender" => $admGender,
+                                "empPhone" => $currSta[5],
                             ]));
                         }
                         $outputArr = [
@@ -58,7 +68,7 @@
                     }
                     break;
                 case 'staff':
-                    $getStaSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 1";
+                    $getStaSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 1 $filter2";
                     $staRes = mysqli_query($conn, $getStaSQL);
                     if(!is_bool($staRes)){
                         $outputStaArr = array();
@@ -76,6 +86,7 @@
                                 "empName" => $currSta[2],
                                 "empEmail" => $currSta[3],
                                 "empGender" => $staGender,
+                                "empPhone" => $currSta[5],
                             ]));
                         }
                         $outputArr = [
@@ -84,7 +95,7 @@
                     }
                     break;
                 case 'customer':
-                    $getCustSQL = "SELECT u.user_id, c.cust_id, c.cust_name, u.user_email, c.cust_gender FROM users AS u INNER JOIN customers AS c ON u.user_id=c.user_id";
+                    $getCustSQL = "SELECT u.user_id, c.cust_id, c.cust_name, u.user_email, c.cust_gender, c.cust_phone FROM users AS u INNER JOIN customers AS c ON u.user_id=c.user_id $filter2";
                     $custRes = mysqli_query($conn, $getCustSQL);
                     if(!is_bool($custRes)){
                         $outputCustArr = array();
@@ -103,6 +114,7 @@
                                 "custName" => $currCust[2],
                                 "custEmail" => $currCust[3],
                                 "custGender" => $custGender,
+                                "custEmail" => $currCust[5],
                             ]));
                         }
                         $outputArr = [
@@ -121,7 +133,7 @@
                     break;
             }
         } else {
-            $getUserSQL = "SELECT user_id, user_email, user_type FROM users";
+            $getUserSQL = "SELECT user_id, user_email, user_type FROM users $filter3";
             $usrRes = mysqli_query($conn, $getUserSQL);
             if(!is_bool($usrRes)){
                 $outputUsrArr = array();
@@ -131,11 +143,11 @@
                     $roleSQL = null;
                     switch($currUsr[2]){
                         case 0:
-                            $roleSQL = "SELECT cust_id, cust_name, cust_gender FROM customers WHERE user_id = $currUsr[0]";
+                            $roleSQL = "SELECT cust_id, cust_name, cust_gender, cust_phone FROM customers WHERE user_id = $currUsr[0]";
                             break;
                         case 1:
                         case 2:
-                            $roleSQL = "SELECT emp_id, emp_name, emp_gender FROM employees WHERE user_id = $currUsr[0]";
+                            $roleSQL = "SELECT emp_id, emp_name, emp_gender, emp_phone FROM employees WHERE user_id = $currUsr[0]";
                             break;
                         default:
                             break;
@@ -159,6 +171,7 @@
                                     default:
                                         break;
                                 }
+                                $rolePhone = $thisRole[3];
                             }
                         }
                         array_push($outputUsrArr, array_values([
@@ -167,6 +180,7 @@
                             "name" => $roleName,
                             "email" => $currUsr[1],
                             "gender" => $roleGender,
+                            "phone" => $rolePhone,
                         ]));
                     } else {
                         $outputUsrArr = [
