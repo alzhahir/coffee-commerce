@@ -43,6 +43,7 @@ switch($smtpEncr){
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $mailContextBody = [];
 
     if(isset($_POST["recipient_address"]) && isset($_POST["subject"]) && isset($_POST["context"])){
         $recipientAdd = $_POST["recipient_address"];
