@@ -18,7 +18,7 @@ function getEmailObject($mailContext, array $mailBody = null){
             $btnText = "VIEW ACCOUNT";
             $btnHref = $PROTOCOL.$DOMAIN."/customer/index.php";
             $closureText = "You can visit your account dashboard by pressing the button above.";
-            continue;
+            break;
         case 1:
             $mailStatus = $mailBody['status'];
             $mailOrderId = $mailBody['order_id'];
@@ -26,36 +26,36 @@ function getEmailObject($mailContext, array $mailBody = null){
                 case 'Pending':
                     $heading = "Your order is pending!";
                     $bodyText = "We are waiting for your payment! You can complete your payment by going to Your Orders.";
-                    continue;
+                    break;
                 case 'Paid':
                     $heading = "You have paid for your order!";
                     $bodyText = "The payment for your order, order $mailOrderId, has been received. We will prepare your order shortly.";
-                    continue;
+                    break;
                 case 'Preparing':
                     $heading = "Your order is in the kitchen!";
                     $bodyText = "We are now preparing for your order, order $mailOrderId.";
-                    continue;
+                    break;
                 case 'Ready':
                     $heading = "Your order is ready!";
                     $bodyText = "Order $mailOrderId is now ready for pickup over the counter!";
-                    continue;
+                    break;
                 case 'Complete':
                     $heading = "Thank you for your order!";
                     $bodyText = "We thank you for your order. Please enjoy your order, and we hope to see you soon!";
-                    continue;
+                    break;
                 case 'Canceled':
                     $heading = "Your order was canceled!";
                     $bodyText = "Your order was canceled. Please contact the shop if you did not initiate this.";
-                    continue;
+                    break;
                 default:
                     $heading = "Your order?";
                     $bodyText = "We did not know what happened to your order. Hopefully nothing really happened.";
-                    continue;
+                    break;
             }
             $btnText = "ACCOUNT PAGE";
             $btnHref = $PROTOCOL.$DOMAIN."/customer/index.php";
             $closureText = "You may view all your orders from your account page.";
-            continue;
+            break;
         case 2:
             $resetPassUrl = $mailBody['reset_url'];
             $heading = "You requested for a password reset!";
@@ -63,21 +63,21 @@ function getEmailObject($mailContext, array $mailBody = null){
             $btnText = "RESET PASSWORD";
             $btnHref = $PROTOCOL.$DOMAIN.$resetPassUrl;
             $closureText = "If this request was not from you, please ignore the email. Your account has not been compromised.";
-            continue;
+            break;
         case 3:
             $heading = "New order received!";
             $bodyText = "A new order has been received from a customer. Please check the order.";
             $btnText = "VIEW ORDERS";
             $btnHref = $PROTOCOL.$DOMAIN."/staff/orders/index.php";
             $closureText = "Prepare the after payment confirmation.";
-            continue;
+            break;
         default:
             $heading = "THIS EMAIL IS A BUG";
             $bodyText = "If you receive this email, please contact the system administrator IMMEDIATELY.";
             $btnText = "CONTACT ADMIN";
             $btnHref = $PROTOCOL.$DOMAIN."/contact.php";
             $closureText = "This email is a default email.";
-            continue;
+            break;
     }
     return '
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
