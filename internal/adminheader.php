@@ -59,6 +59,7 @@
                 ?>
                 <a class="col btn ahvnavbut" href="/admin/users/index.php">Users</a>
                 <a class="col btn ahvnavbut" href="/admin/products/index.php">Products</a>
+                <a class="col btn ahvnavbut" href="/admin/categories/index.php">Categories</a>
                 <a class="col btn ahvnavbut" href="/admin/orders/index.php">Orders</a>
             </div>
         </div>
@@ -184,6 +185,7 @@
                 ?>
                 <li><a href="/admin/users/index.php" class="nav-link px-3">Users</a></li>
                 <li><a href="/admin/products/index.php" class="nav-link px-3">Products</a></li>
+                <li><a href="/admin/categories/index.php" class="nav-link px-3">Categories</a></li>
                 <li><a href="/admin/orders/index.php" class="nav-link px-3">Orders</a></li>
             </ul>
         </div>
