@@ -37,6 +37,7 @@ include($ROOTPATH . '/internal/adminheader.php');
         </div>
     </div>
     <script type="text/javascript">
+        var uid;
         $(document).ready( function () {
             function renderUserTable(apiEndpoint){
                 mainTable = $('#usrTable').DataTable({
@@ -48,6 +49,14 @@ include($ROOTPATH . '/internal/adminheader.php');
                                         dataSrc: 'data',
                                     },
                                     columnDefs: [
+                                        {
+                                            targets: 5,
+                                            visible: false,
+                                        },
+                                        {
+                                            "defaultContent": '<button class="btn btn-primary ahvbutton">Edit User</button>',
+                                            "targets": -1
+                                        },
                                         {
                                             "defaultContent": "-",
                                             "targets": "_all"
@@ -65,7 +74,8 @@ include($ROOTPATH . '/internal/adminheader.php');
                                                     1,
                                                     2,
                                                     3,
-                                                    4
+                                                    4,
+                                                    5
                                                 ],
                                             },
                                             title: '',
@@ -132,7 +142,33 @@ include($ROOTPATH . '/internal/adminheader.php');
                 renderUserTable(apiEndpoint);
             })
             //
+            $("#usrTable tbody").on('click', 'button', function() {
+                var updEndpoint = '/api/admin/update/users.php';
+                var data = mainTable.row($(this).parents()[0]).data();
+                //window.location.href = "index.php?edit=true&app_id="+data[0];
+                uid = data[0];
+                $('#editUsrForm').attr('action', updEndpoint+'?user_id='+data[0]);
+                $('#edUsrName').val(data[2]);
+                $('#edUsrEmail').val(data[3]);
+                $('#edUsrPhone').val(data[5]);
+                $('#editUserModal').modal('show');
+            })
         });
+        function deleteItem(){
+            $.ajax('/api/admin/delete/user.php?user_id='+uid, {
+                type: 'POST',
+                data: {
+                    id: uid
+                },
+                success: function(){
+                    $('#delItemModal').modal('hide');
+                    location.reload();
+                },
+                fail: function(){
+                    console.log("Failed to delete customer.")
+                }
+            })
+        }
     </script>
     <div class="px-3 py-4 bg-white rounded-4 shadow">
         <table id="usrTable" class="table table-bordered table-hover dt-responsive">
@@ -143,11 +179,99 @@ include($ROOTPATH . '/internal/adminheader.php');
                     <th>Name</th>
                     <th>Email</th>
                     <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Action</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
+
+<!-- MODAL FOR EDITING USERS -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUser" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fw-black" id="editUser">EDIT PRODUCT</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col pb-3">
+                    <p>You can use this form to edit products. Gender and date of birth cannot be edited.</p>
+                    <?php 
+                        $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
+                        //check if $_GET isset
+                        if(isset($_GET["prodstat"])){
+                            if($_GET["prodstat"] == "error"){
+                                //err
+                                echo "<div class=\"alert alert-danger\">";
+                                if(isset($_SESSION["userErrMsg"])){
+                                    //get err msg
+                                    $errMsg = $_SESSION["userErrMsg"];
+                                    $errCode = $_SESSION["userErrCode"];
+                                    echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                                    echo "<p class=\"my-0 fst-italic fw-light\">Error code: $errCode</p>";
+                                }
+                                echo "</div>";
+                            } else if($_GET["prodstat"] == "success"){
+                                //noerr
+                                echo "<div class=\"alert alert-success\">";
+                                if(isset($_SESSION["userErrMsg"])){
+                                    //get err msg
+                                    $errMsg = $_SESSION["userErrMsg"];
+                                    $errCode = $_SESSION["userErrCode"];
+                                    echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                                }
+                                echo "</div>";
+                            } else {
+                                //echo "Test lol";
+                            }
+                        }
+                    ?>
+                    <form id="editUsrForm" action="/api/admin/update/products.php" method="post">
+                        <div class="form-floating mb-3">
+                            <input id="edUsrName" class="form-control" name="name" type="text" placeholder="Product Name" required/>
+                            <label for="name">User Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="edUsrEmail" class="form-control" name="email" type="text" placeholder="Product Price" required/>
+                            <label for="email">User Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="edUsrPhone" class="form-control" name="phone" type="text" placeholder="Stock Amount" required/>
+                            <label for="phone">User Phone</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delItemModal" data-bs-toggle="modal">Delete</button>
+                <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary ahvbutton" form="editUsrForm" id="signUpButton" type="submit">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TO DELETE STUFF -->
+<div class="modal fade" id="delItemModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title fw-black" id="delItem">DELETE USER</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure that you want to delete this user? THIS ACTION IS IRREVERSIBLE!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <button id="delItmBtn" class="btn btn-danger rounded-pill" onclick="deleteItem()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
 include($ROOTPATH . '/internal/footer.php');
 ?>

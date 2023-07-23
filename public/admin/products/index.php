@@ -40,6 +40,7 @@ include($ROOTPATH . '/internal/adminheader.php');
         </button>
     </p>
     <script type="text/javascript">
+        var pid;
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         $(document).ready( function () {
@@ -134,6 +135,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                 var updEndpoint = '/api/admin/update/products.php';
                 var data = mainTable.row($(this).parents()[0]).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
+                pid = data[0];
                 $('#editProdForm').attr('action', updEndpoint+'?prod_id='+data[0]);
                 $('#edProdName').val(data[1]);
                 $('#edProdImgUrl').val(data[2]);
@@ -153,6 +155,21 @@ include($ROOTPATH . '/internal/adminheader.php');
             })
             new $.fn.dataTable.FixedHeader( mainTable );
         } );
+        function deleteItem(){
+            $.ajax('/api/admin/delete/product.php?prod_id='+pid, {
+                type: 'POST',
+                data: {
+                    id: pid
+                },
+                success: function(){
+                    $('#delProductModal').modal('hide');
+                    location.reload();
+                },
+                fail: function(){
+                    console.log("Failed to delete product.")
+                }
+            })
+        }
     </script>
     <div class="px-4 py-4 bg-white rounded-4 shadow">
         <table id="prodTable" class="table table-bordered table-hover dt-responsive">
@@ -244,8 +261,28 @@ include($ROOTPATH . '/internal/adminheader.php');
                 </div>
             </div>
             <div class="modal-footer">
+            <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delProductModal" data-bs-toggle="modal">Delete Product</button>
                 <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary ahvbutton" form="editProdForm" id="signUpButton" type="submit">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TO DELETE STUFF -->
+<div class="modal fade" id="delProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title fw-black" id="delProduct">DELETE PRODUCT</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure that you want to delete the product? THIS ACTION IS IRREVERSIBLE!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <button id="delProdBtn" class="btn btn-danger rounded-pill" onclick="deleteItem()">Yes</button>
             </div>
         </div>
     </div>
