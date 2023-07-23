@@ -38,7 +38,10 @@
             };
         }
 
-        $getProdSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, prod_temp FROM products";
+        $getProdSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, prod_temp FROM products WHERE is_listed = 1";
+        if(isset($_GET['showall']) && $_GET['showall'] == 'true'){
+            $getProdSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, prod_temp FROM products";
+        }
         $prodRes = mysqli_query($conn, $getProdSQL);
         if(!is_bool($prodRes)){
             $outputProdArr = array();
