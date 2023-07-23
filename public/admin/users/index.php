@@ -245,7 +245,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delItemModal" data-bs-toggle="modal">Delete</button>
+                <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delItemModal" data-bs-toggle="modal">Delete</button>
                 <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary ahvbutton" form="editUsrForm" id="signUpButton" type="submit">Save changes</button>
             </div>
