@@ -90,7 +90,7 @@
         }
 
         //get usercreds
-        $getUserCredsSQL = "SELECT user_id, user_password, user_type FROM users WHERE user_email = (?)";
+        $getUserCredsSQL = "SELECT user_id, user_password, user_enabled, user_type FROM users WHERE user_email = (?)";
         if ($stmt=mysqli_prepare($conn, $getUserCredsSQL)){
             mysqli_stmt_bind_param($stmt, "s", $user_email);
 
@@ -100,6 +100,7 @@
                 $usersArray = mysqli_fetch_array(mysqli_stmt_get_result($stmt));
                 $userId = $usersArray["user_id"];
                 $userPass = $usersArray["user_password"];
+                $userEnabled = $usersArray["user_enabled"];
                 $userType = $usersArray["user_type"];
                 //echo "SUCCESS QUERY USERS TABLE!\n";
             } else {
@@ -111,6 +112,13 @@
             }
 
             mysqli_stmt_close($stmt);
+        }
+
+        //check if user is disabled
+        if($userEnabled == 0){
+            $_SESSION["userErrCode"] = "ACCOUNT_DISABLED";
+            $_SESSION["userErrMsg"] = "Account is permanently disabled. Please contact the administrator if you believe that this should not happen.";
+            header("refresh:0;url=$backPage?$errorType");
         }
 
         if(password_verify($password, $userPass)){
