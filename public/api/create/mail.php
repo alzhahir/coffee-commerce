@@ -49,15 +49,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mailSubject = $_POST["subject"];
         $mailAlt = $_POST["alternative_body"];
         $mailContext = $_POST["context"];
+        $mailContextBody = $_POST["context_object"];
         switch($mailContext){
             case 1:
-                $mailStatus = $_POST["context_object"]["status"];
-                $mailOrderId = $_POST["context_object"]["order_id"];
+                $mailStatus = $mailContextBody["status"];
+                $mailOrderId = $mailContextBody["order_id"];
                 //prepbody
                 $mailbody = getEmailObject($mailContext, ['status' => $mailStatus, 'order_id' => $mailOrderId]);
                 break;
             case 2:
-                $resetPassUrl = $_POST["context_object"]["reset_link"];
+                $resetPassUrl = $mailContextBody["reset_link"];
                 //prepbody
                 $mailbody = getEmailObject($mailContext, ['reset_url' => $resetPassUrl]);
                 break;
@@ -105,11 +106,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $mailSubject;
         $mail->Body    = $mailbody;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->AltBody = $mailAlt;
 
         $mail->send();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        error_log($mail->ErrorInfo);
         http_response_code('500');
         die();
     }
