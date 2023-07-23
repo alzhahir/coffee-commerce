@@ -545,8 +545,7 @@ function getEmailObject($mailContext, $mailAddress, array $mailBody = null){
                                                                                                             align="left">
                                                                                                                 <div style="font-size: 12px; font-weight: 500; line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                                                                     <p style="line-height: 140%;">
-                                                                                                                        Disclaimer: This email was intended to be sent to '.$mailAddress.' on behalf
-                                                                                                                        of the Ahvelo Coffee Shop. If you are not the intended recipient, please
+                                                                                                                        Disclaimer: This email was intended to be sent to '.$mailAddress.' from the Ahvelo Coffee Shop. If you are not the intended recipient, please
                                                                                                                         contact the shop via phone or email.
                                                                                                                     </p>
                                                                                                                 </div>
