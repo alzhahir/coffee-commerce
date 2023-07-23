@@ -56,15 +56,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $mailStatus = $mailContextBody["status"];
                 $mailOrderId = $mailContextBody["order_id"];
                 //prepbody
-                $mailbody = getEmailObject($mailContext, array('status' => $mailStatus, 'order_id' => $mailOrderId));
+                $mailbody = getEmailObject($mailContext, $recipientAdd, ['status' => $mailStatus, 'order_id' => $mailOrderId]);
                 break;
             case 2:
                 $resetPassUrl = $mailContextBody["reset_link"];
                 //prepbody
-                $mailbody = getEmailObject($mailContext, array('reset_url' => $resetPassUrl));
+                $mailbody = getEmailObject($mailContext, $recipientAdd, ['reset_url' => $resetPassUrl]);
                 break;
             default:
-                $mailbody = getEmailObject($mailContext);
+                $mailbody = getEmailObject($mailContext, $recipientAdd);
                 break;
         }
     } else {

@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $DOMAIN = $_SERVER['HTTP_HOST'];
 $PROTOCOL = $_SERVER['HTTPS'] ? 'https://' : 'http://';
 
-function getEmailObject($mailContext, array $mailBody = null){    
+function getEmailObject($mailContext, $mailAddress, array $mailBody = null){    
     //strings
     error_log(print_r($mailBody));
     global $DOMAIN, $PROTOCOL;
@@ -545,7 +545,7 @@ function getEmailObject($mailContext, array $mailBody = null){
                                                                                                             align="left">
                                                                                                                 <div style="font-size: 12px; font-weight: 500; line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                                                                     <p style="line-height: 140%;">
-                                                                                                                        Disclaimer: This email was intended to be sent to &lt;email&gt; on behalf
+                                                                                                                        Disclaimer: This email was intended to be sent to '.$mailAddress.' on behalf
                                                                                                                         of the Ahvelo Coffee Shop. If you are not the intended recipient, please
                                                                                                                         contact the shop via phone or email.
                                                                                                                     </p>
