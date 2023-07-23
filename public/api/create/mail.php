@@ -50,8 +50,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mailSubject = $_POST["subject"];
         $mailAlt = $_POST["alternative_body"];
         $mailContext = $_POST["context"];
-        error_log(print_r($_POST['context_object']));
-        $mailContextBody = $_POST["context_object"];
+        error_log(print_r($_POST["mail_object"], true));
+        $mailContextBody = $_POST["mail_object"];
         switch($mailContext){
             case 1:
                 $mailStatus = $mailContextBody["status"];

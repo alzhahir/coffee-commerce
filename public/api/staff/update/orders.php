@@ -169,7 +169,7 @@
                 "subject" => $subject,
                 "alternative_body" => 'Your order status was changed. More details available on the website.',
                 "context" => 1,
-                "context_object" => [
+                "mail_object" => [
                     "order_id" => $oid,
                     "status" => $orderStatus
                 ]
