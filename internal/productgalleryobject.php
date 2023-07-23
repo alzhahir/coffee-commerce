@@ -91,4 +91,7 @@
     <?php
     $iteration++;
     }
+    if($iteration == 0){
+        echo "No products in this category was found.";
+    }
 ?>

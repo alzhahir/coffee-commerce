@@ -58,6 +58,10 @@ include($ROOTPATH . '/internal/adminheader.php');
                                         visible: false,
                                     },
                                     {
+                                        targets: 5,
+                                        visible: false,
+                                    },
+                                    {
                                         "defaultContent": '<button class="btn btn-primary ahvbutton">Edit Product</button>',
                                         "targets": -1
                                     },
@@ -141,13 +145,14 @@ include($ROOTPATH . '/internal/adminheader.php');
                 $('#edProdImgUrl').val(data[2]);
                 $('#edProdPrice').val(data[3]);
                 $('#edProdStock').val(data[4]);
-                if(data[5] == "Hot"){
+                $('#catlist').val(data[5]);
+                if(data[7] == "Hot"){
                     $("#edProdHot").prop('checked', true);
                     $("#edProdCold").prop('checked', false);
-                } else if (data[5] == "Cold"){
+                } else if (data[7] == "Cold"){
                     $("#edProdHot").prop('checked', false);
                     $("#edProdCold").prop('checked', true);
-                } else if (data[5] == "Hot, Cold"){
+                } else if (data[7] == "Hot, Cold"){
                     $("#edProdHot").prop('checked', true);
                     $("#edProdCold").prop('checked', true);
                 }
@@ -180,6 +185,8 @@ include($ROOTPATH . '/internal/adminheader.php');
                     <th>Product Image URL</th>
                     <th>Product Price</th>
                     <th>Product Stock</th>
+                    <th>Product Category ID</th>
+                    <th>Product Category</th>
                     <th>Temperature</th>
                     <th>Edit Product</th>
                 </tr>
@@ -246,6 +253,13 @@ include($ROOTPATH . '/internal/adminheader.php');
                             <input id="edProdStock" class="form-control" name="prodStock" type="text" placeholder="Stock Amount" required/>
                             <label for="prodStock">Stock Amount</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="catId" id="catlist" aria-label="Categories">
+                                <option value=""></option>
+                                <!--Code here-->
+                            </select>
+                            <label for="catId">Categories</label>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label d-block">Temperature</label>
                             <div class="form-check form-check-inline">
@@ -278,7 +292,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure that you want to delete the product? THIS ACTION IS IRREVERSIBLE!</p>
+                <p>Are you sure that you want to delete this product? THIS ACTION IS IRREVERSIBLE!</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Cancel</button>
@@ -346,6 +360,13 @@ include($ROOTPATH . '/internal/adminheader.php');
                             <input class="form-control" name="prodStock" type="text" placeholder="Stock Amount" required/>
                             <label for="prodStock">Stock Amount</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="catId" id="catlist2" aria-label="Categories">
+                                <option value=""></option>
+                                <!--Code here-->
+                            </select>
+                            <label for="catId">Categories</label>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label d-block">Temperature</label>
                             <div class="form-check form-check-inline">
@@ -368,6 +389,24 @@ include($ROOTPATH . '/internal/adminheader.php');
     </div>
 </div>
 <script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "/api/get/categories.php";
+
+    xmlhttp.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.responseText);
+            var dataCat = data.data;
+            var htmlData = "<option value=\"\"></option>";
+            for(let i = 0; i < dataCat.length; i++){
+                htmlData = htmlData.concat("\n", "<option value=\""+dataCat[i][0]+"\">"+dataCat[i][1]+"</option>\n");
+            }
+            document.getElementById("catlist").innerHTML = htmlData;
+            document.getElementById("catlist2").innerHTML = htmlData;
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
     $(window).on('load', function(){
         <?php
             if(isset($_GET["prodstat"])){

@@ -101,12 +101,20 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
 }
 
 #prodcat::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 #prodcat {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+#catcat::-webkit-scrollbar {
+    display: none;
+}
+#catcat {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .carousel-inner > .item > img {
@@ -118,6 +126,15 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
     background: linear-gradient(270deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
 }
 .catgradb {
+    background: rgb(240,240,240);
+    background: linear-gradient(90deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.catgrad2 {
+    background: rgb(240,240,240);
+    background: linear-gradient(270deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
+}
+.catgradb2 {
     background: rgb(240,240,240);
     background: linear-gradient(90deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
 }

@@ -16,8 +16,8 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["catName"])){
-            $categoryName = $_POST["prodName"];
-            $categoryImg = $_POST["prodImgUrl"];
+            $categoryName = $_POST["catName"];
+            $categoryImg = $_POST["catImgUrl"];
         } else {
             $_SESSION["userErrCode"] = "FORM_FAILED";
             $_SESSION["userErrMsg"] = "Cannot get POST data from form. Please contact the administrator if you believe that this should not happen.";

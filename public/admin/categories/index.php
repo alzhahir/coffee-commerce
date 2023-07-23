@@ -252,7 +252,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                             }
                         }
                     ?>
-                    <form id="newProdForm" action="/api/admin/create/category.php" method="post">
+                    <form id="newProdForm" action="/api/admin/create/categories.php" method="post">
                         <div class="form-floating mb-3">
                             <input class="form-control" name="catName" type="text" placeholder="Product Name" required/>
                             <label for="catName">Category Name</label>
