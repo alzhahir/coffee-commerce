@@ -91,7 +91,7 @@ $pageTitle = "Ahvelo Coffee - Account";
         <div class="d-flex flex-column col-auto flex-wrap align-items-center justify-content-center sgfd-parent">
             <div class="sgfd"></div>
         </div>
-        <div class="col py-3">
+        <div class="col py-3 pb-5">
             <h3 class="fw-black">SIGN IN</h3>
             <p>Alternatively, sign in if you have a HEARTVELO membership account.</p>
             <form id="signupLoginForm" action="/api/auth/login.php?errorType=error" method="post">
