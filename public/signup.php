@@ -4,7 +4,14 @@ include('../internal/htmlhead.php');
 include('../internal/header.php');
 $pageTitle = "Ahvelo Coffee - Account";
 ?>
-<div class="px-3">
+<div class="px-3 pb-5">
+    <div class="row d-flex flex-wrap align-items-center justify-content-center">
+        <div class="alert mb-0 alert-info mx-2">
+            <span class="fw-bold">
+                Forgot your password? <a href="/password/request.php">Reset here</a>.
+            </span>
+        </div>
+    </div>
     <div class="row d-flex flex-wrap align-items-center justify-content-center h-100">
         <?php 
             $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
