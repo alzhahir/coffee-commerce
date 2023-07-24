@@ -205,7 +205,7 @@
                 die();
             }
         } else {
-            $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, cust_id FROM orders";
+            $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, cust_id, SUM(order_total), COUNT(order_id) FROM orders";
             $ordRes = mysqli_query($conn, $getOrdSQL);
             if(!is_bool($ordRes)){
                 if(mysqli_num_rows($ordRes) == 0){
@@ -221,7 +221,9 @@
                 $ordArr = mysqli_fetch_all($ordRes);
                 $ordArr = array_values($ordArr);
                 foreach($ordArr as $currOrd){
-                   array_push($outputOrdArr, array_values(array(
+                    $totalRevenue = $currOrd[6];
+                    $totalOrders = $currOrd[7];
+                    array_push($outputOrdArr, array_values(array(
                         "id" => $currOrd[0],
                         "date" => $currOrd[1],
                         "time" => $currOrd[2],
@@ -230,7 +232,23 @@
                         "cust" => $currOrd[5],
                     )));
                 }
+                $getMonthOrdSQL = "SELECT SUM(order_total), COUNT(order_id) FROM orders WHERE MONTH(order_date) = MONTH(CURRENT_DATE)";
+                $monthOrdRes = mysqli_query($conn, $getMonthOrdSQL);
+                if(!is_bool($monthOrdRes)){
+                    $monthOrdArr = mysqli_fetch_all($monthOrdRes);
+                    $monthOrdArr = array_values($monthOrdArr);
+                    foreach($monthOrdArr as $currMonthOrd){
+                        $monthRevenue = $currMonthOrd[0];
+                        $monthOrders = $currMonthOrd[1];
+                    }
+                }
                 $outputOrdArr = array(
+                    "total_orders" => $totalOrders,
+                    "total_revenue" => $totalRevenue,
+                    "current_month" => [
+                        "orders" => $monthOrders,
+                        "revenue" => $monthRevenue,
+                    ],
                     "data" => $outputOrdArr
                 );
             } else {
