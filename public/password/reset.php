@@ -5,7 +5,7 @@ $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 require_once $ROOTPATH . "/internal/db.php";
 $pageTitle = "Ahvelo Coffee - Reset Password";
 if(!isset($_GET['token'])){
-    include_once($PROJECTROOT . '/public/error/401.php');
+    include_once($PROJECTROOT . '/internal/tokennotfound.php');
     exit();
 }
 if (session_status() === PHP_SESSION_NONE) {
@@ -22,6 +22,10 @@ if ($stmt=mysqli_prepare($conn, $getCustInfoSQL)){
 
     if(mysqli_stmt_execute($stmt)){
         $resetArray = mysqli_fetch_array(mysqli_stmt_get_result($stmt));
+        if($resetArray["user_email"] == null){
+            include_once($PROJECTROOT . '/internal/tokennotfound.php');
+            exit();
+        }
         $userEmail = $resetArray["user_email"];
         $expDate = $resetArray['token_exp'];
         //echo "SUCCESS QUERY USERS TABLE!<br>";
@@ -38,7 +42,7 @@ if ($stmt=mysqli_prepare($conn, $getCustInfoSQL)){
 $_SESSION['mail'] = $userEmail;
 
 if($expDate <= strtotime('now')){
-    include_once($PROJECTROOT . '/public/error/404.php');
+    include_once($PROJECTROOT . '/internal/tokennotfound.php');
     exit();
 }
 
