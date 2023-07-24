@@ -204,6 +204,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                     ordStat.innerText = data['status'];
                     ordPMethod.innerText = data['paymentMethod'];
                     ordTot.innerText = data['total'];
+                    $('#printBtn').show();
                 })
             })
             $('#editOrd').on('hidden.bs.modal', function(){
@@ -217,6 +218,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                 ordStat.innerText = "";
                 ordPMethod.innerText = "";
                 ordTot.innerText = "";
+                $('#printBtn').hide();
             })
             new $.fn.dataTable.FixedHeader( mainTable );
         });
@@ -376,45 +378,48 @@ include($ROOTPATH . '/internal/staffheader.php');
                             }
                         }
                     ?>
-                    <div class="row d-flex justify-content-end">
-                        <h5 class="col fw-bold">Customer Name: </h5>
-                        <span class="col text-end fw-bold fs-5 ps-1" id="ordCust"></span>
-                    </div>
-                    <div class="row d-flex justify-content-end">
-                        <h5 class="col fw-bold">Order Date: </h5>
-                        <span class="col text-end fw-bold fs-5 ps-1" id="ordDate"></span>
-                    </div>
-                    <div class="row d-flex justify-content-end">
-                        <h5 class="col fw-bold">Order Time: </h5>
-                        <span class="col text-end fw-bold fs-5 ps-1" id="ordTime"></span>
-                    </div>
-                    <table id="ordDetTable" class="table table-bordered table-hover dt-responsive">
-                        <thead>
-                            <tr>
-                                <th>Item ID</th>
-                                <th>Item Name</th>
-                                <th>Item Temperature</th>
-                                <th>Item Quantity</th>
-                                <th>Item Unit Price</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <div class="row d-flex justify-content-end">
-                        <h5 class="col fw-bold">Status: </h5>
-                        <span class="col text-end fw-bold fs-5 ps-1" id="ordStat"></span>
-                    </div>
-                    <div class="row d-flex justify-content-end">
-                        <h5 class="col fw-bold">Payment Method: </h5>
-                        <span class="col text-end fw-bold fs-5 ps-1" id="ordPMethod"></span>
-                    </div>
-                    <div class="row d-flex justify-content-end">
-                        <h5 class="col fw-bold">Total: </h5>
-                        <span class="col text-end fw-bold fs-5 ps-1" id="ordTot"></span>
+                    <div id="custReceipt">
+                        <div class="row d-flex justify-content-end">
+                            <h5 class="col fw-bold">Customer Name: </h5>
+                            <span class="col text-end fw-bold fs-5 ps-1" id="ordCust"></span>
+                        </div>
+                        <div class="row d-flex justify-content-end">
+                            <h5 class="col fw-bold">Order Date: </h5>
+                            <span class="col text-end fw-bold fs-5 ps-1" id="ordDate"></span>
+                        </div>
+                        <div class="row d-flex justify-content-end">
+                            <h5 class="col fw-bold">Order Time: </h5>
+                            <span class="col text-end fw-bold fs-5 ps-1" id="ordTime"></span>
+                        </div>
+                        <table id="ordDetTable" class="table table-bordered table-hover dt-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Item ID</th>
+                                    <th>Item Name</th>
+                                    <th>Item Temperature</th>
+                                    <th>Item Quantity</th>
+                                    <th>Item Unit Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="row d-flex justify-content-end">
+                            <h5 class="col fw-bold">Status: </h5>
+                            <span class="col text-end fw-bold fs-5 ps-1" id="ordStat"></span>
+                        </div>
+                        <div class="row d-flex justify-content-end">
+                            <h5 class="col fw-bold">Payment Method: </h5>
+                            <span class="col text-end fw-bold fs-5 ps-1" id="ordPMethod"></span>
+                        </div>
+                        <div class="row d-flex justify-content-end">
+                            <h5 class="col fw-bold">Total: </h5>
+                            <span class="col text-end fw-bold fs-5 ps-1" id="ordTot"></span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button id="printBtn" type="button" class="me-auto btn btn-outline-secondary border-0 rounded-pill" onclick="printContent()" style="display:none;">Print</button>
                 <button type="button" class="btn btn-outline-danger border-0 rounded-pill closeViewItm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>

@@ -48,7 +48,94 @@ $(document).on('click', '.prodShoppingBtn2', function(){
             }
         }
     });
-});    
+});
+
+function printContent() {
+    var d = new Date();
+
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var hour = d.getHours();
+    var min = d.getMinutes();
+    var sec = d.getSeconds();
+    var mid = 'PM';
+    if(sec < 10) { 
+      sec = "0" + sec; 
+    }
+    if (min < 10) {
+      min = "0" + min;
+    }
+    if (hour > 12) {
+      hour = hour - 12;
+    }   
+    if (hour < 10 ) {
+      hour = "0" + hour;
+    }   
+    if(hour==0){ 
+      hour=12;
+    }
+    if(hour < 12) {
+       mid = 'AM';
+    }
+
+    var time = hour + ":" + min + ":" + sec + " " + mid;
+
+    var year = d.getFullYear() + '/' +
+        ((''+month).length<2 ? '0' : '') + month + '/' +
+        ((''+day).length<2 ? '0' : '') + day;
+    userCss = [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css",
+        "https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.css",
+        "https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.css",
+        "https://cdn.datatables.net/colreorder/1.6.2/css/colReorder.bootstrap5.css",
+        "https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.css",
+        "https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.bootstrap5.css",
+        "https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.bootstrap5.css",
+        "https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.css",
+        "https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.4.4/dist/css/tempus-dominus.min.css",
+        "/ahvelo-general.css"
+    ]
+
+    ignoreElements = [
+        "ordDetTable_length",
+        "ordDetTable_filter",
+        "ordDetTable_info",
+        "ordDetTable_paginate",
+    ]
+    headerObj =`
+        <div>
+            <div class="row">
+                <p class="px-4 h1 fw-black mb-0">AHVELO COFFEE</p>
+                <div class="col px-4">
+                    <p class="mb-0">Laman Rafa, Chendering,</p>
+                    <p class="mb-0">21080, Kuala Terengganu,</p>
+                    <p class="mb-0">Terengganu</p>
+                </div>
+                <div class="col position-relative">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <p class="mb-0">Email: ahvelo@example.com</p>
+                        <p class="mb-0">Phone: +60123456789</p>
+                        <p class="mb-0">Website: fyp.alzhahir.com</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <p class="fw-bold fs-5 text-center">CUSTOMER RECEIPT</p>
+                <p class="text-center">Valid as of `+year+`, `+time+`</p>
+            </div>
+        </div>
+    `;
+    footerObj = `
+        <div>
+            <hr>
+            <div>
+            <p><span>Note: this receipt is computer-generated. No signature is needed. Thank you for shopping at </span><span class="fw-black">AHVELO COFFEE</span>! We hope to see you again.</p>
+            </div>
+        </div>
+    `;
+    printJS({printable: 'custReceipt', type: 'html', header: headerObj, footer: footerObj, css: userCss, ignoreElements: ignoreElements })
+}
 
 function closeNotif(nid){
     $('#notif'+nid).remove();
@@ -300,6 +387,7 @@ function custOrder(){
             ordPMethod.innerText = data['paymentMethod']
             ordTot.innerText = "RM " + data['total'];
             ordPayNow.innerHTML = pnbtn;
+            $('#printBtn').show();
         })
     })
     $('#viewOrd').on('hidden.bs.modal', function(){
