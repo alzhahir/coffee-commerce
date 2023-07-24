@@ -95,14 +95,14 @@
                     $cart_item_qty = $prodQty;
 
                     if(mysqli_stmt_execute($stmt)){
-                        //
+                        mysqli_stmt_close($stmt);
+                        http_response_code(200);
+                        exit();
                     } else {
                         mysqli_stmt_close($stmt);
                         http_response_code(500);
                         die();
                     }
-
-                    mysqli_stmt_close($stmt);
                 }
             } else {
                 $getQtySQL = "SELECT cart_item_qty FROM cart_items WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
@@ -128,10 +128,11 @@
                         $cart_itm_temp = $prodTemp;
     
                         if(mysqli_stmt_execute($stmt)){
-                            $getCartItm = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
+                            $getCartItm = "SELECT * FROM cart_items WHERE prod_id = $productId AND cart_id = $caid";
                             $getCartItmRes = mysqli_query($conn, $getCartItm);
                             if(!is_bool($getCartItmRes)){
                                 $cartItmNum = mysqli_num_rows($getCartItmRes);
+                                error_log($cartItmNum);
                                 if($cartItmNum < 1){
                                     $delCartSQL = "DELETE FROM carts WHERE cust_id = ?";
                                     if ($stmt=mysqli_prepare($conn, $delCartSQL)){
@@ -140,17 +141,19 @@
                                         $cust_id = $custId;
                     
                                         if(mysqli_stmt_execute($stmt)){
-                                            //
+                                            mysqli_stmt_close($stmt);
+                                            http_response_code(200);
+                                            exit();
                                         } else {
                                             mysqli_stmt_close($stmt);
                                             http_response_code(500);
                                             die();
                                         }
-                    
-                                        mysqli_stmt_close($stmt);
                                     }
                                 } else {
-                                    //
+                                    mysqli_stmt_close($stmt);
+                                    http_response_code(200);
+                                    exit();
                                 }
                             } else {
                                 http_response_code(500);
@@ -164,9 +167,7 @@
     
                         //mysqli_stmt_close($stmt);
                     }
-                }
-
-                if(isset($currQty)){
+                } else if(isset($currQty)){
                     $addCartItmSQL = "UPDATE cart_items SET cart_item_qty = ? WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
                     if ($stmt=mysqli_prepare($conn, $addCartItmSQL)){
                         mysqli_stmt_bind_param($stmt, "s", $cart_item_qty);
@@ -178,14 +179,14 @@
                         }
 
                         if(mysqli_stmt_execute($stmt)){
-                            //
+                            mysqli_stmt_close($stmt);
+                            http_response_code(200);
+                            exit();
                         } else {
                             mysqli_stmt_close($stmt);
                             http_response_code(500);
                             die();
                         }
-
-                        mysqli_stmt_close($stmt);
                     }
                 } else {
                     http_response_code(500);
@@ -198,5 +199,6 @@
         }
 
         http_response_code(200);
+        die();
     }
 ?>
