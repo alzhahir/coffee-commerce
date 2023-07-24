@@ -89,7 +89,10 @@
                         if(!isset($_SESSION["uid"])){
                     ?>
                     <div class="container px-3 py-2">
-                        <h4 class="fw-black">SIGN IN</h4>
+                        <h4 class="fw-black">
+                            SIGN IN
+                            <a class="btn btn-primary ahvbutton float-end" href="/password/request.php">RESET PASSWORD</a>
+                        </h4>
                         <?php 
                             $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
                             //check if $_GET isset
