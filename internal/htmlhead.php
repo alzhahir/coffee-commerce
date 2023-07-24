@@ -26,6 +26,8 @@ if(!isset($pageTitle)){
         <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.css" rel="stylesheet"/>
         <!-- Tempus Dominus Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.4.4/dist/css/tempus-dominus.min.css" crossorigin="anonymous">
+        <!-- PrintJS -->
+        <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css"/>
         <!-- Additional custom stylesheet -->
         <link href="/ahvelo-general.css" rel="stylesheet"/>
     </head>
@@ -54,5 +56,7 @@ if(!isset($pageTitle)){
         <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.js"></script>
         <!-- Tempus Dominus JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.4.4/dist/js/tempus-dominus.min.js" crossorigin="anonymous"></script>
+        <!-- PrintJS -->
+        <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
         <!-- Additional custom JavaScript -->
         <script src="/ahvelo-general.js"></script>
