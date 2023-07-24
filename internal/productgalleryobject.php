@@ -3,7 +3,7 @@
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     ob_start();
     $included = true;
-    include $SERVERROOT . "/api/get/products.php";
+    include_once $SERVERROOT . "/api/get/products.php";
     $included = false;
     $prodData = $outputProdArr;
     $iteration = 0;
@@ -15,25 +15,25 @@
         switch($currProd[5]){
             case 1:
                 $outputPills = '
-                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                <span class="user-select-none fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
                     HOT
                     <span class="visually-hidden">Temperature Hot</span>
                 </span>';
                 break;
             case 2:
                 $outputPills = '
-                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                <span class="user-select-none fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
                     COLD
                     <span class="visually-hidden">Temperature Cold</span>
                 </span>';
                 break;
             case 3:
                 $outputPills = '
-                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                <span class="user-select-none fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
                     HOT
                     <span class="visually-hidden">Temperature Hot</span>
                 </span>
-                <span class="fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
+                <span class="user-select-none fs-6 align-items-center justify-content-center align-middle text-center badge rounded-pill bg-secondary">
                     COLD
                     <span class="visually-hidden">Temperature Cold</span>
                 </span>';
