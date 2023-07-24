@@ -54,7 +54,7 @@
                 break;
         }
         ?>
-        <div class="col w-100 align-items-center justify-content-center align-middle text-center <?php if(str_contains($_SERVER["REQUEST_URI"], "shop.php")){echo "pb-3";} ?>" style="display:inline-block;width:224px!important;">
+        <div class="col align-items-center justify-content-center align-middle text-center <?php if(str_contains($_SERVER["REQUEST_URI"], "shop.php")){echo "pb-3";} ?>" style="display:inline-block;min-width:200px!important;max-width:230px!important;">
             <div class="flex-row bd-placeholder-img bd-placeholder-img-lg rounded-5">
                 <img src='<?php echo $prodImgUrl ?>' class="img-fluid img-fluid-mobile rounded-5"></img>
             </div>
@@ -63,13 +63,13 @@
                 <rect width="100%" height="100%" fill="#777"></rect>
                 <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
             </svg-->
-            <div id="prodNameLabel" title="<?php echo($currProd[1])?>" class="user-select-none flex-row fw-bold fs-4 pt-2" style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;"><?php echo($currProd[1])?></div>
+            <div id="prodNameLabel" title="<?php echo($currProd[1])?>" class="user-select-none flex-row fw-bold fs-5 pt-2" style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;"><?php echo($currProd[1])?></div>
             <?php echo($outputPills) ?>
-            <div id="prodPriceLabel" class="user-select-none flex-row fw-normal fs-4 pb-2"><?php echo("RM " . $currProd[3])?></div>
+            <div id="prodPriceLabel" class="user-select-none flex-row fw-normal fs-5 pb-2"><?php echo("RM " . $currProd[3])?></div>
         <?php
             if($currProd[4] > 0){
         ?>
-            <button id="prodShoppingBtn" data-temp="<?php echo($currProd[5]) ?>" data-value="<?php echo($currProd[0]); ?>" onclick="openProductModal(this.dataset.value, this.dataset.temp)" class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2 prodShoppingBtn">
+            <button id="prodShoppingBtn" data-temp="<?php echo($currProd[5]) ?>" data-value="<?php echo($currProd[0]); ?>" onclick="openProductModal(this.dataset.value, this.dataset.temp)" class="w-100 btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-5 align-middle text-center border-0 px-4 py-2 prodShoppingBtn">
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     add_shopping_cart
                 </span>
@@ -78,7 +78,7 @@
         <?php
             } else {
         ?>
-            <button data-value="0" class="btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-4 align-middle text-center border-0 px-4 py-2" disabled>
+            <button data-value="0" class="w-100 btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-5 align-middle text-center border-0 px-4 py-2" disabled>
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     add_shopping_cart
                 </span>
