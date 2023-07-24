@@ -192,12 +192,12 @@ include($ROOTPATH . '/internal/adminheader.php');
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title fw-black" id="editUser">EDIT PRODUCT</h3>
+                <h3 class="modal-title fw-black" id="editUser">EDIT USER</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="col pb-3">
-                    <p>You can use this form to edit products. Gender and date of birth cannot be edited.</p>
+                    <p>You can use this form to edit users. Gender and date of birth cannot be edited.</p>
                     <?php 
                         $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
                         //check if $_GET isset
@@ -228,7 +228,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                             }
                         }
                     ?>
-                    <form id="editUsrForm" action="/api/admin/update/products.php" method="post">
+                    <form id="editUsrForm" action="/api/admin/update/users.php" method="post">
                         <div class="form-floating mb-3">
                             <input id="edUsrName" class="form-control" name="name" type="text" placeholder="Product Name" required/>
                             <label for="name">User Name</label>
