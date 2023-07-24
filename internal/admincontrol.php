@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 if (isset($_SESSION["cust_id"])){
     include($ROOTPATH . '/public/error/403.php');

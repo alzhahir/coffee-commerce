@@ -2,7 +2,9 @@
 $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 $creds = parse_ini_file($ROOTPATH."/.ini");
 date_default_timezone_set($creds['timezone']);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if(!isset($pageTitle)){
     $pageTitle = "Ahvelo Coffee - Welcome";
 }

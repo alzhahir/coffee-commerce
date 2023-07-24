@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
 include($ROOTPATH . '/internal/errorcontrol.php');
 ?>
