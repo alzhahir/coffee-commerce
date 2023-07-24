@@ -100,11 +100,21 @@ $shortName = strtok($_SESSION["name"], " ");
                             </a>
                         </div>
                         <div class="d-flex col col-sm-2 col-xs-2 ps-0">
-                            <a class="d-flex w-100 text-reset text-decoration-none" onclick='function a (){$("[href=\"#orderp\"]").tab("show");} a()' href="#">
+                            <a class="d-flex w-100 text-reset text-decoration-none" onclick='function a (){$("[href=\"#orderp\"]").tab("show");} a()' href="javascript:void(0)">
                                 <div class="p-2 w-100 border rounded-4" style="background-color:#FA3F3F50;border-color:#FA3F3FA0!important;">
                                     <p class="fw-bold text-center">VIEW YOUR ORDERS</p>
                                     <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
                                         order_play
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="d-flex col col-sm-2 col-xs-2 ps-0">
+                            <a class="d-flex w-100 text-reset text-decoration-none" onclick='function a (){$("[href=\"#prefsp\"]").tab("show");} a()' href="javascript:void(0)">
+                                <div class="p-2 w-100 border rounded-4" style="background-color:#FA3F3F50;border-color:#FA3F3FA0!important;">
+                                    <p class="fw-bold text-center">EDIT PROFILE</p>
+                                    <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
+                                        settings_account_box
                                     </span>
                                 </div>
                             </a>
