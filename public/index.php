@@ -153,10 +153,10 @@ include($PROJECTROOT . '/internal/header.php');
         if($('#catcat').scrollLeft() > 0){
             $('.catgradb2').fadeIn(100);
         }
-        if($('#catcat').scrollLeft() >= $('#prodcat')[0].scrollWidth - $('#prodcat')[0].clientWidth - 5){
+        if($('#catcat').scrollLeft() >= $('#catcat')[0].scrollWidth - $('#catcat')[0].clientWidth - 5){
             $('.catgrad2').fadeOut(100);
         }
-        if($('#catcat').scrollLeft() < $('#prodcat')[0].scrollWidth - $('#prodcat')[0].clientWidth - 5){
+        if($('#catcat').scrollLeft() < $('#catcat')[0].scrollWidth - $('#catcat')[0].clientWidth - 5){
             $('.catgrad2').fadeIn(100);
         }
     })
