@@ -14,7 +14,7 @@
         if(isset($_GET['type'])){
             switch($_GET['type']){
                 case 'employees':
-                    $getEmpSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender, e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id $filter";
+                    $getEmpSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender, e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id $filter2";
                     $empRes = mysqli_query($conn, $getEmpSQL);
                     if(!is_bool($empRes)){
                         $outputEmpArr = array();
@@ -32,7 +32,7 @@
                                 "empName" => $currEmp[2],
                                 "empEmail" => $currEmp[3],
                                 "empGender" => $empGender,
-                                "empPhone" => $currSta[5],
+                                "empPhone" => $currEmp[5],
                             ]));
                         }
                         $outputArr = [
@@ -41,7 +41,7 @@
                     }
                     break;
                 case 'admin':
-                    $getAdmSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 2 $filter2";
+                    $getAdmSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender, e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 2 $filter";
                     $admRes = mysqli_query($conn, $getAdmSQL);
                     if(!is_bool($admRes)){
                         $outputAdmArr = array();
@@ -59,7 +59,7 @@
                                 "empName" => $currAdm[2],
                                 "empEmail" => $currAdm[3],
                                 "empGender" => $admGender,
-                                "empPhone" => $currSta[5],
+                                "empPhone" => $currAdm[5],
                             ]));
                         }
                         $outputArr = [
@@ -68,7 +68,7 @@
                     }
                     break;
                 case 'staff':
-                    $getStaSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 1 $filter2";
+                    $getStaSQL = "SELECT u.user_id, e.emp_id, e.emp_name, u.user_email, e.emp_gender, e.emp_phone FROM users AS u INNER JOIN employees AS e ON u.user_id=e.user_id WHERE u.user_type = 1 $filter";
                     $staRes = mysqli_query($conn, $getStaSQL);
                     if(!is_bool($staRes)){
                         $outputStaArr = array();
@@ -114,7 +114,7 @@
                                 "custName" => $currCust[2],
                                 "custEmail" => $currCust[3],
                                 "custGender" => $custGender,
-                                "custEmail" => $currCust[5],
+                                "custPhone" => $currCust[5],
                             ]));
                         }
                         $outputArr = [
