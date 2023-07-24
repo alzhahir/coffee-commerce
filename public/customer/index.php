@@ -28,6 +28,36 @@ $shortName = strtok($_SESSION["name"], " ");
 <div class="px-3">
     <div>
         <h3 id="wlc" id="custPage" class="fw-black mb-2">YOUR ACCOUNT</h3>
+        <?php 
+            $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
+            //check if $_GET isset
+            if(isset($_GET["error"])){
+                if($_GET["error"] == "true"){
+                    //err
+                    echo "<div class=\"alert alert-danger\">";
+                    if(isset($_SESSION["userErrMsg"])){
+                        //get err msg
+                        $errMsg = $_SESSION["userErrMsg"];
+                        $errCode = $_SESSION["userErrCode"];
+                        echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                        echo "<p class=\"my-0 fst-italic fw-light\">Error code: $errCode</p>";
+                    }
+                    echo "</div>";
+                } else if($_GET["error"] == "false"){
+                    //noerr
+                    echo "<div class=\"alert alert-success\">";
+                    if(isset($_SESSION["userErrMsg"])){
+                        //get err msg
+                        $errMsg = $_SESSION["userErrMsg"];
+                        $errCode = $_SESSION["userErrCode"];
+                        echo "<h5 class=\"my-0 fw-semibold\" style=\"text-align: justify; text-justify: inter-word;\">$errMsg</h5>";
+                    }
+                    echo "</div>";
+                } else {
+                    //echo "Test lol";
+                }
+            }
+        ?>
     </div>
     <ul class="nav nav-pills" id="custTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -135,7 +165,23 @@ $shortName = strtok($_SESSION["name"], " ");
             </div>
         </div>
         <div class="tab-pane fade" id="prefsp" role="tabpanel" aria-labelledby="prefstab">
-            Tab 3 content
+            <p class="fw-black fs-4 mt-2">PREFERENCES</p>
+            <span class="fs-5">Here, you can edit some of your information. Some information such as gender and date of birth cannot be edited.</span>
+            <form id="editUsrForm" action="/api/user/update/user.php" method="post">
+                <div class="form-floating mb-3">
+                    <input id="edUsrName" class="form-control" name="name" type="text" value="<?php echo $_SESSION["name"] ?>" placeholder="User Name" required/>
+                    <label for="name">User Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="edUsrEmail" class="form-control" name="email" type="text" value="<?php echo $_SESSION["email"] ?>" placeholder="User Email" required/>
+                    <label for="email">User Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="edUsrPhone" class="form-control" name="phone" type="text" value="<?php echo $_SESSION["tel"] ?>" placeholder="User Phone" required/>
+                    <label for="phone">User Phone</label>
+                </div>
+                <button class="btn btn-primary ahvbutton" form="editUsrForm" type="submit">Save changes</button>
+            </form>
         </div>
     </div>
     <!-- Tabs content -->
