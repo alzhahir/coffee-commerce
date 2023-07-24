@@ -7,7 +7,7 @@
 
     if(!isset($_SESSION["backPage"])){
         //backPage is not set, defaulting to index.php
-        $backPage = "/index.php";
+        $backPage = "/signup.php";
     }
 
     error_reporting(E_ALL);
@@ -49,7 +49,7 @@
             } else {
                 $_SESSION["userErrCode"] = "MYSQL_ERROR";
                 $_SESSION["userErrMsg"] = "MySQL error encountered: ".mysqli_error($conn)." Please contact the administrator if you believe that this should not happen.";
-                header("refresh:0;url=$backPage?$errorType");
+                header("refresh:0;url=$backPage?error=true");
             }
 
             mysqli_stmt_close($stmt);
