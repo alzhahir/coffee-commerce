@@ -374,7 +374,7 @@
 
         $getCustUserId = "SELECT user_id FROM customers WHERE cust_id = $custId";
         $custUIdRes = mysqli_query($conn, $getCustUserId);
-        if(!is_bool($custIdRes)){
+        if(!is_bool($custUIdRes)){
             $custUIdArr = mysqli_fetch_all($custUIdRes);
             $custUIdArr = array_values($custUIdArr);
             foreach($custUIdArr as $thisCust){
