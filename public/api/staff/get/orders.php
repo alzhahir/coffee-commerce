@@ -205,7 +205,7 @@
                 die();
             }
         } else {
-            $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, cust_id, SUM(order_total), COUNT(order_id) FROM orders";
+            $getOrdSQL = "SELECT order_id, order_date, order_time, order_status, order_total, cust_id FROM orders";
             $ordRes = mysqli_query($conn, $getOrdSQL);
             if(!is_bool($ordRes)){
                 if(mysqli_num_rows($ordRes) == 0){
@@ -221,8 +221,6 @@
                 $ordArr = mysqli_fetch_all($ordRes);
                 $ordArr = array_values($ordArr);
                 foreach($ordArr as $currOrd){
-                    $totalRevenue = $currOrd[6];
-                    $totalOrders = $currOrd[7];
                     array_push($outputOrdArr, array_values(array(
                         "id" => $currOrd[0],
                         "date" => $currOrd[1],
@@ -231,6 +229,16 @@
                         "total" => $currOrd[4],
                         "cust" => $currOrd[5],
                     )));
+                }
+                $getSumOrdSQL = "SELECT SUM(order_total), COUNT(order_id) FROM orders";
+                $sumOrdRes = mysqli_query($conn, $getSumOrdSQL);
+                if(!is_bool($sumOrdRes)){
+                    $sumOrdArr = mysqli_fetch_all($sumOrdRes);
+                    $sumOrdArr = array_values($sumOrdArr);
+                    foreach($sumOrdArr as $currSumOrd){
+                        $totalRevenue = $currSumOrd[0];
+                        $totalOrders = $currSumOrd[1];
+                    }
                 }
                 $getMonthOrdSQL = "SELECT SUM(order_total), COUNT(order_id) FROM orders WHERE MONTH(order_date) = MONTH(CURRENT_DATE)";
                 $monthOrdRes = mysqli_query($conn, $getMonthOrdSQL);
