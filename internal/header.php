@@ -133,7 +133,7 @@
                                 include "minicart.php";
                             } else {
                                 ?>
-                                <p class="fw-medium">Your Cart is only available for registed users! Login now to use the cart!</p>
+                                <p class="fw-medium mb-0">Your Cart is only available for registed users! Login now to use the cart!</p>
                                 <?php
                             }
                         ?>
