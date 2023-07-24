@@ -457,6 +457,7 @@ $(document).ready(function(){
         {
             value: $(this).data('value'),
             quantity: $(this).data('amt'),
+            temperature: $(this).data('temp'),
         })
         .done(function(){
             //success
@@ -514,6 +515,7 @@ $(document).ready(function(){
             $('#confirmCartDel').modal('show');
             $('#confirmCartDelBtn').data("value", $(this).data('value'));
             $('#confirmCartDelBtn').data("amt", 0);
+            $('#confirmCartDelBtn').data('temp', $(this).data('temp'))
             //$(this).attr("disabled", true);
         }
         if(qtyval > 1){
