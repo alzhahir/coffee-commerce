@@ -53,6 +53,10 @@ include($ROOTPATH . '/internal/staffheader.php');
                                         visible: false,
                                     },
                                     {
+                                        targets: 5,
+                                        visible: false,
+                                    },
+                                    {
                                         "defaultContent": '<button class="btn btn-primary ahvbutton">Edit Stock</button>',
                                         "targets": -1
                                     },
@@ -145,6 +149,8 @@ include($ROOTPATH . '/internal/staffheader.php');
                     <th>Product Image URL</th>
                     <th>Product Price</th>
                     <th>Product Stock</th>
+                    <th>Product Category ID</th>
+                    <th>Product Category</th>
                     <th>Product Temperature</th>
                     <th>Edit Stock</th>
                 </tr>

@@ -370,11 +370,11 @@ include($ROOTPATH . '/internal/adminheader.php');
                         <div class="mb-3">
                             <label class="form-label d-block">Temperature</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="isHot" value="1" checked='true' required/>
+                                <input class="form-check-input" type="checkbox" name="isHot" value="1" checked='true'/>
                                 <label class="form-check-label" for="isHot">Hot</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="isCold" value="2" checked='true' required/>
+                                <input class="form-check-input" type="checkbox" name="isCold" value="2" checked='true'/>
                                 <label class="form-check-label" for="isCold">Cold</label>
                             </div>
                         </div>
