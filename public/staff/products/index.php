@@ -57,7 +57,7 @@ include($ROOTPATH . '/internal/staffheader.php');
                                         visible: false,
                                     },
                                     {
-                                        "defaultContent": '<button class="btn btn-primary ahvbutton">Edit Stock</button>',
+                                        "defaultContent": '<button class="btn btn-primary ahvbutton"><span class="material-symbols-outlined align-middle text-center px-0">edit</span><span class="align-middle text-center ps-1">Edit Stock</span></button>',
                                         "targets": -1
                                     },
                                     {

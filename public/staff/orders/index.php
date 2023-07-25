@@ -92,11 +92,11 @@ include($ROOTPATH . '/internal/staffheader.php');
                                 },
                                 columnDefs: [
                                     {
-                                        "defaultContent": '<button class="btn btn-primary ahvbutton editStatBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">edit</span>Edit Status</button>',
+                                        "defaultContent": '<button class="btn btn-primary ahvbutton editStatBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">edit</span><span class="align-middle text-center ps-1">Edit Status</span></button>',
                                         "targets": -1
                                     },
                                     {
-                                        "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span>View Details</button>',
+                                        "defaultContent": '<button class="btn btn-primary rounded-pill viewDetBtn"><span class="align-middle material-symbols-outlined" style="font-size:24px;">visibility</span><span class="align-middle text-center ps-1">View Details</span></button>',
                                         "targets": -2
                                     },
                                     {

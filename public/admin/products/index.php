@@ -62,7 +62,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                                         visible: false,
                                     },
                                     {
-                                        "defaultContent": '<button class="btn btn-primary ahvbutton">Edit Product</button>',
+                                        "defaultContent": '<button class="btn btn-primary ahvbutton"><span class="material-symbols-outlined align-middle text-center px-0">edit</span><span class="align-middle text-center ps-1">Edit</span></button>',
                                         "targets": -1
                                     },
                                     {
@@ -188,7 +188,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                     <th>Product Category ID</th>
                     <th>Product Category</th>
                     <th>Temperature</th>
-                    <th>Edit Product</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
         </table>
@@ -275,7 +275,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delProductModal" data-bs-toggle="modal">Delete Product</button>
+                <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delProductModal" data-bs-toggle="modal"><span class="material-symbols-outlined align-middle text-center px-0">delete_forever</span><span class="align-middle text-center ps-1">Delete</span></button>
                 <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary ahvbutton" form="editProdForm" id="signUpButton" type="submit">Save changes</button>
             </div>
