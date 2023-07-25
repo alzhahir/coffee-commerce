@@ -17,19 +17,9 @@ $shortName = strtok($_SESSION["name"], " ");
         <p class="fw-black fs-5">QUICK ACTIONS</p>
         <div class="row ps-3">
             <div class="d-flex col col-sm-2 col-xs-2 ps-0">
-                <a class="d-flex w-100 text-reset text-decoration-none" href="/admin/products/index.php">
-                    <div class="p-2 w-100 border rounded-4" style="background-color:#a6a6a650;border-color:#a6a6a6A0!important;">
-                        <p class="fw-bold text-center">EDIT PRODUCT INFO</p>
-                        <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
-                            edit_square
-                        </span>
-                    </div>
-                </a>
-            </div>
-            <div class="d-flex col col-sm-2 col-xs-2 ps-0">
                 <a class="d-flex w-100 text-reset text-decoration-none" href="/admin/users/index.php">
                     <div class="p-2 w-100 border rounded-4" style="background-color:#a6a6a650;border-color:#a6a6a6A0!important;">
-                        <p class="fw-bold text-center">EDIT USER ACCOUNT</p>
+                        <p class="fw-bold text-center mb-1" style="min-height:48px!important;">EDIT USER ACCOUNT</p>
                         <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
                             manage_accounts
                         </span>
@@ -37,9 +27,29 @@ $shortName = strtok($_SESSION["name"], " ");
                 </a>
             </div>
             <div class="d-flex col col-sm-2 col-xs-2 ps-0">
+                <a class="d-flex w-100 text-reset text-decoration-none" href="/admin/products/index.php">
+                    <div class="p-2 w-100 border rounded-4" style="background-color:#a6a6a650;border-color:#a6a6a6A0!important;">
+                        <p class="fw-bold text-center mb-1" style="min-height:48px!important;">EDIT PRODUCTS</p>
+                        <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
+                            box_edit
+                        </span>
+                    </div>
+                </a>
+            </div>
+            <div class="d-flex col col-sm-2 col-xs-2 ps-0">
+                <a class="d-flex w-100 text-reset text-decoration-none" href="/admin/categories/index.php">
+                    <div class="p-2 w-100 border rounded-4" style="background-color:#a6a6a650;border-color:#a6a6a6A0!important;">
+                        <p class="fw-bold text-center mb-1" style="min-height:48px!important;">EDIT CATEGORIES</p>
+                        <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
+                            category
+                        </span>
+                    </div>
+                </a>
+            </div>
+            <div class="d-flex col col-sm-2 col-xs-2 ps-0">
                 <a class="d-flex w-100 text-reset text-decoration-none" href="/staff/orders/index.php">
                     <div class="p-2 w-100 border rounded-4" style="background-color:#a6a6a650;border-color:#a6a6a6A0!important;">
-                        <p class="fw-bold text-center">VIEW LATEST ORDERS</p>
+                        <p class="fw-bold text-center mb-1" style="min-height:48px!important;">VIEW LATEST ORDERS</p>
                         <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
                             order_approve
                         </span>
@@ -52,7 +62,7 @@ $shortName = strtok($_SESSION["name"], " ");
                     <div class="d-flex col col-sm-2 col-xs-2 ps-0">
                         <a class="d-flex w-100 text-reset text-decoration-none" href="/staff/index.php">
                             <div class="p-2 w-100 border rounded-4" style="background-color:#a6a6a650;border-color:#a6a6a6A0!important;">
-                                <p class="fw-bold text-center">SWITCH DASHBOARD</p>
+                                <p class="fw-bold text-center mb-1" style="min-height:48px!important;">SWITCH DASHBOARD</p>
                                 <span class="d-flex justify-content-center mx-auto material-symbols-outlined" style="font-size:64px;">
                                     switch_account
                                 </span>

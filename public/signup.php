@@ -41,7 +41,7 @@ $pageTitle = "Ahvelo Coffee - Account";
         ?>
         <div class="col pb-3">
             <h3 class="fw-black">SIGN UP</h3>
-            <p>Sign up for the HEARTVELO membership now! Please fill in this form to continue. Please note that gender and date of birth are permanent and cannot be edited later.</p>
+            <p>Sign up for the Ahvelo Coffee membership now! Please fill in this form to continue. Please note that gender and date of birth are permanent and cannot be edited later.</p>
             <form id="signupForm" action="/api/auth/signup.php" method="post">
                 <div class="form-floating mb-3">
                     <input class="form-control" name="email" type="email" placeholder="Email Address" required/>
