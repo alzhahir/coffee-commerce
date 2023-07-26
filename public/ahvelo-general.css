@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 body{
+    font-family: 'League Spartan', sans-serif;
     background-color: #f0f0f0!important;
 }
 
@@ -137,11 +139,6 @@ input#form-floating,.form-floating:not(.form-control:disabled)::before{
 .catgradb2 {
     background: rgb(240,240,240);
     background: linear-gradient(90deg, rgba(240,240,240,1) 0%, rgba(255,255,255,0) 100%);
-}
-
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
-body{
-    font-family: 'League Spartan', sans-serif;
 }
 
 .fw-black {
