@@ -20,7 +20,7 @@
             $topicVal = $_POST['topic'];
             $registrationToken = $_POST['registrationToken'];
             $res = $messaging->unsubscribeFromAllTopics($registrationToken);
-            if($_SESSION['utype'] == 'admin'){
+            if(isset($_SESSION['utype']) && $_SESSION['utype'] == 'admin'){
                 $topicVals = [$_POST['topic'], 'staff'];
                 $res = $messaging->subscribeToTopics($topicVals, $registrationToken);
                 $_SESSION['notiftopic'] = $topicVals;

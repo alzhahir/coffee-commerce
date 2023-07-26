@@ -54,6 +54,13 @@
         die();
     }
 
+    if(!isset($_SESSION['notiftopic'])){
+        header("Content-Type: application/json;");
+        echo genResData('Session error', 'SESSION_ERROR');
+        http_response_code(500);
+        die();
+    }
+
     $custName = strtok($_SESSION["name"], " ");
 
     $backPage = $_SESSION["backPage"];

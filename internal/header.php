@@ -95,8 +95,10 @@
             <div class="dropdown flex-column d-flex text-end" id="cartdrp">
                 <?php
                 $itemNum = 0;
+                $custId = "";
                 if(isset($_SESSION['cust_id'])){
                     $outputCartArr = null;
+                    $custId = $_SESSION['cust_id'];
                     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
                     $included = true;
                     include($PROJECTROOT . '/public/api/user/get/cart.php');
@@ -374,7 +376,7 @@
             type: 'POST',
             data: {
                 registrationToken: currentToken,
-                topic: '<?php echo 'cust'.$_SESSION['cust_id'] ?>'
+                topic: '<?php echo 'cust'.$custId ?>'
             },
             success: function(res){
                 //console.log('success', res)
@@ -408,7 +410,7 @@
     });
 
     function getNotifications(){
-        $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo 'cust'.$_SESSION['cust_id'] ?>', {
+        $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo 'cust'.$custId ?>', {
             type: 'GET',
             success: function(res){
                 if(res.data.length > 0){

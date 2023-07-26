@@ -342,7 +342,6 @@ function custOrder(){
     var ordTable = $('#ordTable').DataTable({
             order: [[0, 'desc']],
             autoWidth: false,
-            responsive: true,
             ajax: {
                 url: '/api/user/get/orders.php',
                 dataSrc: 'data',
@@ -541,6 +540,7 @@ $(document).ready(function(){
     });
 
     $('#confirmCartDelBtn').on('click', function(){
+        $('#confirmCartDel').modal('hide');
         $.post("/api/user/post/cart.php",
         {
             value: $(this).data('value'),
@@ -549,7 +549,6 @@ $(document).ready(function(){
         })
         .done(function(){
             //success
-            $('#confirmCartDel').modal('hide');
             const toastElList = document.querySelectorAll('#toastUpdSucc')
             const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
             toastList.forEach(toast => toast.show());
@@ -558,7 +557,6 @@ $(document).ready(function(){
         })
         .fail(function(){
             //fail
-            $('#confirmCartDel').modal('hide');
             const toastElList = document.querySelectorAll('#toastUpdErr')
             const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
             toastList.forEach(toast => toast.show());

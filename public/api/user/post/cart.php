@@ -132,7 +132,7 @@
                             $getCartItmRes = mysqli_query($conn, $getCartItm);
                             if(!is_bool($getCartItmRes)){
                                 $cartItmNum = mysqli_num_rows($getCartItmRes);
-                                error_log($cartItmNum);
+                                //error_log($cartItmNum);
                                 if($cartItmNum < 1){
                                     $delCartSQL = "DELETE FROM carts WHERE cust_id = ?";
                                     if ($stmt=mysqli_prepare($conn, $delCartSQL)){
