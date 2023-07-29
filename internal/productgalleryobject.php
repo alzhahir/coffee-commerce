@@ -54,9 +54,9 @@
                 break;
         }
         ?>
-        <div class="col align-items-center justify-content-center align-middle text-center <?php if(str_contains($_SERVER["REQUEST_URI"], "shop.php")){echo "pb-3";} ?>" style="display:inline-block;min-width:200px!important;max-width:230px!important;">
+        <div class="col align-items-center justify-content-center align-middle text-center <?php if(str_contains($_SERVER["REQUEST_URI"], "shop.php")){echo "pb-3";} ?>" style="display:inline-block;min-width:170px!important;max-width:200px!important;">
             <div class="flex-row bd-placeholder-img bd-placeholder-img-lg rounded-5">
-                <img src='<?php echo $prodImgUrl ?>' class="img-fluid img-fluid-mobile rounded-5"></img>
+                <img src='<?php echo $prodImgUrl ?>' class="ratio ratio-1x1 img-fluid rounded-5"></img>
             </div>
             <!--svg class="flex-row bd-placeholder-img bd-placeholder-img-lg rounded-5" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Placeholder</title>
@@ -69,16 +69,18 @@
         <?php
             if($currProd[4] > 0){
         ?>
-            <button id="prodShoppingBtn" data-temp="<?php echo($currProd[5]) ?>" data-value="<?php echo($currProd[0]); ?>" onclick="openProductModal(this.dataset.value, this.dataset.temp)" class="w-100 btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-5 align-middle text-center border-0 px-4 py-2 prodShoppingBtn">
+            <button id="prodShoppingBtn" data-temp="<?php echo($currProd[5]) ?>" data-value="<?php echo($currProd[0]); ?>" onclick="openProductModal(this.dataset.value, this.dataset.temp)" class="w-100 btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-5 align-middle text-center border-0 px-1 py-2 prodShoppingBtn">
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     add_shopping_cart
                 </span>
-                Add to Cart
+                <span claSS="overflow-auto">
+                    Add to Cart
+                </span>
             </button>
         <?php
             } else {
         ?>
-            <button data-value="0" class="w-100 btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-5 align-middle text-center border-0 px-4 py-2" disabled>
+            <button data-value="0" class="w-100 btn btn-primary ahvbutton flex-row fw-normal rounded-pill fs-5 align-middle text-center border-0 px-1 py-2" disabled>
                 <span class="material-symbols-outlined align-middle text-center px-0">
                     add_shopping_cart
                 </span>

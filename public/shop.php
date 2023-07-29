@@ -41,7 +41,7 @@ $included = false;
                 }
             ?>
         </div>
-        <div id="prodcat" class="d-flex justify-content-center row row-cols-auto w-100 align-items-start">
+        <div id="prodcat" class="d-flex justify-content-start row row-cols-auto w-100 align-items-start">
             <?php
                 include($PROJECTROOT . '/internal/productgalleryobject.php');
             ?>
