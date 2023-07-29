@@ -13,7 +13,7 @@ include($PROJECTROOT . "/internal/apiheader.php");
         ABOUT
     </div>
     <div>
-        Ahvelo Coffee API - Version 1.0.0
+        Ahvelo Coffee API - Version 1.5.0
     </div>
 </div>
 <?php
