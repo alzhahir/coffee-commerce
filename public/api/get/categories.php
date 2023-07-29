@@ -3,7 +3,11 @@
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
     require_once $PROJECTROOT . "/internal/db.php";
     if($_SERVER["REQUEST_METHOD"] == "GET"){
-        $getCatSQL = "SELECT cat_id, cat_name, cat_image FROM categories";
+        $getAll = "WHERE is_listed = 1";
+        if(isset($_GET['showall']) && $_GET['showall'] == 'true'){
+            $getAll = "";
+        }
+        $getCatSQL = "SELECT cat_id, cat_name, cat_image FROM categories ".$getAll;
         $catRes = mysqli_query($conn, $getCatSQL);
         if(!is_bool($catRes)){
             $outputCatArr = array();
