@@ -40,6 +40,7 @@ include($ROOTPATH . '/internal/adminheader.php');
         </button>
     </p>
     <script type="text/javascript">
+        var cid;
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         $(document).ready( function () {
@@ -127,6 +128,7 @@ include($ROOTPATH . '/internal/adminheader.php');
                 var updEndpoint = '/api/admin/update/categories.php';
                 var data = mainTable.row($(this).parents()[0]).data();
                 //window.location.href = "index.php?edit=true&app_id="+data[0];
+                cid = data[0];
                 $('#editCatForm').attr('action', updEndpoint+'?cat_id='+data[0]);
                 $('#edCatName').val(data[1]);
                 $('#edCatImgUrl').val(data[2]);
@@ -134,6 +136,24 @@ include($ROOTPATH . '/internal/adminheader.php');
             })
             new $.fn.dataTable.FixedHeader( mainTable );
         } );
+        function deleteItem(){
+            $('#delCatBtn').attr('disabled', true);
+            $('#delSpinner').show();
+            $('#delText').hide();
+            $.ajax('/api/admin/delete/category.php?cat_id='+cid, {
+                type: 'POST',
+                data: {
+                    id: cid
+                },
+                success: function(){
+                    $('#delCategoryModal').modal('hide');
+                    location.reload();
+                },
+                fail: function(){
+                    console.log("Failed to delete category.");
+                }
+            })
+        }
     </script>
     <div class="px-4 py-4 bg-white rounded-4 shadow">
         <table id="catTable" class="table table-bordered table-hover dt-responsive">
@@ -203,8 +223,42 @@ include($ROOTPATH . '/internal/adminheader.php');
                 </div>
             </div>
             <div class="modal-footer">
+            <button type="button" class="me-auto btn btn-outline-danger border-0 rounded-pill" data-bs-target="#delCategoryModal" data-bs-toggle="modal"><span class="material-symbols-outlined align-middle text-center px-0">delete_forever</span><span class="align-middle text-center ps-1">Delete</span></button>
                 <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary ahvbutton" form="editCatForm" id="catUpdateButton" type="submit">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TO DELETE STUFF -->
+<div class="modal fade" id="delCategoryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title fw-black" id="delCategory">DELETE CATEGORY</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <div class="col col-auto pe-2 h-100">
+                    <span class="material-symbols-outlined filled text-danger align-middle text-center px-0 py-auto" style="font-size:48px;">
+                        warning
+                    </span>
+                </div>
+                <div class="col ps-0">
+                    <span>Are you sure that you want to delete this category?</span><br>
+                    <span class="fw-bold">THIS ACTION IS IRREVERSIBLE!</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <button id="delCatBtn" class="btn btn-danger rounded-pill" onclick="deleteItem()">
+                <div id="delSpinner" style="display:none;">
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    <span role="status">Deleting...</span>
+                </div>
+                <span id="delText">Yes</span>
+                </button>
             </div>
         </div>
     </div>
