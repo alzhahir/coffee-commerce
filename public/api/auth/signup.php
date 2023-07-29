@@ -16,7 +16,7 @@
 
     $backPage = $_SESSION["backPage"];
 
-    if(isset($_SESSION["uid"]) && strpos($backPage, 'new.php') === false){
+    if(isset($_SESSION["uid"]) && !isset($_GET['admin_mode']) && $_GET['admin_mode'] != 'true'){
         //user is logged in already
         $_SESSION["userErrCode"] = "SESSION_EXISTS";
         $_SESSION["userErrMsg"] = "You are already logged in. Please log out to sign up as another user.";
@@ -273,10 +273,10 @@
 
     $emailApiUrl = $PROTOCOL.$DOMAIN."/api/create/mail.php";
 
-    $subject = "[ACCOUNT] You have successfully created Ahvelo Coffee account!";
+    $subject = "[ACCOUNT] You have successfully created an Ahvelo Coffee account!";
 
     $mailpostfields = [
-        "recipient_address" => $custEmail,
+        "recipient_address" => $email,
         "subject" => $subject,
         "alternative_body" => 'You have created an Ahvelo Coffee account. You may login now.',
         "context" => 0
