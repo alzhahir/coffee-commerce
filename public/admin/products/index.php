@@ -291,12 +291,20 @@ include($ROOTPATH . '/internal/adminheader.php');
             <h3 class="modal-title fw-black" id="delProduct">DELETE PRODUCT</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure that you want to delete this product? THIS ACTION IS IRREVERSIBLE!</p>
+            <div class="modal-body row">
+                <div class="col col-auto pe-2 h-100">
+                    <span class="material-symbols-outlined filled text-danger align-middle text-center px-0 py-auto" style="font-size:48px;">
+                        warning
+                    </span>
+                </div>
+                <div class="col ps-0">
+                    <span class="fs-5">Are you sure that you want to delete this product?</span><br>
+                    <span class="fs-5 fw-bold">THIS ACTION IS IRREVERSIBLE!</span>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary border-0 rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                <button id="delProdBtn" class="btn btn-danger rounded-pill" onclick="deleteItem()">Yes</button>
+                <button id="delProdBtn" class="btn btn-danger rounded-pill" onclick="deleteItem()">YES, DELETE PRODUCT</button>
             </div>
         </div>
     </div>
