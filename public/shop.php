@@ -15,7 +15,7 @@ $included = false;
 ?>
 <div class="px-3 pb-3">
     <div class="px-2 h-100">
-        <div class="fw-black row px-2 h2">PRODUCTS</div>
+        <div class="fw-black row px-2 h2">SHOP</div>
         <div class="mb-3 mx-0 px-0 fs-5">Order now! You may also filter the items based on the categories listed below.</div>
         <div class="mb-3">
             <?php
@@ -41,7 +41,7 @@ $included = false;
                 }
             ?>
         </div>
-        <div id="prodcat" class="d-flex justify-content-start row row-cols-auto w-100 align-items-start">
+        <div id="prodcat" class="d-flex justify-content-center row row-cols-auto align-items-start">
             <?php
                 include($PROJECTROOT . '/internal/productgalleryobject.php');
             ?>
