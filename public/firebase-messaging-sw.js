@@ -5,7 +5,7 @@ importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js")
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 
-firebaseConfig = {
+/*firebaseConfig = {
     apiKey: "AIzaSyBYu-HeucZacAKoAJHgwAzNYYjSKhhxZYw",
     authDomain: "mdvpnzone.firebaseapp.com",
     projectId: "mdvpnzone",
@@ -13,7 +13,9 @@ firebaseConfig = {
     messagingSenderId: "429146314022",
     appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
     measurementId: "G-ZQSPFKPBLL"
-};
+};*/
+
+import * as firebaseConfig from '/firebase-config.json' assert{type: 'json'};
 
 firebase.initializeApp(firebaseConfig);
 

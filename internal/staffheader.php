@@ -2,6 +2,11 @@
 
 //header content
 
+$ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
+error_reporting(E_ALL);
+$creds = parse_ini_file($ROOTPATH."/.ini");
+$vapidkey = $creds['vapid_key'];
+
 ?>
 <style>
 .ahvnavbut{
@@ -229,7 +234,11 @@
         })
     }
 
-    const firebaseConfig = {
+    $.getJSON('/firebase-config.json', function(data){
+        const firebaseConfig = data;
+    })
+
+    /*const firebaseConfig = {
         apiKey: "AIzaSyBYu-HeucZacAKoAJHgwAzNYYjSKhhxZYw",
         authDomain: "mdvpnzone.firebaseapp.com",
         projectId: "mdvpnzone",
@@ -237,12 +246,12 @@
         messagingSenderId: "429146314022",
         appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
         measurementId: "G-ZQSPFKPBLL"
-    };
+    };*/
 
     firebase.initializeApp(firebaseConfig);
 
     const messaging = firebase.messaging();
-    messaging.getToken({vapidKey: 'BDNYjgph3oScPyWzOmYVug-x3Nkon-9OKp4bd9Us6cc6SW0uAdDn-U2CSWxiniSlMvBiAexRPXOzKc5mlfew2cU'})
+    messaging.getToken({vapidKey: '<?php echo $vapidkey ?>'})
     .then((currentToken) => {
     if (currentToken) {
         // Send the token to your server and update the UI if necessary
