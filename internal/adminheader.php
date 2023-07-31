@@ -218,6 +218,50 @@ $vapidkey = $creds['vapid_key'];
 
     $.getJSON('/firebase-config.json', function(data){
         const firebaseConfig = data;
+        firebase.initializeApp(firebaseConfig);
+
+        const messaging = firebase.messaging();
+        messaging.getToken({vapidKey: '<?php echo $vapidkey ?>'})
+        .then((currentToken) => {
+        if (currentToken) {
+            // Send the token to your server and update the UI if necessary
+            // ...
+            $.ajax('/api/notification/post/token.php', {
+                type: 'POST',
+                data: {
+                    registrationToken: currentToken,
+                    topic: '<?php echo $_SESSION['utype'] ?>'
+                },
+                success: function(res){
+                    console.log('success', res)
+                },
+                error: function(){
+                    console.log('error', res)
+                }
+            })
+        } else {
+            // Show permission request UI
+            console.log('No registration token available. Request permission to generate one.');
+            getRegToken(false);
+        }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+            notifContent.innerHTML = "Notification permission is not granted. Please grant the permission to receive notification. <button type='button' class='btn btn-primary ahvbutton' id='getNotifPerm'>Ask for permission</>"
+        // ...
+        });
+
+        messaging.onMessage((payload) => {
+            console.log('Message received. ', payload);
+            // ...
+            const toastElList = document.querySelectorAll('#toastNewNotif')
+            const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:5000}))
+            toastList.forEach(toast => toast.show());
+            if($('#notifBadge').is(':hidden')){
+                $('#notifBadge').show();
+            }
+            $('#notifContent').append("<div id='notif"+payload.data.id+"' class='my-2 border border-1 mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+payload.data.id+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><div class='row me-2 my-2 ms-1' onclick='window.location=\""+payload.data.redirect+"\";'><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div></div>");
+
+        });
     })
 
     /*const firebaseConfig = {
@@ -229,51 +273,6 @@ $vapidkey = $creds['vapid_key'];
         appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
         measurementId: "G-ZQSPFKPBLL"
     };*/
-
-    firebase.initializeApp(firebaseConfig);
-
-    const messaging = firebase.messaging();
-    messaging.getToken({vapidKey: '<?php echo $vapidkey ?>'})
-    .then((currentToken) => {
-    if (currentToken) {
-        // Send the token to your server and update the UI if necessary
-        // ...
-        $.ajax('/api/notification/post/token.php', {
-            type: 'POST',
-            data: {
-                registrationToken: currentToken,
-                topic: '<?php echo $_SESSION['utype'] ?>'
-            },
-            success: function(res){
-                console.log('success', res)
-            },
-            error: function(){
-                console.log('error', res)
-            }
-        })
-    } else {
-        // Show permission request UI
-        console.log('No registration token available. Request permission to generate one.');
-        getRegToken(false);
-    }
-    }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-        notifContent.innerHTML = "Notification permission is not granted. Please grant the permission to receive notification. <button type='button' class='btn btn-primary ahvbutton' id='getNotifPerm'>Ask for permission</>"
-    // ...
-    });
-
-    messaging.onMessage((payload) => {
-        console.log('Message received. ', payload);
-        // ...
-        const toastElList = document.querySelectorAll('#toastNewNotif')
-        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:5000}))
-        toastList.forEach(toast => toast.show());
-        if($('#notifBadge').is(':hidden')){
-            $('#notifBadge').show();
-        }
-        $('#notifContent').append("<div id='notif"+payload.data.id+"' class='my-2 border border-1 mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+payload.data.id+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><div class='row me-2 my-2 ms-1' onclick='window.location=\""+payload.data.redirect+"\";'><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div></div>");
-
-    });
 
     function getNotifications(){
         $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo $_SESSION['utype'] ?>', {
