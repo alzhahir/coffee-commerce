@@ -37,12 +37,12 @@ include($PROJECTROOT . '/internal/header.php');
     </div>
     <div id="prodlist" class="container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between" style="position:relative; overflow:overflow;">
         <div class="w-100 fw-black row p-2" style="z-index:1;">BESTSELLERS</div>
-        <div id="prodcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:auto;">
+        <div id="prodcat" class="row user-select-none flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:auto;">
             <?php
                 include($PROJECTROOT . "/internal/productgalleryobject.php");
             ?>
         </div>
-        <div class="pe-none h-100 catgradb overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
+        <div class="pe-none user-select-none h-100 catgradb overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
             <button id="leftbutton" class="pe-auto btn btn-primary rounded-circle align-items-center justify-content-center p-0 ahvbutton border-0 shadow" style="height:48px;width:48px;">
                 <span class="material-symbols-outlined text-center align-middle mb-0" style="color:white; font-size:32px;">
                     navigate_before
@@ -54,7 +54,7 @@ include($PROJECTROOT . '/internal/header.php');
                 <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
             </svg>
         </div>
-        <div class="pe-none h-100 catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
+        <div class="pe-none user-select-none h-100 catgrad overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
             <svg class="bd-placeholder-img bd-placeholder-img-lg" width="25" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <!--title>Placeholder</title-->
                 <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
@@ -69,12 +69,12 @@ include($PROJECTROOT . '/internal/header.php');
     </div>
     <div id="catlist" class="pt-3 container-fluid h2 px-2 d-flex flex-wrap justify-content-md-between" style="position:relative; overflow:overflow;">
         <div class="w-100 fw-black row p-2" style="z-index:1;">CATEGORIES</div>
-        <div id="catcat" class="row flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:auto;">
+        <div id="catcat" class="row user-select-none flex-row flex-nowrap" style="overflow-x:scroll; white-space: nowrap; float: none; position:relative; touch-action:auto;">
             <?php
                 include($PROJECTROOT . "/internal/categorygalleryobject.php");
             ?>
         </div>
-        <div class="pe-none h-100 catgradb2 overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
+        <div class="pe-none user-select-none h-100 catgradb2 overflow-visible" style="bottom:-5%;left:-5px;position:absolute;display:none;">
             <button id="cleftbutton" class="pe-auto btn btn-primary rounded-circle align-items-center justify-content-center p-0 ahvbutton border-0 shadow" style="height:48px;width:48px;">
                 <span class="material-symbols-outlined text-center align-middle mb-0" style="color:white; font-size:32px;">
                     navigate_before
@@ -86,7 +86,7 @@ include($PROJECTROOT . '/internal/header.php');
                 <!--text x="50%" y="50%" fill="#FFFFFF" dy=".3em">First slide</text-->
             </svg>
         </div>
-        <div class="pe-none h-100 catgrad2 overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
+        <div class="pe-none user-select-none h-100 catgrad2 overflow-visible" style="bottom:-5%;right:-5px;position:absolute;display:none;">
             <svg class="bd-placeholder-img bd-placeholder-img-lg" width="25" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <!--title>Placeholder</title-->
                 <!--rect class="catgrad" width="100%" height="100%" fill="#000000"></rect-->
