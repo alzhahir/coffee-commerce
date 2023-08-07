@@ -12,3 +12,22 @@ database='your-database-name'
 [stripe]
 secret_key='your-stripe-secret-key'
 endpoint_secret='your-endpoint-signature'
+
+[smtp]
+smtp_addr = "smtp.example.com"
+smtp_port = 587
+smtp_user = "smtp-user@example.com"
+smtp_pass = "smtp-pass"
+smtp_encr = "1"
+
+; Encryption Methods (smtp_encr)
+; 0 - None
+; 1 - STARTTLS / TLS
+; 2 - SSL
+
+[email]
+email_sender = "sender@example.com"
+email_sender_name = "Example Email Sender Name"
+email_reply = "replyto@example.com"
+email_cc = ""
+email_bcc = ""
