@@ -67,7 +67,7 @@ $shortName = strtok($_SESSION["name"], " ");
             <a class="rounded-pill nav-link ahvpill" role="tab" id="ordertab" data-bs-toggle="pill" aria-controls="orderp" href="#orderp">Orders</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="rounded-pill nav-link ahvpill" role="tab" id="prefstab" data-bs-toggle="pill" aria-controls="prefsp" href="#prefsp">Preferences</a>
+            <a class="rounded-pill nav-link ahvpill" role="tab" id="prefstab" data-bs-toggle="pill" aria-controls="prefsp" href="#prefsp">Profile</a>
         </li>
     </ul>
     <!-- Tabs content -->
@@ -175,7 +175,7 @@ $shortName = strtok($_SESSION["name"], " ");
             </div>
         </div>
         <div class="tab-pane fade" id="prefsp" role="tabpanel" aria-labelledby="prefstab">
-            <p class="fw-black fs-4 mt-2">PREFERENCES</p>
+            <p class="fw-black fs-4 mt-2">PROFILE</p>
             <span class="fs-5">Here, you can edit some of your information. Some information such as gender and date of birth cannot be edited.</span>
             <form id="editUsrForm" action="/api/user/update/user.php" method="post">
                 <div class="form-floating mb-3">
