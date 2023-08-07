@@ -39,102 +39,134 @@ include($ROOTPATH . '/internal/adminheader.php');
             + Add Product
         </button>
     </p>
+    <div class="w-100 pb-4 mb-2 position-relative">
+        <div class='position-absolute top-50 start-50 translate-middle'>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="prodStockOptions" id="allChoice" value="all" checked>
+                <label class="form-check-label" for="allChoice">All</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="prodStockOptions" id="customerChoice" value="outstock">
+                <label class="form-check-label" for="outStockChoice">Out of Stock</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="prodStockOptions" id="empChoice" value="instock">
+                <label class="form-check-label" for="inStockChoice">In Stock</label>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         var pid;
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         $(document).ready( function () {
-            var mainTable = $('#prodTable').DataTable({
-                                ajax: {
-                                    url: '/api/get/products.php',
-                                    dataSrc: 'data',
-                                },
-                                pagingType: 'full_numbers',
-                                autoWidth: false,
-                                responsive: true,
-                                columnDefs: [
-                                    {
-                                        targets: 2,
-                                        visible: false,
-                                    },
-                                    {
-                                        targets: 5,
-                                        visible: false,
-                                    },
-                                    {
-                                        "defaultContent": '<button class="btn btn-primary ahvbutton"><span class="material-symbols-outlined align-middle text-center px-0">edit</span><span class="align-middle text-center ps-1">Edit</span></button>',
-                                        "targets": -1
-                                    },
-                                    {
-                                        "defaultContent": "-",
-                                        "targets": "_all"
-                                    },
+            function renderProdTable(apiEndpoint){
+                mainTable = $('#prodTable').DataTable({
+                    ajax: {
+                        url: apiEndpoint,
+                        dataSrc: 'data',
+                    },
+                    pagingType: 'full_numbers',
+                    autoWidth: false,
+                    responsive: true,
+                    columnDefs: [
+                        {
+                            targets: 2,
+                            visible: false,
+                        },
+                        {
+                            targets: 5,
+                            visible: false,
+                        },
+                        {
+                            "defaultContent": '<button class="btn btn-primary ahvbutton"><span class="material-symbols-outlined align-middle text-center px-0">edit</span><span class="align-middle text-center ps-1">Edit</span></button>',
+                            "targets": -1
+                        },
+                        {
+                            "defaultContent": "-",
+                            "targets": "_all"
+                        },
+                    ],
+                    dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5 col-md-5'i><'col-sm-12 col-md-2'l><'col-sm-12 col-md-5'p>>",
+                    buttons: [
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: [
+                                    0,
+                                    1,
+                                    2,
+                                    3,
+                                    4,
+                                    5
                                 ],
-                                dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-                                    "<'row'<'col-sm-12'tr>>" +
-                                    "<'row'<'col-sm-5 col-md-5'i><'col-sm-12 col-md-2'l><'col-sm-12 col-md-5'p>>",
-                                buttons: [
-                                    {
-                                        extend: 'print',
-                                        exportOptions: {
-                                            columns: [
-                                                0,
-                                                1,
-                                                2,
-                                                3,
-                                                4,
-                                                5
-                                            ],
-                                        },
-                                        title: '',
-                                        footer: true,
-                                        customize: function ( win ) {
-                                            $(win.document.body)
-                                                .css( 'font-size', '12pt' )
-                                                .prepend(
-                                                    `
-                                                    <div>
-                                                        <div class="row">
-                                                            <p class="px-4 h1 fw-black mb-0">AHVELO COFFEE</p>
-                                                            <div class="col px-4">
-                                                                <p class="mb-0">Laman Rafa, Chendering,</p>
-                                                                <p class="mb-0">21080, Kuala Terengganu,</p>
-                                                                <p class="mb-0">Terengganu</p>
-                                                            </div>
-                                                            <div class="col position-relative">
-                                                                <div class="position-absolute top-50 start-50 translate-middle">
-                                                                    <p class="mb-0">Email: ahvelo@example.com</p>
-                                                                    <p class="mb-0">Phone: +60123456789</p>
-                                                                    <p class="mb-0">Website: fyp.alzhahir.com</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div>
-                                                            <p class="fw-bold fs-5 text-center">PRODUCT LISTING REPORT</p>
-                                                            <p class="text-center">Valid as of <?php echo date('m/d/Y, h:i:s A', time()) ?>.</p>
-                                                        </div>
+                            },
+                            title: '',
+                            footer: true,
+                            customize: function ( win ) {
+                                $(win.document.body)
+                                    .css( 'font-size', '12pt' )
+                                    .prepend(
+                                        `
+                                        <div>
+                                            <div class="row">
+                                                <p class="px-4 h1 fw-black mb-0">AHVELO COFFEE</p>
+                                                <div class="col px-4">
+                                                    <p class="mb-0">Laman Rafa, Chendering,</p>
+                                                    <p class="mb-0">21080, Kuala Terengganu,</p>
+                                                    <p class="mb-0">Terengganu</p>
+                                                </div>
+                                                <div class="col position-relative">
+                                                    <div class="position-absolute top-50 start-50 translate-middle">
+                                                        <p class="mb-0">Email: ahvelo@example.com</p>
+                                                        <p class="mb-0">Phone: +60123456789</p>
+                                                        <p class="mb-0">Website: fyp.alzhahir.com</p>
                                                     </div>
-                                                    `
-                                                )
-                                                .append(
-                                                    `
-                                                    <div>
-                                                        <hr>
-                                                        <div>
-                                                        <p><span>Note: this report is generated by <?php echo $_SESSION['name'] ?> which has the role of <?php echo $_SESSION['utype'] ?>. This report is for use only by </span><span class="fw-black">AHVELO COFFEE</span> and their partners.</p>
-                                                        </div>
-                                                    </div>
-                                                    `
-                                                );
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <p class="fw-bold fs-5 text-center">PRODUCT LISTING REPORT</p>
+                                                <p class="text-center">Valid as of <?php echo date('m/d/Y, h:i:s A', time()) ?>.</p>
+                                            </div>
+                                        </div>
+                                        `
+                                    )
+                                    .append(
+                                        `
+                                        <div>
+                                            <hr>
+                                            <div>
+                                            <p><span>Note: this report is generated by <?php echo $_SESSION['name'] ?> which has the role of <?php echo $_SESSION['utype'] ?>. This report is for use only by </span><span class="fw-black">AHVELO COFFEE</span> and their partners.</p>
+                                            </div>
+                                        </div>
+                                        `
+                                    );
 
-                                            $(win.document.body).find( 'table' )
-                                                .addClass( 'compact' )
-                                                .css( 'font-size', 'inherit' );
-                                        }
-                                    }
-                                ]
-                            });
+                                $(win.document.body).find( 'table' )
+                                    .addClass( 'compact' )
+                                    .css( 'font-size', 'inherit' );
+                            }
+                        }
+                    ]
+                });
+            }
+            apiEndpoint = '/api/get/products.php';
+            renderProdTable(apiEndpoint)
+            $('input[name=prodStockOptions]').change(function(){
+                mainTable.destroy();
+                var choice = $('input[name=prodStockOptions]:checked').val();
+                if(choice == 'all'){
+                    apiEndpoint = '/api/get/products.php';
+                } else if(choice == 'outstock') {
+                    apiEndpoint = '/api/get/products.php?in_stock=false';
+                } else if(choice == 'instock') {
+                    apiEndpoint = '/api/get/products.php?in_stock=true'
+                }
+                renderProdTable(apiEndpoint);
+            })
             $("#prodTable tbody").on('click', 'button', function() {
                 var updEndpoint = '/api/admin/update/products.php';
                 var data = mainTable.row($(this).parents()[0]).data();
