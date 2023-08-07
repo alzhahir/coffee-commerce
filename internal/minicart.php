@@ -3,7 +3,7 @@
         session_start();
     }
     $PROJECTROOT = $_SERVER["DOCUMENT_ROOT"] . '/..';
-    if(str_contains($_SERVER["REQUEST_URI"], "payment.php")){
+    if(str_contains($_SERVER["REQUEST_URI"], "payment.php") || str_contains($_SERVER["REQUEST_URI"], "checkout.php")){
         ?>
         <div style="display:table;">
             <span class="material-symbols-outlined" style="display:table-cell;vertical-align:middle;">
@@ -66,7 +66,7 @@
                             </span>
                         </button>
                     </div>
-                    <input id="itmMcart" data-id="<?php echo($currProd[0]); ?>" type="text" value="<?php echo($currCart[1]); ?>" min="0" max="99" class="form-control ms-auto qtynum" style="width:50px;display:inline-block;" disabled>
+                    <input id="itmMcart" data-id="<?php echo($currProd[0]); ?>" type="text" value="<?php echo($currCart[1]); ?>" min="0" max="6" class="form-control ms-auto qtynum" style="width:50px;display:inline-block;" disabled>
                     <div style="display:inline-block;">
                         <button data-temp="<?php echo($currCart[2]) ?>" data-value="<?php echo($currProd[0]); ?>" class="btn btn-success rounded-circle align-middle text-center border-0 px-0 qtybtnplus" style="width:36px;height:36px;">
                             <span class="material-symbols-outlined align-middle text-center px-0">

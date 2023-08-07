@@ -4,7 +4,7 @@
     }
     $ROOTPATH = $_SERVER["DOCUMENT_ROOT"] . '/..';
     $DOMAIN = $_SERVER['HTTP_HOST'];
-    $PROTOCOL = $_SERVER['HTTPS'] ? 'https://' : 'http://';
+    $PROTOCOL = $_SERVER['HTTP_X_FORWARDED_PROTO'] ? 'https://' : 'http://';
     $creds = parse_ini_file($ROOTPATH."/.ini");
     $HOST_PROTOCOL = $creds['protocol'];
     $HOST_NAME = $creds['host'];

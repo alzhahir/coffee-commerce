@@ -90,10 +90,7 @@
                                     $currTempPrice = 0;
                                     break;
                                 case 2:
-                                    $currItmTemp = 'Cold <span class="badge rounded-pill bg-danger align-middle">
-                                    +RM 1.00
-                                    <span class="visually-hidden">Admin Mode</span>
-                                </span>';
+                                    $currItmTemp = 'Cold';
                                     $currTempPrice = 1;
                                     break;
                                 default:

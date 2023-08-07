@@ -26,6 +26,13 @@ include('../internal/header.php');
                 </tr>
             </thead>
         </table>
+        <div>
+            <div class="row d-flex justify-content-end">
+                <h5 class="col fw-bold">SUBTOTAL: </h5>
+                <span class="col text-end fw-bold fs-5 pe-1">RM</span>
+                <span class="col col-md-1 text-end fw-bold fs-5 ps-1" id="subTotal">0.00</span>
+            </div>
+        </div>
     </div>
     <div>
         <button class="my-4 ms-2 float-start btn btn-lg btn-outline-success rounded-pill gotoShopBtn">

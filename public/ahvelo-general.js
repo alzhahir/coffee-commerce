@@ -50,6 +50,54 @@ $(document).on('click', '.prodShoppingBtn2', function(){
     });
 });
 
+function cartQuantitySend(itemId, itemTemp, itemQty){
+    itemQty = parseInt(itemQty);
+    itemTempInt = 0;
+    if(itemTemp.includes("Hot") || itemTemp.includes("hot")){
+        itemTempInt = 1;
+    } else if(itemTemp.includes("Cold") || itemTemp.includes("cold")){
+        itemTempInt = 2;
+    } else {
+        console.log("ERR: item temp invalid");
+        return;
+    }
+    if(itemQty < 1){
+        //delete item
+        $('#confirmCartDelBtn').data("value", itemId);
+        $('#confirmCartDelBtn').data("amt", 0);
+        $('#confirmCartDelBtn').data('temp', itemTempInt);
+        $('#confirmCartDel').modal('show');
+        return;
+    }
+    if(itemQty > 6){
+        $('#itemLimitModal').modal('show');
+        $('#cartTable').DataTable().ajax.reload();
+        return;
+    }
+    if(itemQty <= 6){
+        $.post("/api/user/post/cart.php",
+        {
+            value: itemId,
+            quantity: parseInt(itemQty),
+            temperature: itemTempInt,
+        })
+        .done(function(){
+            //success
+            const toastElList = document.querySelectorAll('#toastUpdSucc')
+            const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
+            toastList.forEach(toast => toast.show());
+            $('#cartTable').DataTable().ajax.reload();
+            window.location.reload();
+        })
+        .fail(function(){
+            //fail
+            const toastElList = document.querySelectorAll('#toastUpdErr')
+            const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:3000}))
+            toastList.forEach(toast => toast.show());
+        });
+    }
+}
+
 function printContent() {
     var d = new Date();
 
@@ -197,6 +245,18 @@ function createCheckoutTable(){
                     targets: 0,
                     visible: false,
                 },
+                {
+                    target: 2,
+                    render : function(data, type, row) {
+                        if(data.includes('Hot')){
+                            return data
+                        } else if (data.includes('Cold')){
+                            return data + '<span class="badge rounded-pill bg-danger align-middle ms-2">+RM 1.00<span class="visually-hidden">Cold</span></span>'
+                        } else {
+                            return data
+                        }
+                    } 
+                },
             ],
             //dom: 'Bfrtip',
             buttons: [
@@ -280,6 +340,24 @@ function createCartTable(){
                     targets: 0,
                     visible: false,
                 },
+                {
+                    target: 2,
+                    render : function(data, type, row) {
+                        if(data.includes('Hot')){
+                            return data
+                        } else if (data.includes('Cold')){
+                            return data + '<span class="badge rounded-pill bg-danger align-middle ms-2">+RM 1.00<span class="visually-hidden">Cold</span></span>'
+                        } else {
+                            return data
+                        }
+                    } 
+                },
+                {
+                    target: 3,
+                    render : function(data, type, row) {
+                        return '<div class="qtycol"><input data-id="'+row[0]+'" data-temp="'+row[2]+'" data-value="'+data+'" type="number" value="'+data+'" min="0" max="6" class="form-control ms-auto qtynum" style="width:50px;display:inline-block;" onchange="cartQuantitySend(this.dataset.id, this.dataset.temp, this.value)"></div>'
+                    } 
+                },
             ],
             //dom: 'Bfrtip',
             buttons: [
@@ -293,6 +371,52 @@ function createCartTable(){
         var data = mainTable.row($(this).parents('tr')).data();
     })
     new $.fn.dataTable.FixedHeader( mainTable );
+    $('#cartTable').on('draw.dt', function(){
+        items = []
+        t_items = []
+        mainTable.rows().every(function(){
+            curRow = this.columns(5).data()
+            items = this.columns(0).data()[0]
+            itemNames = this.columns(1).data()[0]
+            itemTemp = this.columns(2).data()[0]
+            itemQty = this.columns(3).data()[0]
+            itemPrices = this.columns(4).data()[0]
+        })
+        total = 0.00
+        for(let i = 0; i < items.length; i++){
+            itemTempVal = null;
+            if(itemTemp[i].includes('Cold')){
+                itemTempVal = 'Cold';
+            } else {
+                itemTempVal = 'Hot';
+            }
+            switch(itemTempVal){
+                case 'Hot':
+                    itemTempVal = 1;
+                    break;
+                case 'Cold':
+                    itemTempVal = 2;
+                    break;
+                default:
+                    itemTempVal = null;
+                    break;
+            }
+            t_items.push([items[i], itemNames[i], itemTempVal, itemQty[i], itemPrices[i], curRow[0][i]])
+        }
+        if(typeof curRow === 'undefined'){
+            showItemRequiredModal()
+        }
+        curRow.each(function(index){
+            for(let i = 0; i < index.length; i++){
+                total = total + parseFloat(index[i])
+            }
+        })
+        subTotal.innerText = total.toFixed(2);
+        subTotalVal = total.toFixed(2);
+        finalTotal = total
+        gl_total = finalTotal.toFixed(2);
+        gl_items.push({data: t_items, subtotal: subTotalVal, total: gl_total})
+    })
 }
 
 function renderOrdItemDT(apiEndpoint){
@@ -565,12 +689,15 @@ $(document).ready(function(){
     $('.qtybtnplus').on('click', function(){
         qtyval = parseInt($(this).closest('.qtycol').children('.qtynum').attr('value'));
         if(qtyval + 1 > 1){
-            $('.qtybtnminus').attr("disabled", false);
+            $(this).closest('.qtycol').children('.qtybtnminus').attr("disabled", false);
         }
-        if(qtyval < 99){
+        if(qtyval + 1 > 6){
+            $('#itemLimitModal').modal('show');
+        }
+        if(qtyval < 6){
             $(this).closest('.qtycol').children('.qtynum').val(qtyval+1);
             $(this).closest('.qtycol').children('.qtynum').attr('value', qtyval+1);
-            if(qtyval <= 100){
+            if(qtyval <= 6){
                 $.post("/api/user/post/cart.php",
                 {
                     value: $(this).data('value'),
