@@ -74,9 +74,34 @@
             };
         }
         $baseSQL = "SELECT prod_id, prod_name, prod_img_url, prod_price, prod_stock, cat_id, prod_temp FROM products";
-        $getProdSQL = $baseSQL . " WHERE is_listed = 1";
+        $getListedSQL = "is_listed = 1";
+        $getUnlistedSQL = "is_listed = 0";
+        $getOOSOnly = "prod_stock = 0";
+        $getISOnly = "prod_stock > 0";
+        $getProdSQL = $baseSQL." WHERE ".$getListedSQL;
+        if(isset($_GET['in_stock']) && $_GET['in_stock'] == 'false'){
+            $getProdSQL = $baseSQL." WHERE ".$getOOSOnly;
+        }
+        if(isset($_GET['in_stock']) && $_GET['in_stock'] == 'true'){
+            $getProdSQL = $baseSQL." WHERE ".$getISOnly;
+        }
         if(isset($_GET['showall']) && $_GET['showall'] == 'true'){
-            $getProdSQL = $baseSQL;
+            $getProdSQL = $baseSQL." WHERE ".$getListedSQL;
+            if(isset($_GET['in_stock']) && $_GET['in_stock'] == 'false'){
+                $getProdSQL = $getProdSQL." AND ".$getOOSOnly;
+            }
+            if(isset($_GET['in_stock']) && $_GET['in_stock'] == 'true'){
+                $getProdSQL = $getProdSQL." AND ".$getISOnly;
+            }
+        }
+        if(isset($_GET['showall']) && $_GET['showall'] == 'false'){
+            $getProdSQL = $baseSQL." WHERE ".$getUnlistedSQL;
+            if(isset($_GET['in_stock']) && $_GET['in_stock'] == 'false'){
+                $getProdSQL = $getProdSQL." AND ".$getOOSOnly;
+            }
+            if(isset($_GET['in_stock']) && $_GET['in_stock'] == 'true'){
+                $getProdSQL = $getProdSQL." AND ".$getISOnly;
+            }
         }
         if(isset($_GET["category"])){
             if(ctype_digit($_GET["category"])){
