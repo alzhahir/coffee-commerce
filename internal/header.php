@@ -295,6 +295,24 @@ $vapidkey = $creds['vapid_key'];
     </div>
 </div>
 
+<!-- Modal to notify about quantity -->
+<div class="modal fade" id="itemLimitModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="itemLimitLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-black" id="itemLimitLabel">QUANTITY LIMIT REACHED</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="">Whoops! You're adding too much item quantity into the cart. For larger purchases, please contact Ahvelo Coffee Shop staff!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ahvbutton" data-bs-dismiss="modal" id="itemLimitBtn">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- MODAL FOR PRODUCT CUSTOMIZATIONS -->
 <div class="modal fade" id="productCartModal" tabindex="-1" aria-labelledby="editProduct" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -406,16 +424,6 @@ $vapidkey = $creds['vapid_key'];
             $('#notifContent').append("<div id='notif"+payload.data.id+"' class='my-2 border border-1 mx-auto py-3 rounded-4 position-relative'><input onclick='closeNotif(this.dataset.value)' data-value="+payload.data.id+" type=\"button\" class=\"my-2 mx-2 btn-notif-close position-absolute top-0 end-0 btn-close\" aria-label=\"Close\"></input><div class='row me-2 my-2 ms-1' onclick='window.location=\""+payload.data.redirect+"\";'><img width='64px' height='64px' src="+payload.notification.image+" class='col col-auto'></img><div class='col'><span class='row fs-4 fw-bold'>"+payload.notification.title+"</span><span class='row'>"+payload.notification.body+"</span></div></div></div>");
         });
     })
-
-    /*const firebaseConfig = {
-        apiKey: "AIzaSyBYu-HeucZacAKoAJHgwAzNYYjSKhhxZYw",
-        authDomain: "mdvpnzone.firebaseapp.com",
-        projectId: "mdvpnzone",
-        storageBucket: "mdvpnzone.appspot.com",
-        messagingSenderId: "429146314022",
-        appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
-        measurementId: "G-ZQSPFKPBLL"
-    };*/
 
     function getNotifications(){
         $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo 'cust'.$custId ?>', {

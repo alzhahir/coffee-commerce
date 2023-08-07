@@ -282,16 +282,6 @@ $vapidkey = $creds['vapid_key'];
         });
     })
 
-    /*const firebaseConfig = {
-        apiKey: "AIzaSyBYu-HeucZacAKoAJHgwAzNYYjSKhhxZYw",
-        authDomain: "mdvpnzone.firebaseapp.com",
-        projectId: "mdvpnzone",
-        storageBucket: "mdvpnzone.appspot.com",
-        messagingSenderId: "429146314022",
-        appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
-        measurementId: "G-ZQSPFKPBLL"
-    };*/
-
     function getNotifications(){
         //
         $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo $_SESSION['utype'] ?>', {
