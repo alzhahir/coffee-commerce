@@ -99,6 +99,15 @@ $shortName = strtok($_SESSION["name"], " ");
                 </div>
             </div>
         </div>
+        <p class="fw-black fs-5">ORDER INFORMATION</p>
+        <div class="row ps-3 pb-3">
+            <div class="col col-sm-5 mb-2">
+                <div class="p-1" id="revenueChart"></div>
+            </div>
+            <div class="col col-sm-5 mb-2">
+                <div class="p-1" id="ordChart"></div>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -120,11 +129,66 @@ $shortName = strtok($_SESSION["name"], " ");
 
     wlc.innerText=txt
     $(document).ready(function(){
+        var monthlyOrd = []
+        var monthOrd = []
+        var monthlyRev = []
         $.get('/api/staff/get/orders.php', function(data){
             totRev.innerHTML = 'RM '+data['total_revenue'];
             totOrd.innerHTML = data['total_orders'];
             mthRev.innerHTML = 'RM '+data['current_month']['revenue'];
             mthOrd.innerHTML = data['current_month']['orders'];
+            monthlyOrd = data['latest_six_months']['data'];
+
+            for(i = 0; i < monthlyOrd.length; i++){
+                monthlyRev.push([monthlyOrd[i][0], monthlyOrd[i][2]])
+                monthOrd.push([monthlyOrd[i][0], monthlyOrd[i][1]])
+            }
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.load('current', {'packages':['line']});
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function drawChart() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Months');
+                data.addColumn('number', 'Revenue');
+                data.addRows(monthlyRev);
+
+                // Set chart options
+                var options = {title:'Revenue Past 6 Months',
+                                responsive: true,
+                            };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.charts.Line(document.getElementById('revenueChart'));
+                chart.draw(data, google.charts.Line.convertOptions(options));
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Months');
+                data.addColumn('number', 'Orders');
+                data.addRows(monthOrd);
+
+                // Set chart options
+                var options = {title:'Orders Past 6 Months',
+                                responsive: true,
+                            };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.charts.Line(document.getElementById('ordChart'));
+                chart.draw(data, google.charts.Line.convertOptions(options));
+            }
+            $(window).resize(function(){
+                drawChart();
+            })
         })
     })
 </script>

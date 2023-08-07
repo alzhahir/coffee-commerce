@@ -230,32 +230,82 @@
                         "cust" => $currOrd[5],
                     )));
                 }
-                $getSumOrdSQL = "SELECT SUM(order_total), COUNT(order_id) FROM orders";
+                $getSumOrdSQL = "SELECT SUM(order_total) FROM orders WHERE order_status != 'Failed' AND order_status != 'Cancelled'";
                 $sumOrdRes = mysqli_query($conn, $getSumOrdSQL);
                 if(!is_bool($sumOrdRes)){
                     $sumOrdArr = mysqli_fetch_all($sumOrdRes);
                     $sumOrdArr = array_values($sumOrdArr);
                     foreach($sumOrdArr as $currSumOrd){
-                        $totalRevenue = $currSumOrd[0];
-                        $totalOrders = $currSumOrd[1];
+                        $totalRevenue = round($currSumOrd[0], 2);
                     }
                 }
-                $getMonthOrdSQL = "SELECT SUM(order_total), COUNT(order_id) FROM orders WHERE MONTH(order_date) = MONTH(CURRENT_DATE)";
+                $getSumOrdSQL = "SELECT COUNT(order_id) FROM orders";
+                $sumOrdRes = mysqli_query($conn, $getSumOrdSQL);
+                if(!is_bool($sumOrdRes)){
+                    $sumOrdArr = mysqli_fetch_all($sumOrdRes);
+                    $sumOrdArr = array_values($sumOrdArr);
+                    foreach($sumOrdArr as $currSumOrd){
+                        $totalOrders = $currSumOrd[0];
+                    }
+                }
+                $getMonthOrdSQL = "SELECT SUM(order_total) FROM orders WHERE order_status != 'Failed' AND order_status != 'Cancelled' AND MONTH(order_date) = MONTH(CURRENT_DATE)";
                 $monthOrdRes = mysqli_query($conn, $getMonthOrdSQL);
                 if(!is_bool($monthOrdRes)){
                     $monthOrdArr = mysqli_fetch_all($monthOrdRes);
                     $monthOrdArr = array_values($monthOrdArr);
                     foreach($monthOrdArr as $currMonthOrd){
-                        $monthRevenue = $currMonthOrd[0];
-                        $monthOrders = $currMonthOrd[1];
+                        $monthRevenue = round($currMonthOrd[0],2);
+                    }
+                }
+                $getMonthOrdSQL = "SELECT COUNT(order_id) FROM orders WHERE MONTH(order_date) = MONTH(CURRENT_DATE)";
+                $monthOrdRes = mysqli_query($conn, $getMonthOrdSQL);
+                if(!is_bool($monthOrdRes)){
+                    $monthOrdArr = mysqli_fetch_all($monthOrdRes);
+                    $monthOrdArr = array_values($monthOrdArr);
+                    foreach($monthOrdArr as $currMonthOrd){
+                        $monthOrders = $currMonthOrd[0];
+                    }
+                }
+
+                $monthlyRev = [];
+
+                $getMonthlyOrdIDSQL = "SELECT COUNT(order_id) FROM orders WHERE MONTH(order_date) = ";
+                $getMonthlyOrdRevSQL = "SELECT SUM(order_total) FROM orders WHERE MONTH(order_date) = ";
+                for($i = 6; $i >= 0; $i--){
+                    $month = date('F', strtotime("-$i Months"));
+                    $getMlyOrdRevSQL = $getMonthlyOrdRevSQL."MONTH(DATE_SUB(NOW(), INTERVAL $i MONTH))";
+                    $getMlyOrdIDSQL = $getMonthlyOrdIDSQL."MONTH(DATE_SUB(NOW(), INTERVAL $i MONTH))";
+                    $monthOrdRevRes = mysqli_query($conn, $getMlyOrdRevSQL);
+                    $monthOrdIDRes = mysqli_query($conn, $getMlyOrdIDSQL);
+                    if(!is_bool($monthOrdRevRes)){
+                        $monthOrdRevArr = mysqli_fetch_all($monthOrdRevRes);
+                        $monthOrdRevArr = array_values($monthOrdRevArr);
+                        $monthOrdIDArr = mysqli_fetch_all($monthOrdIDRes);
+                        $monthOrdIDArr = array_values($monthOrdIDArr);
+                        foreach($monthOrdRevArr as $currMonthOrd){
+                            if(is_null($currMonthOrd[0])){
+                                $monthlyRevenue = 0;
+                            } else {
+                                $monthlyRevenue = round($currMonthOrd[0]);
+                            }
+                        }
+                        $monthlyOrders = $monthOrdIDArr[0][0];
+                        array_push($monthlyRev, array_values([
+                            "month" => $month,
+                            "total_order" => (int)$monthlyOrders,
+                            "total_revenue" => $monthlyRevenue,
+                        ]));
                     }
                 }
                 $outputOrdArr = array(
                     "total_orders" => $totalOrders,
-                    "total_revenue" => $totalRevenue,
+                    "total_revenue" => number_format($totalRevenue, 2),
                     "current_month" => [
                         "orders" => $monthOrders,
-                        "revenue" => $monthRevenue,
+                        "revenue" => number_format($monthRevenue, 2),
+                    ],
+                    "latest_six_months" => [
+                        "data" => $monthlyRev,
                     ],
                     "data" => $outputOrdArr
                 );
