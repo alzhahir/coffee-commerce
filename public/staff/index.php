@@ -101,11 +101,11 @@ $shortName = strtok($_SESSION["name"], " ");
         </div>
         <p class="fw-black fs-5">ORDER INFORMATION</p>
         <div class="row ps-3 pb-3">
-            <div class="col col-sm-5 mb-2">
-                <div class="p-1" id="revenueChart"></div>
+            <div class="bg-white p-3 shadow rounded-4 col col-sm-5 mb-3 me-3">
+                <div id="revenueChart"></div>
             </div>
-            <div class="col col-sm-5 mb-2">
-                <div class="p-1" id="ordChart"></div>
+            <div class="bg-white p-3 shadow rounded-4 col col-sm-5 mb-3">
+                <div id="ordChart"></div>
             </div>
         </div>
     </div>
