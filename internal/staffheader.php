@@ -282,9 +282,9 @@ $vapidkey = $creds['vapid_key'];
         });
     })
 
-    function getNotifications(){
+    function getNotifications(topic){
         //
-        $.ajax('/api/notification/get/messages.php?read=0&topic=<?php echo $_SESSION['utype'] ?>', {
+        $.ajax('/api/notification/get/messages.php?read=0&topic='+topic, {
             type: 'GET',
             success: function(res){
                 if(res.data.length > 0){
@@ -311,9 +311,16 @@ $vapidkey = $creds['vapid_key'];
             $('#notifContent').prepend('All notifications dismissed.')
         }
 
-        getNotifications();
-
-        setInterval(getNotifications(), 10000);
+        role = '<?php echo $_SESSION['utype'] ?>'
+        if(role == 'admin'){
+            getNotifications('staff');
+            getNotifications('admin');
+            setInterval(getNotifications('staff'), 10000);
+            setInterval(getNotifications('admin'), 10000);
+        } else {
+            getNotifications('staff');
+            setInterval(getNotifications('staff'), 10000);
+        }
 
         $('#getNotifPerm').on('click', function(){
             getRegToken(true);
