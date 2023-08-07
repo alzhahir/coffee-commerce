@@ -5,7 +5,7 @@ importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js")
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 
-/*firebaseConfig = {
+firebaseConfig = {
     apiKey: "AIzaSyBYu-HeucZacAKoAJHgwAzNYYjSKhhxZYw",
     authDomain: "mdvpnzone.firebaseapp.com",
     projectId: "mdvpnzone",
@@ -13,33 +13,7 @@ importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js")
     messagingSenderId: "429146314022",
     appId: "1:429146314022:web:030e8efdfaaf8caa285de7",
     measurementId: "G-ZQSPFKPBLL"
-};*/
-
-var getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status === 200) {
-        callback(null, xhr.response);
-      } else {
-        callback(status, xhr.response);
-      }
-    };
-    xhr.send();
 };
-
-getJSON('/firebase-config.json',
-function(err, data) {
-  if (err !== null) {
-    alert('Something went wrong: ' + err);
-  } else {
-    firebaseConfig = data;
-  }
-});
-
-//import * as firebaseConfig from '/firebase-config.json' assert{type: 'json'};
 
 firebase.initializeApp(firebaseConfig);
 
@@ -53,9 +27,9 @@ class CustomPushEvent extends Event {
 }
 
 /*
- * Overrides push notification data, to avoid having 'notification' key and firebase blocking
- * the message handler from being called
- */
+* Overrides push notification data, to avoid having 'notification' key and firebase blocking
+* the message handler from being called
+*/
 self.addEventListener('push', (e) => {
     // Skip if event is our own custom event
     if (e.custom) return;
@@ -86,26 +60,26 @@ self.addEventListener('push', (e) => {
     // Dispatch the new wrapped event
     dispatchEvent(newEvent)
 })
-
+    
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
     console.log(
-		'[firebase-messaging-sw.js] Received background message ',
-		payload
+        '[firebase-messaging-sw.js] Received background message ',
+        payload
     );
     // Customize notification here
     const notificationTitle = payload.data.title;
     const notificationOptions = {
-		body: payload.data.body,
-		icon: payload.data.image,
+        body: payload.data.body,
+        icon: payload.data.image,
         tag: payload.data.id,
         data: {
             redirect: payload.data.redirect,
         }
     };
-  
+    
     self.registration.showNotification(notificationTitle, notificationOptions);
     self.onnotificationclick = (event) => {
         console.log("On notification click: ", event.notification.tag);
