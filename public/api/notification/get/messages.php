@@ -13,19 +13,19 @@
         if(isset($_GET['topic']) && !isset($_GET['read'])){
             //topic
             $topic = $_GET['topic'];
-            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications WHERE notif_topic = '$topic'";
+            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications WHERE notif_topic = '$topic' ORDER BY notif_id DESC";
         } else if(isset($_GET['read']) && !isset($_GET['topic'])){
             //read
             $read = $_GET['read'];
-            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications WHERE notif_read = '$read'";
+            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications WHERE notif_read = '$read' ORDER BY notif_id DESC";
         } else if(isset($_GET['topic']) && isset($_GET['read'])){
             //topic and read
             $topic = $_GET['topic'];
             $read = $_GET['read'];
-            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications WHERE notif_topic = '$topic' AND notif_read = '$read'";
+            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications WHERE notif_topic = '$topic' AND notif_read = '$read' ORDER BY notif_id DESC";
         } else {
             //no vals
-            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications";
+            $getNotifSQL = "SELECT notif_id, notif_title, notif_message, notif_imgurl, notif_redirurl FROM notifications ORDER BY notif_id DESC";
         }
         $notifRes = mysqli_query($conn, $getNotifSQL);
         if(!is_bool($notifRes)){
