@@ -33,6 +33,26 @@
             $prodQty = $_POST["quantity"];
         }
 
+        $testQtySQL = "SELECT prod_stock FROM products WHERE prod_id = $productId";
+        $testQtyRes = mysqli_query($conn, $testQtySQL);
+        if(!is_bool($testQtyRes)){
+            if(mysqli_num_rows($testQtyRes) != 0){
+                $testQtyArr = mysqli_fetch_all($testQtyRes);
+                $testQtyArr = array_values($testQtyArr);
+                foreach($testQtyArr as $currQty){
+                    $prodStock = $currQty[0];
+                }
+            }
+        } else {
+            http_response_code(500);
+            die();
+        }
+
+        if($prodQty > $prodStock){
+            http_response_code(400);
+            die();
+        }
+
         $testCartSQL = "SELECT * FROM carts WHERE cust_id = $custId";
         $testCartRes = mysqli_query($conn, $testCartSQL);
         if(!is_bool($testCartRes)){
@@ -168,6 +188,17 @@
                         //mysqli_stmt_close($stmt);
                     }
                 } else if(isset($currQty)){
+                    if(isset($_POST['quantity'])){
+                        if($currQty + $_POST['quantity'] > $prodStock){
+                            http_response_code(400);
+                            die();
+                        }
+                    } else {
+                        if($currQty + $prodQty > $prodStock){
+                            http_response_code(400);
+                            die();
+                        }
+                    }
                     $addCartItmSQL = "UPDATE cart_items SET cart_item_qty = ? WHERE prod_id = $productId AND cart_id = $caid AND cart_itm_temp = $prodTemp";
                     if ($stmt=mysqli_prepare($conn, $addCartItmSQL)){
                         mysqli_stmt_bind_param($stmt, "s", $cart_item_qty);

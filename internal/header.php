@@ -313,6 +313,24 @@ $vapidkey = $creds['vapid_key'];
     </div>
 </div>
 
+<!-- Modal to notify about exceeding stock -->
+<div class="modal fade" id="itemStockModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="itemLimitLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 fw-black" id="itemLimitLabel">QUANTITY LIMIT REACHED</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="">The quantity you tried to add exceeded the total quantity we have.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ahvbutton" data-bs-dismiss="modal" id="itemLimitBtn">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- MODAL FOR PRODUCT CUSTOMIZATIONS -->
 <div class="modal fade" id="productCartModal" tabindex="-1" aria-labelledby="editProduct" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -415,9 +433,10 @@ $vapidkey = $creds['vapid_key'];
         messaging.onMessage((payload) => {
             console.log('Message received. ', payload);
             // ...
-            const toastElList = document.querySelectorAll('#toastNewNotif')
-            const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:5000}))
-            toastList.forEach(toast => toast.show());
+            //const toastElList = document.querySelectorAll('#toastNewNotif')
+            //const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, {autohide:true, animation:true, delay:5000}))
+            //toastList.forEach(toast => toast.show());
+            $('#toastNewNotif').toast('show');
             if($('#notifBadge').is(':hidden')){
                 $('#notifBadge').show();
             }
