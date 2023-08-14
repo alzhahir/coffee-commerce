@@ -43,7 +43,7 @@ include($ROOTPATH . '/internal/adminheader.php');
         }
     ?>
     <div class="w-100 pb-4 mb-2 position-relative">
-        <div class='position-absolute top-50 start-50 translate-middle'>
+        <div class='text-nowrap position-absolute top-50 start-50 translate-middle'>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="userTypeOptions" id="allChoice" value="all" checked>
                 <label class="form-check-label" for="allChoice">All</label>
