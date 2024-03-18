@@ -13,6 +13,11 @@ $pageTitle = "Ahvelo Coffee - About";
             Each cup produced by our talented baristas will surely captivate your heart, mind, and tongue.
         </p>
     </div>
+    <br>
+    <br>
+    <div>
+        This e-commerce system is licensed under the GNU Affero General Public License. You may find the source code for this website and e-commerce system on <a class="link" href="https://github.com/alzhahir/coffee-commerce">GitHub</a>.
+    </div>
 </div>
 <?php
 include('../internal/footer.php');
