@@ -3,6 +3,7 @@
     ini_set('display_errors', 1);
     $rootDir = dirname(__DIR__, 1);
     $creds = parse_ini_file($rootDir."/.ini");
+    date_default_timezone_set($creds['timezone']);
     $server = $creds["server"];
     $username = $creds["username"];
     $password = $creds["password"];

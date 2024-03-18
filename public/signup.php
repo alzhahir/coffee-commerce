@@ -2,8 +2,16 @@
 session_start();
 include('../internal/htmlhead.php');
 include('../internal/header.php');
+$pageTitle = "Ahvelo Coffee - Account";
 ?>
-<div class="px-3">
+<div class="px-3 pb-5">
+    <div class="row d-flex flex-wrap align-items-center justify-content-center">
+        <div class="alert mb-0 alert-info mx-2">
+            <span class="fw-bold">
+                Forgot your password? <a href="/password/request.php">Reset here</a>.
+            </span>
+        </div>
+    </div>
     <div class="row d-flex flex-wrap align-items-center justify-content-center h-100">
         <?php 
             $_SESSION["backPage"] = $_SERVER["PHP_SELF"];
@@ -33,7 +41,7 @@ include('../internal/header.php');
         ?>
         <div class="col pb-3">
             <h3 class="fw-black">SIGN UP</h3>
-            <p>Sign up for the HEARTVELO membership now! Please fill in this form to continue.</p>
+            <p>Sign up for the Ahvelo Coffee membership now! Please fill in this form to continue. Please note that gender and date of birth are permanent and cannot be edited later.</p>
             <form id="signupForm" action="/api/auth/signup.php" method="post">
                 <div class="form-floating mb-3">
                     <input class="form-control" name="email" type="email" placeholder="Email Address" required/>
@@ -69,20 +77,11 @@ include('../internal/header.php');
                 </div>
                 <!--The code below is left as is to enable the usage of doSignUp.php as a some sort of an API to allow other
                 forms to reuse the same code. (cant leave the role POST as null)-->
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" hidden disabled readonly>
                     <select id="userRole" class="form-select" name="role" aria-label="Role">
                         <option value="0">Customer</option>
-                        <option value="1">Staff</option>
-                        <option value="2">Admin</option>
                     </select>
                     <label for="role">Role</label>
-                </div>
-                <div class="form-floating mb-3" id="posField" style="display: none;">
-                    <select class="form-select" name="posid" id="poslist" aria-label="Club">
-                        <option value=""></option>
-                        <!--Code here-->
-                    </select>
-                    <label for="posid">Position</label>
                 </div>
                 <div class="d-grid">
                     <button class="btn btn-primary btn-lg ahvbutton" id="signUpButton" type="submit">Sign Up</button>
@@ -92,7 +91,7 @@ include('../internal/header.php');
         <div class="d-flex flex-column col-auto flex-wrap align-items-center justify-content-center sgfd-parent">
             <div class="sgfd"></div>
         </div>
-        <div class="col py-3">
+        <div class="col py-3 pb-5">
             <h3 class="fw-black">SIGN IN</h3>
             <p>Alternatively, sign in if you have a HEARTVELO membership account.</p>
             <form id="signupLoginForm" action="/api/auth/login.php?errorType=error" method="post">
@@ -111,39 +110,13 @@ include('../internal/header.php');
         </div>
     </div>
 </div>
-<script type="application/javascript">
-    var xmlhttp = new XMLHttpRequest();
-    var url = "/api/get/positions.php";
+<script>
     document.querySelector(".number").addEventListener("keypress", function (evt) {
         if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
         {
             evt.preventDefault();
         }
     });
-
-    xmlhttp.onreadystatechange = function(){
-        if (this.readyState == 4 && this.status == 200) {
-            var data = JSON.parse(this.responseText);
-            var htmlData = "<option value=\"\"></option>";
-            for(let i = 0; i < data.posId.length; i++){
-                htmlData = htmlData.concat("\n", "<option value=\""+data.posId[i]+"\">"+data.posName[i]+"</option>\n");
-            }
-            document.getElementById("poslist").innerHTML = htmlData;
-        }
-    }
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-
-    var roleSelection = document.getElementById('userRole');
-    roleSelection.onchange = function(){
-        if(roleSelection.selectedIndex === 1 || roleSelection.selectedIndex === 2) {
-            document.getElementById('posField').style.display = "block";
-            document.getElementById('poslist').required = true;
-        } else {
-            document.getElementById('posField').style.display = "none";
-            document.getElementById('poslist').required = false;
-        }
-    }
 </script>
 <?php
 include('../internal/footer.php');

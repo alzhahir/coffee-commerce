@@ -1,3 +1,10 @@
-**/.ini
+**/*.ini
 **/.env
 **/*.json
+dbg/
+dbg*
+stripe-php*
+testdir*
+!composer.json
+vendor/
+logs/
