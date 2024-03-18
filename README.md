@@ -14,6 +14,10 @@ Currently, this is not a supported feature. Proceed at your own risk.
 
 Full database SQL is available at `db.sql`. This file might not be up-to-date, so if there are any errors, please contact me or open an issue.
 
+### Requirements
+
+- PHP 8.2 (8.3+ is not supported)
+
 ### Dependencies
 
 Dependencies used in this project are:
@@ -103,3 +107,7 @@ email_bcc = ""
 ## Contribution
 
 This project is not accepting any contributions, but any improvements will be considered via the issues page.
+
+## License
+
+This project is licensed under the GNU Affero General Public License, version 3.0. Copyright © 2023 Megat Al Zhahir Daniel.
