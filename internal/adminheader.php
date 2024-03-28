@@ -201,17 +201,20 @@ $vapidkey = $creds['vapid_key'];
 </div>
 
 <script type="text/javascript">
-        function getRegToken(){
+    var notificationPermission;
+    function getRegToken(){
         console.log('Requesting permission...');
         Notification.requestPermission().then((permission) => {
             if (permission === 'granted') {
                 console.log('Notification permission granted.');
                 if(userAction){
                     notifContent.innerHTML = ""
+                    notificationPermission = true;
                     location.reload();
                 }
             } else {
                 notifContent.innerHTML = "Notification permission is not granted. Please grant the permission to receive notification. <button type='button' class='btn btn-primary ahvbutton' id='getNotifPerm'>Ask for permission</>"
+                notificationPermission = false;
             }
         })
     }
