@@ -1,0 +1,88 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Electronic Storefront Development Using Responsive Web 
+  Design (ACECS)
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Megat Al Zhahir Daniel
+    family-names: Megat Nor Mazlan
+    email: 2020878518@student.uitm.edu.my
+    affiliation: >-
+      College of Computing, Informatics, and Mathematics,
+      Universiti Teknologi MARA, Terengganu Branch, Kuala
+      Terengganu Campus, Terengganu, Malaysia
+  - given-names: Nor Azila
+    family-names: Awang Abu Bakar
+    email: azila268@uitm.edu.my
+    affiliation: >-
+      College of Computing, Informatics, and Mathematics,
+      Universiti Teknologi MARA, Terengganu Branch, Kuala
+      Terengganu Campus, Terengganu, Malaysia
+  - given-names: Nik Marsyahariani
+    family-names: Nik Daud
+    email: nikma944@uitm.edu.my
+    affiliation: >-
+      College of Computing, Informatics, and Mathematics,
+      Universiti Teknologi MARA, Terengganu Branch, Kuala
+      Terengganu Campus, Terengganu, Malaysia
+  - given-names: Norlina
+    family-names: Mohd Sabri
+    email: norli097@uitm.edu.my
+    affiliation: >-
+      College of Computing, Informatics, and Mathematics,
+      Universiti Teknologi MARA, Terengganu Branch, Kuala
+      Terengganu Campus, Terengganu, Malaysia
+identifiers:
+  - type: doi
+    value: 10.24191/mij.v4i2.23816
+    description: DOI
+  - type: url
+    value: 'https://ir.uitm.edu.my/id/eprint/88077/1/88077.pdf'
+    description: UiTM Repository
+repository-code: 'https://github.com/alzhahir/coffeecommerce'
+url: 'https://fyp.alzhahir.com'
+abstract: >-
+  Food and beverage (F&B) businesses often encounter a
+  common issue: employees struggling to manage customer
+  orders efficiently. Moreover, the lack of a computerized
+  system and online presence can result in the physical
+  location becoming overcrowded during peak hours, causing
+  potential customers to be discouraged by lengthy waiting
+  times. To address the issue, the ordering process needs to
+  be computerized for improved efficiency. This study aims
+  to achieve several objectives: identifying user and system
+  requirements for an e-commerce system in F&B businesses,
+  creating and developing a web-based e-commerce system
+  using responsive web design, and evaluating the system's
+  functionality and usability. To initiate this research, a
+  preliminary analysis of system requirements was conducted
+  through surveys and literature review. The design phase
+  followed, producing essential design diagrams such as the
+  data flow diagram (DFD), which plays a crucial role in
+  shaping system functionalities. The implementation's
+  backend employs the MySQL database for effective data
+  storage and PHP for data processing. On the frontend,
+  Figma was used for initial system design, while Bootstrap,
+  cascading style sheets (CSS), and hypertext markup
+  language (HTML) were used to create a functional website.
+  The research culminated in functionality and usability
+  testing. Usability testing involved expert evaluation with
+  input from two experts. The results acquired give a
+  positive indicator for further implementation. This study
+  sheds light on a tool that could enhance the order process
+  in F&B business outlets. Responsive design features were
+  incorporated to ensure a consistent and user-friendly
+  experience across various devices.
+keywords:
+  - E-commerce system
+  - Web-based system
+  - Online ordering
+  - Responsive design
+  - Food and beverage (F&B) business
+license: GPL-3.0
