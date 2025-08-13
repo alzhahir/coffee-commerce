@@ -1,6 +1,9 @@
-# Coffee Electronic Commerce System
+# coffee-commerce: Electronic Storefront Development Using Responsive Web Design (ACECS)
 
-Coffee-themed web-based electronic commerce system for my bachelor's degree final year project
+[![DOI](https://zenodo.org/badge/DOI/10.24191/mij.v4i2.23816.svg)](https://doi.org/10.24191/mij.v4i2.23816)
+[![License](https://img.shields.io/github/license/alzhahir/coffee-commerce)](https://github.com/alzhahir/coffee-commerce/blob/main/LICENSE)
+
+Coffee-themed web-based electronic commerce system for my bachelor's degree final year project. Published as an article that can be viewed [here](https://doi.org/10.24191/mij.v4i2.23816).
 
 ## About
 
