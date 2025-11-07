@@ -1,6 +1,9 @@
-# Coffee Electronic Commerce System
+# coffee-commerce: Electronic Storefront Development Using Responsive Web Design (ACECS)
 
-Coffee-themed web-based electronic commerce system for my bachelor's degree final year project
+[![DOI](https://zenodo.org/badge/DOI/10.24191/mij.v4i2.23816.svg)](https://doi.org/10.24191/mij.v4i2.23816)
+[![License](https://img.shields.io/github/license/alzhahir/coffee-commerce)](https://github.com/alzhahir/coffee-commerce/blob/main/LICENSE)
+
+Coffee-themed web-based electronic commerce system for my bachelor's degree final year project. Published as an article that can be viewed [here](https://doi.org/10.24191/mij.v4i2.23816).
 
 ## About
 
@@ -8,15 +11,26 @@ This project is created to fulfill the requirements for me to complete my bachel
 
 ## Installation
 
-Currently, this is not a supported feature. Proceed at your own risk.
+> [!WARNING]
+> This is not a supported feature, proceed at your own risk.
+
+### General Steps
+
+Here's some general steps you could take to install this project.
+
+1. Clone the repo.
+2. Setup the database. (refer below)
+3. Setup the `/public/` directory as the root web server directory. (`/public/index.php` should be the home page)
+4. Install dependencies. (refer below)
+5. Done!
 
 ### Database
 
-Full database SQL is available at `db.sql`. This file might not be up-to-date, so if there are any errors, please contact me or open an issue.
+Full database SQL is available at `database/db.sql`. This file might not be up-to-date, so if there are any errors, please contact me or open an issue.
 
 ### Requirements
 
-- PHP 8.2 (8.3+ is not supported)
+- PHP 8.2+
 
 ### Dependencies
 
