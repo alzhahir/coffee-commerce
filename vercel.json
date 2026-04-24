@@ -1,0 +1,11 @@
+{
+    "version": 2,
+      "framework": null,
+    "functions": {
+        "public/index.php": { "runtime": "vercel-php@0.3.1" }
+    },
+    "routes": [{
+        "src": "/(.*)",
+        "dest": "/public/(.*).php"
+    }],
+}
